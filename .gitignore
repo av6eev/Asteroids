@@ -10,3 +10,7 @@ Asteroids/UserSettings/
 *.sln
 
 Asteroids/Temp/
+
+Asteroids/.idea/
+
+Asteroids/obj/
