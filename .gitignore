@@ -1,0 +1,12 @@
+
+Asteroids/Library/
+
+Asteroids/Logs/
+
+Asteroids/UserSettings/
+
+*.csproj
+
+*.sln
+
+Asteroids/Temp/
