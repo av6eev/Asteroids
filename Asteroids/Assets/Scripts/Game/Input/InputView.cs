@@ -7,7 +7,7 @@ namespace Game.Input
     [RequireComponent(typeof(PlayerInput))]
     public class InputView : MonoBehaviour
     {
-        [field: SerializeField] public PlayerInput PlayerInputAsset { get; protected set; }
+        [field: SerializeField] public PlayerInput PlayerInputAsset { get; private set; }
         [field: NonSerialized] public InputAction MoveAction { get; private set; }
 
         public void Awake()

@@ -1,3 +1,4 @@
+using Global.Dialogs.Base;
 using Global.UI;
 using Specifications.Base;
 using UnityEngine;
@@ -7,8 +8,9 @@ namespace Global
 {
     public class GlobalView : BaseSceneView
     {
-        [field: SerializeField] public Camera MainCamera { get; protected set; }
-        [field: SerializeField] public SpecificationsCollectionSo SpecificationsCollection { get; protected set; }
-        [field: SerializeField] public GlobalUIView GlobalUIView { get; protected set; }
+        [field: SerializeField] public Camera MainCamera { get; private set; }
+        [field: SerializeField] public SpecificationsCollectionSo SpecificationsCollection { get; private set; }
+        [field: SerializeField] public GlobalUIView GlobalUIView { get; private set; }
+        [field: SerializeField] public DialogsView DialogsView { get; private set; }
     }
 }

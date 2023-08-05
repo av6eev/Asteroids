@@ -1,3 +1,4 @@
+using Global.Dialogs.Base;
 using Global.UI;
 using UnityEngine;
 using Utilities;
@@ -13,9 +14,17 @@ namespace Global
 
         private void Start()
         {
-            _environment = new GameEnvironment(new GameSpecifications(GlobalView.SpecificationsCollection), GlobalView, new ScenesManager(), new SystemsEngine(), new SystemsEngine(), new GlobalUIModel());
+            _environment = new GameEnvironment(
+                new GameSpecifications(GlobalView.SpecificationsCollection), 
+                GlobalView,
+                new ScenesManager(),
+                new SystemsEngine(),
+                new SystemsEngine(),
+                new GlobalUIModel());
+            _environment.DialogsModel = new DialogsModel(_environment.Specifications);
             
             _globalPresenters.Add(new GlobalUIPresenter(_environment, _environment.GlobalUIModel, GlobalView.GlobalUIView));
+            _globalPresenters.Add(new DialogsPresenter(_environment, _environment.DialogsModel, GlobalView.DialogsView));
             _globalPresenters.Activate();
         }
 

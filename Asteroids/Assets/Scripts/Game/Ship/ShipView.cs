@@ -5,6 +5,6 @@ namespace Game.Ship
     [RequireComponent(typeof(Rigidbody))]
     public class ShipView : MonoBehaviour
     {
-        [field: SerializeField] public Rigidbody Rigidbody { get; protected set; }
+        [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
     }
 }

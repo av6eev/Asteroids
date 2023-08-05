@@ -3,6 +3,7 @@ using Game.Input;
 using Game.Scene;
 using Game.Ship;
 using Global;
+using Global.Dialogs.Base;
 using Global.UI;
 
 namespace Utilities
@@ -20,9 +21,16 @@ namespace Utilities
         public ShipModel ShipModel { get; set; }
         public GameModel GameModel { get; set; }
         public GlobalUIModel GlobalUIModel { get; }
+        public DialogsModel DialogsModel { get; set; }
         public InputModel InputModel { get; set; }
 
-        public GameEnvironment(GameSpecifications specifications, GlobalView globalView, ScenesManager scenesManager, SystemsEngine systemsEngine, SystemsEngine fixedSystemsEngine, GlobalUIModel globalUIModel)
+        public GameEnvironment(
+            GameSpecifications specifications,
+            GlobalView globalView,
+            ScenesManager scenesManager,
+            SystemsEngine systemsEngine,
+            SystemsEngine fixedSystemsEngine,
+            GlobalUIModel globalUIModel)
         {
             Specifications = specifications;
             GlobalView = globalView;
