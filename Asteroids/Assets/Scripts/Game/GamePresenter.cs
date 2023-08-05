@@ -24,7 +24,6 @@ namespace Game
         
         public void Activate()
         {
-            _model.ZoneLimits = CreateGameZoneLimits();
             CreateShip();
             CreateNecessaryData();
             
@@ -57,15 +56,6 @@ namespace Game
             _environment.InputModel = new InputModel();
             
             _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
-        }
-        
-        private GameZoneLimits CreateGameZoneLimits()
-        {
-            var limits = new GameZoneLimits();
-            
-            //TODO: continue
-            
-            return limits;
         }
     }
 }

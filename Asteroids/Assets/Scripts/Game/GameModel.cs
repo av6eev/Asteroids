@@ -1,9 +1,6 @@
-﻿using Utilities;
-
-namespace Game
+﻿namespace Game
 {
     public class GameModel
     {
-        public GameZoneLimits ZoneLimits { get; set; }
     }
 }
