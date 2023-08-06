@@ -10,6 +10,8 @@ namespace Global.Dialogs.Shop.Card
         [field: SerializeField] public Image PreviewImage { get; private set; }
         [field: SerializeField] public TextMeshProUGUI TitleText { get; private set; }
         [field: SerializeField] public TextMeshProUGUI PriceText { get; private set; }
+        [field: SerializeField] public Button NextCardButton { get; private set; }
+        [field: SerializeField] public Button PreviousCardButton { get; private set; }
 
         public void SetupCard(ShipSpecification specification)
         {

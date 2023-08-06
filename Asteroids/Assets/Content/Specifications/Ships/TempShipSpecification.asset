@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908f4e0b122945dc9dc003ded168baeb, type: 3}
-  m_Name: ShipsSpecificationCollection
+  m_Script: {fileID: 11500000, guid: d330e06c088b49a89ce98de7692891a1, type: 3}
+  m_Name: TempShipSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Ships:
-    - {fileID: 11400000, guid: 6f8cffe039c5e5a4c950f28089bbb43b, type: 2}
-    - {fileID: 11400000, guid: f2f4914847254b5488f509b437eb591a, type: 2}
+    Id: 2
+    Name: TempShip
+    Price: 150
+    Speed: 7
+    Prefab: {fileID: 5611512249491384052, guid: 08b849fdb2a9c0d498dc8b7577399bfe,
+      type: 3}
+    PreviewImage: {fileID: 0}

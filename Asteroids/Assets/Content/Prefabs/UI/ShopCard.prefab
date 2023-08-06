@@ -181,6 +181,8 @@ MonoBehaviour:
   <PreviewImage>k__BackingField: {fileID: 6294472168947461926}
   <TitleText>k__BackingField: {fileID: 6294472170255060068}
   <PriceText>k__BackingField: {fileID: 6294472170606533774}
+  <NextCardButton>k__BackingField: {fileID: 6294472169943346742}
+  <PreviousCardButton>k__BackingField: {fileID: 6294472169561798338}
 --- !u!1 &6294472168947461924
 GameObject:
   m_ObjectHideFlags: 0

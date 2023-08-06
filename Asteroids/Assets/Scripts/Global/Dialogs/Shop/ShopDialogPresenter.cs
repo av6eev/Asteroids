@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Global.Dialogs.Shop.Card;
+using UnityEngine;
 using Utilities;
 
 namespace Global.Dialogs.Shop
@@ -25,6 +26,7 @@ namespace Global.Dialogs.Shop
             
             _model.OnShow += Show;
             _model.OnHide += Hide;
+            _model.OnCardChange += ChangeActiveCard;
         }
 
         public void Deactivate()
@@ -36,13 +38,30 @@ namespace Global.Dialogs.Shop
             
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
+            _model.OnCardChange -= ChangeActiveCard;
+        }
+
+        private void ChangeActiveCard(int changeDirection)
+        {
+            var activeCard = _model.Cards.Find(card => card.IsActive);
+            var nextCard = _model.Cards.Find(card => card.Id == activeCard.Id + changeDirection);
+            
+            if (nextCard != null)
+            {
+                activeCard.Hide();
+                nextCard.Show();    
+            }
+            else
+            {
+                Debug.Log("Next/previous card isn't exist");
+            }
         }
 
         private void Show()
         {
             foreach (var specification in _model.ShipSpecifications)
             {
-                var model = new ShopCardDialogModel(specification.Value);
+                var model = new ShopCardDialogModel(specification.Key, specification.Value);
                 var presenter = new ShopCardDialogPresenter(_environment, model, _view.InstantiateCard(specification.Value));
                 
                 _model.Cards.Add(model);

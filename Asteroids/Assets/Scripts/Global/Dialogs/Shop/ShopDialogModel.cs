@@ -9,8 +9,9 @@ namespace Global.Dialogs.Shop
     public class ShopDialogModel : IGlobalDialogModel
     {
         public event Action OnShow, OnHide;
+        public event Action<int> OnCardChange; 
         public Dictionary<int, ShipSpecification> ShipSpecifications { get; }
-        public List<ShopCardDialogModel> Cards { get; set; } = new();
+        public List<ShopCardDialogModel> Cards { get; } = new();
         
         public ShopDialogModel(Dictionary<int, ShipSpecification> shipSpecifications)
         {
@@ -25,6 +26,11 @@ namespace Global.Dialogs.Shop
         public void Hide()
         {
             OnHide?.Invoke();
+        }
+
+        public void ChangeActiveCard(int changeDirection)
+        {
+            OnCardChange?.Invoke(changeDirection);
         }
     }
 }
