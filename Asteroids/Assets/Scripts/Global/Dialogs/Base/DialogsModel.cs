@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Global.Dialogs.History;
 using Global.Dialogs.Shop;
 using Utilities;
 
@@ -12,6 +13,7 @@ namespace Global.Dialogs.Base
         public DialogsModel(GameSpecifications specifications)
         {
             Add(new ShopDialogModel(specifications.Ships));
+            Add(new HistoryDialogModel());
         }
 
         private void Add(IGlobalDialogModel dialog)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Global.Dialogs.Base;
 using Global.Dialogs.Shop.Card;
 using Specifications.Ships;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Global.Dialogs.Shop
 {
-    public class ShopDialogView : MonoBehaviour
+    public class ShopDialogView : BaseDialogView
     {
         [field: SerializeField] public ShopCardDialogView ShopCardPrefab { get; private set; }
         [field: SerializeField] public Button ExitButton { get; private set; }
@@ -35,11 +36,6 @@ namespace Global.Dialogs.Shop
             }
             
             _cardsViews.Clear();
-        }
-        
-        public void ChangeVisibility(bool state)
-        {
-            gameObject.SetActive(state);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Global.Dialogs.Shop;
+﻿using Global.Dialogs.History;
+using Global.Dialogs.Shop;
 using Utilities;
 
 namespace Global.Dialogs.Base
@@ -21,6 +22,7 @@ namespace Global.Dialogs.Base
         public void Activate()
         {
             _presenters.Add(new ShopDialogPresenter(_environment, _model.GetByType<ShopDialogModel>(), _view.ShopDialogView));
+            _presenters.Add(new HistoryDialogPresenter(_environment, _model.GetByType<HistoryDialogModel>(), _view.HistoryDialogView));
             _presenters.Activate();
         }
 

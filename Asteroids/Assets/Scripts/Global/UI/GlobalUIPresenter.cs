@@ -1,3 +1,4 @@
+using Global.Dialogs.History;
 using Global.Dialogs.Shop;
 using Utilities;
 
@@ -17,18 +18,17 @@ namespace Global.UI
         public void Activate()
         {
             _view.MainMenuRoot.SetActive(true);
-            _view.ShopMenuRoot.SetActive(false);
             
             _view.PlayButton.onClick.AddListener(StartGame);
             _view.ShopButton.onClick.AddListener(OpenShopMenu);
-            // _view.HistoryButton.onClick.AddListener(StartGame);
+            _view.HistoryButton.onClick.AddListener(OpenHistoryMenu);
         }
         
         public void Deactivate()
         {
             _view.PlayButton.onClick.RemoveListener(StartGame);
             _view.ShopButton.onClick.RemoveListener(OpenShopMenu);
-            // _view.HistoryButton.onClick.RemoveListener(StartGame);
+            _view.HistoryButton.onClick.RemoveListener(OpenHistoryMenu);
         }
 
         private void OpenShopMenu()
@@ -36,6 +36,13 @@ namespace Global.UI
             _view.MainMenuRoot.SetActive(false);
             
             _environment.DialogsModel.GetByType<ShopDialogModel>().Show();
+        }
+        
+        private void OpenHistoryMenu()
+        {
+            _view.MainMenuRoot.SetActive(false);
+            
+            _environment.DialogsModel.GetByType<HistoryDialogModel>().Show();
         }
 
         private void StartGame()

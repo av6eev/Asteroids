@@ -17,10 +17,21 @@ namespace Game.Ship
         
         public void Activate()
         {
+            CreateShotsPull();
         }
-
+        
         public void Deactivate()
         {
+        }
+        
+        private void CreateShotsPull()
+        {
+            var shotsPull = _environment.GameSceneView.GameView.ShotsPullView;
+            
+            shotsPull.ElementPrefab = _model.Specification.ShotPrefab;
+            shotsPull.Count = _model.Specification.Count;
+            
+            _environment.PullsData.ShotsPull.CreatePull(shotsPull);   
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using Specifications.Ships;
+﻿using Global.Dialogs.Base;
+using Specifications.Ships;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Global.Dialogs.Shop.Card
 {
-    public class ShopCardDialogView : MonoBehaviour
+    public class ShopCardDialogView : BaseDialogView
     {
         [field: SerializeField] public Image PreviewImage { get; private set; }
         [field: SerializeField] public TextMeshProUGUI TitleText { get; private set; }
@@ -26,11 +27,6 @@ namespace Global.Dialogs.Shop.Card
 
             TitleText.text = specification.Name;
             PriceText.text = specification.Price.ToString();
-        }
-
-        public void ChangeVisibility(bool state)
-        {
-            gameObject.SetActive(state);
         }
     }
 }

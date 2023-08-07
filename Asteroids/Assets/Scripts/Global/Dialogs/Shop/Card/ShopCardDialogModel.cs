@@ -1,9 +1,10 @@
 ﻿using System;
+using Global.Dialogs.Base;
 using Specifications.Base;
 
 namespace Global.Dialogs.Shop.Card
 {
-    public class ShopCardDialogModel
+    public class ShopCardDialogModel : ISubDialogModel
     {
         public event Action OnShow, OnHide; 
         public ISpecification ShipSpecification { get; }

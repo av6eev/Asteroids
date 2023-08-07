@@ -22,6 +22,7 @@ namespace Global.Dialogs.Shop
         
         public void Activate()
         {
+            _view.ChangeVisibility(false);
             _view.ExitButton.onClick.AddListener(Hide);
             
             _model.OnShow += Show;
@@ -78,6 +79,8 @@ namespace Global.Dialogs.Shop
         {
             _cardsPresenters.Deactivate();
             _cardsPresenters.Clear();
+            
+            _model.Cards.Clear();
             
             _view.DestroyCards();
             _view.ChangeVisibility(false);

@@ -1,6 +1,6 @@
 ﻿namespace Global.Dialogs.Base
 {
-    public interface IGlobalDialogModel : IDialogModel
+    public interface ISubDialogModel : IDialogModel
     {
         
     }
