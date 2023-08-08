@@ -35,8 +35,10 @@ namespace Game
             _presenters.Deactivate();
             _presenters.Clear();
             
-            _environment.FixedSystemsEngine.Remove(SystemsTypes.ShipMovement);
-            _environment.FixedSystemsEngine.Remove(SystemsTypes.CameraFollow);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMovement);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Ship);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Input);
         }
         
         private void CreateShip()
@@ -47,8 +49,9 @@ namespace Game
             _environment.ShipModel = new ShipModel(neededSpecification);
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
             
-            _environment.FixedSystemsEngine.Add(SystemsTypes.ShipMovement, new ShipMovementSystem());
-            _environment.FixedSystemsEngine.Add(SystemsTypes.CameraFollow, new CameraFollowSystem());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMovement, new ShipMovementUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Ship, new ShipUpdater());
         }
         
         private void CreateNecessaryData()
@@ -56,6 +59,7 @@ namespace Game
             _environment.InputModel = new InputModel();
             
             _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
         }
     }
 }

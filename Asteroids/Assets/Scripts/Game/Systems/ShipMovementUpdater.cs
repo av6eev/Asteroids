@@ -4,7 +4,7 @@ using Utilities;
 
 namespace Game.Systems
 {
-    public class ShipMovementSystem : ISystem
+    public class ShipMovementUpdater : IUpdater
     {
         private const float ROTATE_AMOUNT = 15f;
         private const float ROTATE_SPEED = 20f;
@@ -37,18 +37,18 @@ namespace Game.Systems
             };
 
             shipTransform.Translate(turnDirection * (environment.ShipModel.Specification.Speed * Time.deltaTime));
-            
+
+            var zoneLimits = environment.GameSceneView.GameView.ZoneLimits;
             var shipPosition = shipTransform.position;
             var x = shipPosition.x;
-            
-            switch (x)
+
+            if (x > zoneLimits.RightSide)
             {
-                case > GameZoneLimits.RightSide:
-                    x -= GameZoneLimits.RightSide * 2;
-                    break;
-                case < GameZoneLimits.LeftSide:
-                    x += Mathf.Abs(GameZoneLimits.LeftSide * 2);
-                    break;
+                x -= zoneLimits.RightSide * 2;
+            }
+            else if (x < zoneLimits.LeftSide)
+            {
+                x += Mathf.Abs(zoneLimits.LeftSide * 2);
             }
 
             shipPosition.x = x;

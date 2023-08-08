@@ -3,9 +3,10 @@ using Utilities;
 
 namespace Game.Systems
 {
-    public class CameraFollowSystem : ISystem
+    public class CameraFollowUpdater : IUpdater
     {
-        private readonly Vector3 _offset = new(0f, 45f, -35f);
+        // private readonly Vector3 _offset = new(0f, 45f, -35f);
+        private readonly Vector3 _offset = new(0f, 45f, 18f);
 
         public void Update(GameEnvironment environment)
         {

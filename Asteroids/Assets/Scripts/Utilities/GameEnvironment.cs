@@ -17,8 +17,8 @@ namespace Utilities
         
         public GameSpecifications Specifications { get; }
         public ScenesManager ScenesManager { get; }
-        public SystemsEngine SystemsEngine { get; }
-        public SystemsEngine FixedSystemsEngine { get; }
+        public UpdatersEngine UpdatersEngine { get; }
+        public UpdatersEngine FixedUpdatersEngine { get; }
         public PullsData PullsData { get; }
         
         public ShipModel ShipModel { get; set; }
@@ -31,16 +31,16 @@ namespace Utilities
         public GameEnvironment(GameSpecifications specifications,
             GlobalView globalView,
             ScenesManager scenesManager,
-            SystemsEngine systemsEngine,
-            SystemsEngine fixedSystemsEngine,
+            UpdatersEngine updatersEngine,
+            UpdatersEngine fixedUpdatersEngine,
             GlobalUIModel globalUIModel,
             PullsData pullsData)
         {
             Specifications = specifications;
             GlobalView = globalView;
             ScenesManager = scenesManager;
-            SystemsEngine = systemsEngine;
-            FixedSystemsEngine = fixedSystemsEngine;
+            UpdatersEngine = updatersEngine;
+            FixedUpdatersEngine = fixedUpdatersEngine;
             GlobalUIModel = globalUIModel;
             PullsData = pullsData;
         }

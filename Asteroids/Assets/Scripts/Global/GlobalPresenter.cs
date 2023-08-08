@@ -20,8 +20,8 @@ namespace Global
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
                 new ScenesManager(),
-                new SystemsEngine(),
-                new SystemsEngine(),
+                new UpdatersEngine(),
+                new UpdatersEngine(),
                 new GlobalUIModel(),
                 new PullsData());
             
@@ -36,12 +36,12 @@ namespace Global
 
         private void Update()
         {
-            _environment.SystemsEngine.Update(_environment);
+            _environment.UpdatersEngine.Update(_environment);
         }
 
         private void FixedUpdate()
         {
-            _environment.FixedSystemsEngine.Update(_environment);
+            _environment.FixedUpdatersEngine.Update(_environment);
         }
     }
 }

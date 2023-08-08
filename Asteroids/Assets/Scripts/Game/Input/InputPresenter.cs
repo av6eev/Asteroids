@@ -22,18 +22,35 @@ namespace Game.Input
             _view.PlayerInputAsset.actions.Enable();
             
             _view.MoveAction.performed += PerformMove;
-            _view.MoveAction.canceled += CancelMove;
+            _view.MoveAction.canceled += StopMove;
+
+            _model.OnUpdate += Update;
         }
 
         public void Deactivate()
         {
             _view.MoveAction.performed -= PerformMove;
-            _view.MoveAction.canceled -= CancelMove;
+            _view.MoveAction.canceled -= StopMove;
             
             _view.PlayerInputAsset.actions.Disable();
+            
+            _model.OnUpdate -= Update;
         }
 
-        private void CancelMove(InputAction.CallbackContext context)
+        private void Update(float deltaTime)
+        {
+            if (_view.FireAction.IsPressed() && _environment.ShipModel.IsReadyToShoot)
+            {
+                _model.IsShipShooting = true;
+                _environment.ShipModel.Shoot();
+            }
+            else
+            {
+                _model.IsShipShooting = false;
+            }
+        }
+
+        private void StopMove(InputAction.CallbackContext context)
         {
             _model.IsShipRotating = false;
             _model.ShipRotateDirection = 0f;     

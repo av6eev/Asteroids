@@ -1,6 +1,6 @@
 namespace Utilities
 {
-    public interface ISystem
+    public interface IUpdater
     {
         void Update(GameEnvironment environment);
     }

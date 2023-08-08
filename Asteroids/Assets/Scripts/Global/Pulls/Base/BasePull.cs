@@ -32,5 +32,11 @@ namespace Global.Pulls.Base
             
             return pullObject;
         }
+
+        public virtual void PutBack(TElementView element)
+        {
+            element.ChangeVisibility(false);
+            _elements.Enqueue(element);
+        }
     }
 }
