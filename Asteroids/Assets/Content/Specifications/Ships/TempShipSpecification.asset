@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330e06c088b49a89ce98de7692891a1, type: 3}
+  m_Name: TempShipSpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    Id: 2
+    Name: TempShip
+    Price: 150
+    Speed: 7
+    Prefab: {fileID: 5611512249491384052, guid: 08b849fdb2a9c0d498dc8b7577399bfe,
+      type: 3}
+    PreviewImage: {fileID: 0}

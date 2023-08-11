@@ -1,4 +1,6 @@
-using Global.Scene;
+using Global.Dialogs.Base;
+using Global.Pulls.Base;
+using Global.Save;
 using Global.UI;
 using UnityEngine;
 using Utilities;
@@ -7,22 +9,41 @@ namespace Global
 {
     public class GlobalPresenter : MonoBehaviour
     {
-        [SerializeField] private GlobalSceneView GlobalSceneView;
+        [SerializeField] private GlobalView GlobalView;
         
         private GameEnvironment _environment;
         private readonly PresentersEngine _globalPresenters = new();
 
         private void Start()
         {
-            _environment = new GameEnvironment(GlobalSceneView, new ScenesManager(_environment));
-            _globalPresenters.Add(new GlobalUIPresenter(_environment, GlobalSceneView.GlobalUIView));
+            _environment = new GameEnvironment(
+                new GameSpecifications(GlobalView.SpecificationsCollection), 
+                GlobalView,
+                new ScenesManager(),
+                new UpdatersEngine(),
+                new UpdatersEngine(),
+                new TimersEngine(),
+                new GlobalUIModel(),
+                new PullsData());
             
+            _environment.DialogsModel = new DialogsModel(_environment.Specifications);
+            _environment.SaveModel = new SaveModel();
+            
+            _globalPresenters.Add(new GlobalUIPresenter(_environment, _environment.GlobalUIModel, GlobalView.GlobalUIView));
+            _globalPresenters.Add(new DialogsPresenter(_environment, _environment.DialogsModel, GlobalView.DialogsView));
+            _globalPresenters.Add(new SavePresenter(_environment, _environment.SaveModel));
             _globalPresenters.Activate();
         }
 
         private void Update()
         {
-        
+            _environment.UpdatersEngine.Update(_environment);
+            _environment.TimersEngine.Update(Time.deltaTime);
+        }
+
+        private void FixedUpdate()
+        {
+            _environment.FixedUpdatersEngine.Update(_environment);
         }
     }
 }

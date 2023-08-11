@@ -1,3 +1,4 @@
+using Game;
 using Game.Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,11 +10,6 @@ namespace Utilities
         private GameEnvironment _environment;
         private AsyncOperation _asyncOperation;
         private IPresenter _presenter;
-
-        public ScenesManager(GameEnvironment environment)
-        {
-            _environment = environment;
-        }
 
         public void LoadScene(ScenesNames sceneName, GameEnvironment environment)
         {
@@ -27,12 +23,22 @@ namespace Utilities
             _asyncOperation.completed -= OnLoadCompleted;
 
             var gameSceneView = GameObject.Find("scene_view").GetComponent<BaseSceneView>();
-
+            
             switch (gameSceneView)
             {
                 case GameSceneView view:
+                    var model = new GameModel();
+
+                    _environment.GameModel = model;
+                    _environment.GameSceneView = view;
+                    
+                    _presenter = new GamePresenter(_environment, model, view);
                     break;
             }
+
+            _environment.GlobalView.MainCamera.enabled = false;
+            
+            _presenter.Activate();
         }
 
         public void UnloadScene(ScenesNames sceneName)
