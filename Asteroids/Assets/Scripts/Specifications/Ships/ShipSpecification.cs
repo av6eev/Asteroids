@@ -1,8 +1,9 @@
 ﻿using System;
 using Game.Ship;
-using Game.Ship.Shots.Shot;
+using Game.Ship.Shots;
 using Specifications.Base;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Specifications.Ships
 {
@@ -14,8 +15,8 @@ namespace Specifications.Ships
         public string Name;
         public int Price;
 
-        [Header("Shots")]
-        public ShotView ShotPrefab;
+        [FormerlySerializedAs("ShotPrefab")] [Header("Shots")]
+        public BulletView BulletPrefab;
         public int Count;
         public float ReloadTime;
         public float ShotRate;
@@ -26,7 +27,6 @@ namespace Specifications.Ships
 
         [Header("Others")]
         public ShipView Prefab;
-
         public Sprite PreviewImage;
     }
 }

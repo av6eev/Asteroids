@@ -1,9 +1,9 @@
-﻿using Game.Ship.Shots.Shot;
+﻿using Game.Ship.Shots;
 using Global.Pulls.Base;
 
 namespace Global.Pulls.Shots
 {
-    public class ShotsPull : BasePull<ShotView>
+    public class ShotsPull : BasePull<BulletView>
     {
         
     }

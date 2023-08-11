@@ -6,7 +6,7 @@ namespace Global.Pulls.Base
     {
         [field: SerializeField] public Transform PullRoot { get; private set; }
         public T ElementPrefab { get; set; }
-        public int Count { get; set; }
+        public virtual int Count { get; set; }
 
         public T CreateObject()
         {

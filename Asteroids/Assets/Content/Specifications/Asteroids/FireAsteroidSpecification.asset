@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f7e49dee26db04eb637fb29bbe7d71, type: 3}
+  m_Name: FireAsteroidSpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    Type: 3
+    ChanceToSpawn: 0.1
+    SubAsteroidsOnDestroy: []
+    Speed: 8
+    Prefab: {fileID: 858409546274187688, guid: c709b5037f8fb154b8cb03c4ab2fba6e, type: 3}

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Collection:
     Ships: {fileID: 11400000, guid: 0083a96e6ccee6d45987517e581351c2, type: 2}
+    Asteroids: {fileID: 11400000, guid: c7005a8a50d9beb4ba0f6615a4b84a7f, type: 2}
