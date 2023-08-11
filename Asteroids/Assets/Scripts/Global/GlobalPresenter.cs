@@ -22,6 +22,7 @@ namespace Global
                 new ScenesManager(),
                 new UpdatersEngine(),
                 new UpdatersEngine(),
+                new TimersEngine(),
                 new GlobalUIModel(),
                 new PullsData());
             
@@ -37,6 +38,7 @@ namespace Global
         private void Update()
         {
             _environment.UpdatersEngine.Update(_environment);
+            _environment.TimersEngine.Update(Time.deltaTime);
         }
 
         private void FixedUpdate()

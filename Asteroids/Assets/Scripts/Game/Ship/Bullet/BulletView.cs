@@ -1,9 +1,9 @@
 ﻿using Global.Pulls.Base;
 using UnityEngine;
 
-namespace Game.Ship.Shots.Shot
+namespace Game.Ship.Shots
 {
-    public class ShotView : BasePullElementView
+    public class BulletView : BasePullElementView
     {
         [field: SerializeField] public float Speed { get; private set; }
 

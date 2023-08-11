@@ -39,7 +39,7 @@ namespace Game.Input
 
         private void Update(float deltaTime)
         {
-            if (_view.FireAction.IsPressed() && _environment.ShipModel.IsReadyToShoot)
+            if (_view.FireAction.IsPressed())
             {
                 _model.IsShipShooting = true;
                 _environment.ShipModel.Shoot();

@@ -1,14 +1,14 @@
 ﻿using Utilities;
 
-namespace Game.Ship.Shots.Shot
+namespace Game.Ship.Shots
 {
-    public class ShotPresenter : IPresenter
+    public class BulletPresenter : IPresenter
     {
         private readonly GameEnvironment _environment;
-        private readonly ShotModel _model;
-        private readonly ShotView _view;
+        private readonly BulletModel _model;
+        private readonly BulletView _view;
 
-        public ShotPresenter(GameEnvironment environment, ShotModel model, ShotView view)
+        public BulletPresenter(GameEnvironment environment, BulletModel model, BulletView view)
         {
             _environment = environment;
             _model = model;

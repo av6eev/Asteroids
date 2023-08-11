@@ -2,7 +2,7 @@
 
 namespace Utilities
 {
-    public class UpdatersEngine
+    public class UpdatersEngine : IUpdater
     {
         private readonly Dictionary<UpdatersTypes, IUpdater> _updaters = new();
 

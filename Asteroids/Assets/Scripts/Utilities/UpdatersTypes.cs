@@ -2,9 +2,10 @@ namespace Utilities
 {
     public enum UpdatersTypes
     {
-        ShipMovement,
         CameraFollow,
-        Ship,
-        Input
+        ShipMove,
+        ShipShoot,
+        Input,
+        Asteroids
     }
 }

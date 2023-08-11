@@ -1,8 +1,8 @@
+using Game.Asteroids;
 using Game.Input;
 using Game.Scene;
 using Game.Ship;
 using Game.Systems;
-using UnityEngine;
 using Utilities;
 
 namespace Game
@@ -35,31 +35,31 @@ namespace Game
             _presenters.Deactivate();
             _presenters.Clear();
             
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMovement);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Ship);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Input);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
         }
         
         private void CreateShip()
         {
             var neededSpecification = _environment.Specifications.Ships[_environment.GlobalUIModel.SelectedShipId];
-            var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab,new Vector3(0,0,0));
+            var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab);
 
             _environment.ShipModel = new ShipModel(neededSpecification);
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
-            
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMovement, new ShipMovementUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Ship, new ShipUpdater());
         }
         
         private void CreateNecessaryData()
         {
             _environment.InputModel = new InputModel();
+            _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
             
             _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
+            _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
+            
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
         }
     }
 }

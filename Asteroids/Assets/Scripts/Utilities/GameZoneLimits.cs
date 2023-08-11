@@ -14,13 +14,16 @@ namespace Utilities
         
         private void Start()
         {
-            LeftSide = -60f;
-            RightSide = 60f;
+            LeftSide = -75f;
+            RightSide = 75f;
         }
 
         private void Update()
         {
-            TopSide = MainCamera.transform.position.z + 25;
+            var positionZ = MainCamera.transform.position.z;
+            
+            TopSide = positionZ + 25;
+            BottomSide = positionZ;
         }
     }
 }

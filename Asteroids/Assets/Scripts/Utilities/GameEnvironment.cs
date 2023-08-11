@@ -1,4 +1,5 @@
 using Game;
+using Game.Asteroids;
 using Game.Input;
 using Game.Scene;
 using Game.Ship;
@@ -19,20 +20,23 @@ namespace Utilities
         public ScenesManager ScenesManager { get; }
         public UpdatersEngine UpdatersEngine { get; }
         public UpdatersEngine FixedUpdatersEngine { get; }
+        public TimersEngine TimersEngine { get; }
         public PullsData PullsData { get; }
-        
+
+        public GlobalUIModel GlobalUIModel { get; }
         public ShipModel ShipModel { get; set; }
         public GameModel GameModel { get; set; }
-        public GlobalUIModel GlobalUIModel { get; }
         public DialogsModel DialogsModel { get; set; }
         public InputModel InputModel { get; set; }
         public SaveModel SaveModel { get; set; }
+        public AsteroidsModel AsteroidsModel { get; set; }
 
         public GameEnvironment(GameSpecifications specifications,
             GlobalView globalView,
             ScenesManager scenesManager,
             UpdatersEngine updatersEngine,
             UpdatersEngine fixedUpdatersEngine,
+            TimersEngine timersEngine,
             GlobalUIModel globalUIModel,
             PullsData pullsData)
         {
@@ -41,6 +45,7 @@ namespace Utilities
             ScenesManager = scenesManager;
             UpdatersEngine = updatersEngine;
             FixedUpdatersEngine = fixedUpdatersEngine;
+            TimersEngine = timersEngine;
             GlobalUIModel = globalUIModel;
             PullsData = pullsData;
         }
