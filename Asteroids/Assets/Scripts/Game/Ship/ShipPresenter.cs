@@ -22,30 +22,48 @@ namespace Game.Ship
         public void Activate()
         {
             CreateNecessaryData();
-        }
 
-        private void CreateNecessaryData()
-        {
-            var specification = _model.Specification;
-            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShotRate, specification.IsAutomatic, specification.BulletPrefab.Speed);
-            _model.MoveModel = new ShipMoveModel(specification.Speed);
-            
-            _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));
-            _presenters.Add(new ShipShootPresenter(_environment, _model.ShootModel));
-            
-            _presenters.Activate();
-            
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
+            _model.OnDamageApplied += ApplyDamage;
         }
-
+        
         public void Deactivate()
         {
             _presenters.Deactivate();
             _presenters.Clear();
             
+            _model.OnDamageApplied -= ApplyDamage;
+            
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMove);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipShoot);
+        }
+
+        private void ApplyDamage()
+        {
+            if (_model.Health > 0)
+            {
+                _model.Health--;
+            }
+        }
+
+        private void CreateNecessaryData()
+        {
+            var specification = _model.Specification;
+            var hitsPull = _environment.GameSceneView.GameView.HitsPullView;
+            
+            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Speed, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
+            _model.MoveModel = new ShipMoveModel(specification.Speed);
+            
+            _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));
+            _presenters.Add(new ShipShootPresenter(_environment, _model.ShootModel));
+            _presenters.Activate();
+            
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
+            
+            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletHitParticleSystem;
+            hitsPull.Count = 10;
+            
+            _environment.PullsData.HitsPull.CreatePull(hitsPull);
         }
     }
 }

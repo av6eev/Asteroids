@@ -1,4 +1,4 @@
-﻿using Game.Ship.Shots;
+﻿using Game.Ship.Bullet;
 using Global.Pulls.Base;
 
 namespace Global.Pulls.Shots

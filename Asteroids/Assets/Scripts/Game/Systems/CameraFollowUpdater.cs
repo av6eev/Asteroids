@@ -18,8 +18,7 @@ namespace Game.Systems
             var cameraPosition = cameraTransform.position;
             var target = shipPosition + (cameraPosition - shipPosition).normalized + _offset;
             
-            cameraPosition = Vector3.SmoothDamp(cameraPosition, target, ref _currentVelocity, SMOOTH_TIME);
-            
+            cameraPosition = Vector3.SmoothDamp(cameraPosition, new Vector3(cameraPosition.x, cameraPosition.y, target.z), ref _currentVelocity, SMOOTH_TIME);
             cameraTransform.position = cameraPosition;
             
             if (target.y < shipPosition.y)

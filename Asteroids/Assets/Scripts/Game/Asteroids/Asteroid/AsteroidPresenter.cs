@@ -1,4 +1,6 @@
-﻿using Utilities;
+﻿using Game.Ship.Bullet;
+using Global.Pulls.Base;
+using Utilities;
 
 namespace Game.Asteroids.Asteroid
 {
@@ -18,17 +20,44 @@ namespace Game.Asteroids.Asteroid
         public void Activate()
         {
             _view.SetPosition(_model.Position);
+            
             _model.OnUpdate += Update;
+            _view.OnCollision += CalculateDamage;
         }
 
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
+            _view.OnCollision -= CalculateDamage;
+        }
+
+        private void CalculateDamage(string otherGoTag, BasePullElementView bulletView)
+        {
+            switch (otherGoTag)
+            {
+                case TagsHelper.AsteroidTag:
+                    break;
+                case TagsHelper.BulletTag:
+                    _model.Health -= _environment.ShipModel.ShootModel.GetByValue((BulletView)bulletView).Damage;
+
+                    ((BulletView)bulletView).Bump(_model);
+                    
+                    if (_model.Health <= 0)
+                    {
+                        _environment.AsteroidsModel.DestroyAsteroid(_model);    
+                    }
+                    break;
+                case TagsHelper.ShipTag:
+                    _environment.ShipModel.ApplyDamage();
+                    _environment.AsteroidsModel.DestroyAsteroid(_model);
+                    break;
+            }
         }
 
         private void Update(float deltaTime)
         {
             Move(deltaTime);
+            Rotate(deltaTime);
         }
         
         private void Move(float deltaTime)
@@ -36,6 +65,11 @@ namespace Game.Asteroids.Asteroid
             var multiplier = _model.Direction * (_model.Specification.Speed * deltaTime);
             
             _model.Position = _view.Move(multiplier);
+        }
+
+        private void Rotate(float deltaTime)
+        {
+            _view.Rotate(deltaTime);
         }
     }
 }

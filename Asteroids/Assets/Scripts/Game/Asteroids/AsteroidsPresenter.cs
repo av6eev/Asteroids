@@ -12,7 +12,6 @@ namespace Game.Asteroids
         private readonly GameEnvironment _environment;
         private readonly AsteroidsModel _model;
 
-        private readonly Dictionary<AsteroidModel, AsteroidView> _activeAsteroids = new();
         private readonly Dictionary<AsteroidModel, AsteroidPresenter> _asteroidsPresenters = new();
         private readonly List<AsteroidModel> _inActiveAsteroids = new();
         
@@ -27,7 +26,7 @@ namespace Game.Asteroids
         
         public void Activate()
         {
-            CreateAsteroidsPull();
+            CreateAsteroidsPulls();
 
             _random = new Random((uint)DateTime.Now.Millisecond);
             _spawnTimer = new Timer(_model.SpawnRate, true);
@@ -35,12 +34,14 @@ namespace Game.Asteroids
             
             _spawnTimer.OnTick += DefineNewAsteroid;
             _model.OnUpdate += Update;
+            _model.OnAsteroidDestroyed += DestroyAsteroid;
         }
 
         public void Deactivate()
         {
             _spawnTimer.OnTick -= DefineNewAsteroid;
             _model.OnUpdate -= Update;
+            _model.OnAsteroidDestroyed -= DestroyAsteroid;
         }
 
         private void Update(float deltaTime)
@@ -52,11 +53,13 @@ namespace Game.Asteroids
             
             _inActiveAsteroids.Clear();
 
-            foreach (var model in _activeAsteroids.Keys)
+            var activeAsteroids = _model.GetActiveAsteroids();
+            
+            foreach (var model in activeAsteroids.Keys)
             {
                 var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
 
-                if (!(model.Position.x < zoneLimits.LeftSide) && !(model.Position.x > zoneLimits.RightSide) && !(model.Position.z > zoneLimits.TopSide)) continue;
+                if (!(model.Position.x < zoneLimits.LeftSide) && !(model.Position.x > zoneLimits.RightSide) && !(model.Position.z > zoneLimits.TopSide) && !(model.Position.z < zoneLimits.BottomSide)) continue;
                 
                 if (!_inActiveAsteroids.Contains(model))
                 {
@@ -64,7 +67,7 @@ namespace Game.Asteroids
                 }
             }
             
-            foreach (var model in _activeAsteroids.Keys)
+            foreach (var model in activeAsteroids.Keys)
             {
                 model.Update(deltaTime);
             }
@@ -75,8 +78,8 @@ namespace Game.Asteroids
             _asteroidsPresenters[model].Deactivate();
             _asteroidsPresenters.Remove(model);
 
-            _environment.PullsData.AsteroidsPulls[model.Specification.Type].PutBack(_activeAsteroids[model]);
-            _activeAsteroids.Remove(model);
+            _environment.PullsData.AsteroidsPulls[model.Specification.Type].PutBack(_model.GetActiveAsteroids()[model]);
+            _model.GetActiveAsteroids().Remove(model);
         }
 
         private void CreateAsteroid(AsteroidsTypes type)
@@ -90,7 +93,7 @@ namespace Game.Asteroids
                         
             presenter.Activate();
             _asteroidsPresenters.Add(model, presenter);
-            _activeAsteroids.Add(model, view);
+            _model.AddActiveAsteroid(model, view);
         }
 
         private void DefineNewAsteroid()
@@ -100,28 +103,25 @@ namespace Game.Asteroids
             if (randomChance < _model.Specification[AsteroidsTypes.Fire].ChanceToSpawn)
             {
                 CreateAsteroid(AsteroidsTypes.Fire);        
-                return;
             }
             
             if (randomChance > _model.Specification[AsteroidsTypes.Fire].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Big].ChanceToSpawn)
             {
                 CreateAsteroid(AsteroidsTypes.Big);        
-                return;
             }
             
             if (randomChance > _model.Specification[AsteroidsTypes.Big].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Medium].ChanceToSpawn)
             {
                 CreateAsteroid(AsteroidsTypes.Medium);        
-                return;
             }
             
-            if (randomChance > _model.Specification[AsteroidsTypes.Medium].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Small].ChanceToSpawn)
+            if (randomChance > _model.Specification[AsteroidsTypes.Medium].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Small].ChanceToSpawn || randomChance > _model.Specification[AsteroidsTypes.Small].ChanceToSpawn)
             {
                 CreateAsteroid(AsteroidsTypes.Small);
             }
         }
 
-        private void CreateAsteroidsPull()
+        private void CreateAsteroidsPulls()
         {
             foreach (var pull in _environment.PullsData.AsteroidsPulls)
             {

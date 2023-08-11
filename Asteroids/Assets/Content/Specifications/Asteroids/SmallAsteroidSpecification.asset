@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Specification:
     Type: 0
-    ChanceToSpawn: 0.3
-    SubAsteroidsOnDestroy: []
-    Speed: 15
+    Health: 20
+    Speed: 3
+    ChanceToSpawn: 0.5
     Prefab: {fileID: 1419948838234494996, guid: 8f54bdbf126de634eaebffbeb21fa1f7,
       type: 3}
+    SubAsteroidsOnDestroy: []

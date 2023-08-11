@@ -1,7 +1,6 @@
 ﻿using System;
-using Utilities;
 
-namespace Game.Asteroids.Asteroid
+namespace Utilities
 {
     public class Timer : ITimer
     {

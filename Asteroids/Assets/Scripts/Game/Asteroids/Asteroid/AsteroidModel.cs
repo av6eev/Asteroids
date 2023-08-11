@@ -12,13 +12,15 @@ namespace Game.Asteroids.Asteroid
         public AsteroidSpecification Specification { get; }
         public Vector3 Position { get; set; }
         public Vector3 Direction { get; }
+        public int Health { get; set; }
 
         public AsteroidModel(AsteroidSpecification specification, Vector3 position)
         {
-            var random = new Random((uint)DateTime.Now.Millisecond);
+            var random = new Random((uint)DateTime.Now.Second);
 
             Specification = specification;
             Position = position;
+            Health = specification.Health;
             Direction = new Vector3(random.NextFloat(-1f, 1f), 0, random.NextFloat(-1f, 1f));
         }
 
