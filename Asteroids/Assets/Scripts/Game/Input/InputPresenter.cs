@@ -35,6 +35,8 @@ namespace Game.Input
             _view.PlayerInputAsset.actions.Disable();
             
             _model.OnUpdate -= Update;
+            
+            Debug.Log(nameof(InputPresenter) + " deactivated!");
         }
 
         private void Update(float deltaTime)

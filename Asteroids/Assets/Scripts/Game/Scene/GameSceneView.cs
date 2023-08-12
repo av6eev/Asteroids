@@ -1,4 +1,5 @@
 using Game.Input;
+using Game.UI;
 using UnityEngine;
 using Utilities;
 
@@ -9,5 +10,6 @@ namespace Game.Scene
         [field: SerializeField] public Camera MainCamera { get; private set; }
         [field: SerializeField] public InputView InputView { get; private set; }
         [field: SerializeField] public GameView GameView { get; private set; }
+        [field: SerializeField] public GameUIView GameUIView { get; private set; }
     }
 }

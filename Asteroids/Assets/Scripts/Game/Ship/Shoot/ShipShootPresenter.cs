@@ -39,6 +39,8 @@ namespace Game.Ship.Shoot
             _environment.ShipModel.OnShoot -= CreateBullet;
             _model.OnUpdate -= Update;
             _model.OnBulletDestroyed -= DestroyBullet;
+            
+            Debug.Log(nameof(ShipShootPresenter) + " deactivated!");
         }
 
         private void Update(float deltaTime)

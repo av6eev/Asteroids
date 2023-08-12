@@ -23,8 +23,7 @@ namespace Global
                 new UpdatersEngine(),
                 new UpdatersEngine(),
                 new TimersEngine(),
-                new GlobalUIModel(),
-                new PullsData());
+                new GlobalUIModel());
             
             _environment.DialogsModel = new DialogsModel(_environment.Specifications);
             _environment.SaveModel = new SaveModel();

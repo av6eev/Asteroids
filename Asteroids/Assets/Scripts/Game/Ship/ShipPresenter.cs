@@ -1,5 +1,6 @@
 ﻿using Game.Ship.Move;
 using Game.Ship.Shoot;
+using UnityEngine;
 using Utilities;
 
 namespace Game.Ship
@@ -28,20 +29,24 @@ namespace Game.Ship
         
         public void Deactivate()
         {
-            _presenters.Deactivate();
-            _presenters.Clear();
-            
-            _model.OnDamageApplied -= ApplyDamage;
-            
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMove);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipShoot);
+            
+            _presenters.Deactivate();
+            _presenters.Clear();
+
+            _model.OnDamageApplied -= ApplyDamage;
+            
+            Debug.Log(nameof(ShipPresenter) + " deactivated!");
         }
 
         private void ApplyDamage()
         {
-            if (_model.Health > 0)
+            _model.Health--;
+
+            if (_model.Health <= 0)
             {
-                _model.Health--;
+                _environment.GameModel.EndGame();
             }
         }
 

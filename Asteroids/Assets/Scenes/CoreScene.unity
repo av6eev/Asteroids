@@ -2054,6 +2054,7 @@ MonoBehaviour:
     type: 2}
   <GlobalUIView>k__BackingField: {fileID: 2079630800}
   <DialogsView>k__BackingField: {fileID: 1514687182}
+  <EventSystem>k__BackingField: {fileID: 479025106}
 --- !u!4 &1531883553
 Transform:
   m_ObjectHideFlags: 0

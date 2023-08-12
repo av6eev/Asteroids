@@ -25,6 +25,8 @@ namespace Game.Ship.Move
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
+            
+            Debug.Log(nameof(ShipMovePresenter) + " deactivated!");
         }
 
         private void Update(float deltaTime)

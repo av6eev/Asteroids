@@ -21,7 +21,7 @@ namespace Utilities
         public UpdatersEngine UpdatersEngine { get; }
         public UpdatersEngine FixedUpdatersEngine { get; }
         public TimersEngine TimersEngine { get; }
-        public PullsData PullsData { get; }
+        public PullsData PullsData { get; set; }
 
         public GlobalUIModel GlobalUIModel { get; }
         public ShipModel ShipModel { get; set; }
@@ -37,8 +37,7 @@ namespace Utilities
             UpdatersEngine updatersEngine,
             UpdatersEngine fixedUpdatersEngine,
             TimersEngine timersEngine,
-            GlobalUIModel globalUIModel,
-            PullsData pullsData)
+            GlobalUIModel globalUIModel)
         {
             Specifications = specifications;
             GlobalView = globalView;
@@ -47,7 +46,6 @@ namespace Utilities
             FixedUpdatersEngine = fixedUpdatersEngine;
             TimersEngine = timersEngine;
             GlobalUIModel = globalUIModel;
-            PullsData = pullsData;
         }
     }
 }

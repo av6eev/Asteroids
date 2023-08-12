@@ -39,9 +39,19 @@ namespace Game.Asteroids
 
         public void Deactivate()
         {
+            foreach (var presenter in _asteroidsPresenters.Values)
+            {
+                presenter.Deactivate();
+            }
+            
+            _asteroidsPresenters.Clear();
+            _inActiveAsteroids.Clear();
+            
             _spawnTimer.OnTick -= DefineNewAsteroid;
             _model.OnUpdate -= Update;
             _model.OnAsteroidDestroyed -= DestroyAsteroid;
+            
+            Debug.Log(nameof(AsteroidsPresenter) + " deactivated!");
         }
 
         private void Update(float deltaTime)

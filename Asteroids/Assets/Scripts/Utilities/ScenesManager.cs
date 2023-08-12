@@ -1,6 +1,7 @@
 using Game;
 using Game.Scene;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace Utilities
@@ -14,6 +15,9 @@ namespace Utilities
         public void LoadScene(ScenesNames sceneName, GameEnvironment environment)
         {
             _environment = environment;
+            
+            EventSystem.current.enabled = false;
+            
             _asyncOperation = SceneManager.LoadSceneAsync((int)sceneName, LoadSceneMode.Additive);
             _asyncOperation.completed += OnLoadCompleted;
         }
@@ -27,16 +31,16 @@ namespace Utilities
             switch (gameSceneView)
             {
                 case GameSceneView view:
+                    
                     var model = new GameModel();
 
                     _environment.GameModel = model;
                     _environment.GameSceneView = view;
+                    _environment.GlobalView.MainCamera.enabled = false;
                     
                     _presenter = new GamePresenter(_environment, model, view);
                     break;
             }
-
-            _environment.GlobalView.MainCamera.enabled = false;
             
             _presenter.Activate();
         }
@@ -49,7 +53,12 @@ namespace Utilities
 
         private void OnUnloadCompleted(AsyncOperation operation)
         {
-            _presenter.Deactivate();
+            if (_presenter is not GamePresenter)
+            {
+                _presenter.Deactivate();
+            }
+            
+            _environment.GlobalView.EventSystem.enabled = true;
             _presenter = null;
         }
     }

@@ -1,5 +1,6 @@
 using Global.Dialogs.History;
 using Global.Dialogs.Shop;
+using UnityEngine.EventSystems;
 using Utilities;
 
 namespace Global.UI
