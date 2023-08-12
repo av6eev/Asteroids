@@ -1,4 +1,5 @@
-﻿using Game.Ship.Move;
+﻿using System.Collections;
+using Game.Ship.Move;
 using Game.Ship.Shoot;
 using UnityEngine;
 using Utilities;
@@ -12,7 +13,8 @@ namespace Game.Ship
         private readonly ShipView _view;
 
         private readonly PresentersEngine _presenters = new();
-        
+        private Coroutine _immunityCoroutine;
+
         public ShipPresenter(GameEnvironment environment, ShipModel model, ShipView view)
         {
             _environment = environment;
@@ -47,7 +49,29 @@ namespace Game.Ship
             if (_model.Health <= 0)
             {
                 _environment.GameModel.EndGame();
+                return;
             }
+
+            _model.IsImmune = true;
+            _immunityCoroutine = GameCoroutines.RunCoroutine(EnableImmunity());
+            _view.EnableImmunity();
+        }
+
+        private IEnumerator EnableImmunity()
+        {
+            var currentTime = 0f;
+            
+            while (currentTime < 3f)
+            {
+                currentTime += 1f;
+                Debug.Log(currentTime);
+                yield return new WaitForSeconds(1);
+            }
+            
+            Debug.Log("test");
+            _model.IsImmune = false;
+            GameCoroutines.DisableCoroutine(_immunityCoroutine);
+            _immunityCoroutine = null;
         }
 
         private void CreateNecessaryData()

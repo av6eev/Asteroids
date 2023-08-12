@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: MediumAsteroidSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Type: 1
+    Type: 2
     Health: 60
     Speed: 1.5
     ChanceToSpawn: 0.4
     Prefab: {fileID: 5191930319756989481, guid: b0268cd435492254e96fbc379afa8ee6,
       type: 3}
-    SubAsteroidsOnDestroy: []
+    SubAsteroidsOnDestroy:
+    - {fileID: 11400000, guid: 0d5322070258c284ead421d996bea34a, type: 2}
+    - {fileID: 11400000, guid: 0d5322070258c284ead421d996bea34a, type: 2}

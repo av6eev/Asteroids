@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Asteroids.Asteroid;
+using Specifications.Asteroids;
 using UnityEngine;
 using Utilities;
 using Random = Unity.Mathematics.Random;
@@ -29,7 +31,7 @@ namespace Game.Asteroids
             CreateAsteroidsPulls();
 
             _random = new Random((uint)DateTime.Now.Millisecond);
-            _spawnTimer = new Timer(_model.SpawnRate, true);
+            _spawnTimer = new Timer(AsteroidsModel.SpawnRate, true);
             _environment.TimersEngine.Add(_spawnTimer);
             
             _spawnTimer.OnTick += DefineNewAsteroid;
@@ -88,17 +90,22 @@ namespace Game.Asteroids
             _asteroidsPresenters[model].Deactivate();
             _asteroidsPresenters.Remove(model);
 
-            _environment.PullsData.AsteroidsPulls[model.Specification.Type].PutBack(_model.GetActiveAsteroids()[model]);
-            _model.GetActiveAsteroids().Remove(model);
+            if (model.Specification.SubAsteroidsOnDestroy.Count != 0)
+            {
+                foreach (var specification in model.Specification.SubAsteroidsOnDestroy.Select(item => item.Specification))
+                {
+                    CreateAsteroid(specification, model.Position);
+                }
+            }
+
+            _environment.PullsData.AsteroidsPulls[model.Specification.Type].PutBack(_model.GetByKey(model));
+            _model.RemoveActiveAsteroid(model);
         }
 
-        private void CreateAsteroid(AsteroidsTypes type)
+        private void CreateAsteroid(AsteroidSpecification specification, Vector3 position)
         {
-            var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
-            
-            var position = new Vector3(_random.NextFloat(zoneLimits.LeftSide + 2, zoneLimits.RightSide - 2), 0, zoneLimits.TopSide - 3f);
-            var model = new AsteroidModel(_model.Specification[type], position);
-            var view = _environment.PullsData.AsteroidsPulls[type].TryGetElement();
+            var model = new AsteroidModel(specification, position);
+            var view = _environment.PullsData.AsteroidsPulls[specification.Type].TryGetElement();
             var presenter = new AsteroidPresenter(_environment, model, view);
                         
             presenter.Activate();
@@ -108,27 +115,32 @@ namespace Game.Asteroids
 
         private void DefineNewAsteroid()
         {
+            var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
+            var position = new Vector3(_random.NextFloat(zoneLimits.LeftSide + 2, zoneLimits.RightSide - 2), 0, zoneLimits.TopSide - 3f);
             var randomChance = _random.NextFloat();
-
-            if (randomChance < _model.Specification[AsteroidsTypes.Fire].ChanceToSpawn)
+            var randomType = AsteroidsTypes.Default;
+            
+            if (randomChance < _model.Specifications[AsteroidsTypes.Fire].ChanceToSpawn)
             {
-                CreateAsteroid(AsteroidsTypes.Fire);        
+                randomType = AsteroidsTypes.Fire;
             }
             
-            if (randomChance > _model.Specification[AsteroidsTypes.Fire].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Big].ChanceToSpawn)
+            if (randomChance > _model.Specifications[AsteroidsTypes.Fire].ChanceToSpawn && randomChance < _model.Specifications[AsteroidsTypes.Big].ChanceToSpawn)
             {
-                CreateAsteroid(AsteroidsTypes.Big);        
+                randomType = AsteroidsTypes.Big;
             }
             
-            if (randomChance > _model.Specification[AsteroidsTypes.Big].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Medium].ChanceToSpawn)
+            if (randomChance > _model.Specifications[AsteroidsTypes.Big].ChanceToSpawn && randomChance < _model.Specifications[AsteroidsTypes.Medium].ChanceToSpawn)
             {
-                CreateAsteroid(AsteroidsTypes.Medium);        
+                randomType = AsteroidsTypes.Medium;
             }
             
-            if (randomChance > _model.Specification[AsteroidsTypes.Medium].ChanceToSpawn && randomChance < _model.Specification[AsteroidsTypes.Small].ChanceToSpawn || randomChance > _model.Specification[AsteroidsTypes.Small].ChanceToSpawn)
+            if (randomChance > _model.Specifications[AsteroidsTypes.Medium].ChanceToSpawn && randomChance < _model.Specifications[AsteroidsTypes.Small].ChanceToSpawn || randomChance > _model.Specifications[AsteroidsTypes.Small].ChanceToSpawn)
             {
-                CreateAsteroid(AsteroidsTypes.Small);
+                randomType = AsteroidsTypes.Small;
             }
+            
+            CreateAsteroid(_model.Specifications[randomType], position);
         }
 
         private void CreateAsteroidsPulls()
@@ -137,7 +149,7 @@ namespace Game.Asteroids
             {
                 var pullView = _environment.GameSceneView.GameView.AsteroidsPullView.Find(item => item.Type == pull.Key);
 
-                pullView.ElementPrefab = _model.Specification[pull.Key].Prefab;
+                pullView.ElementPrefab = _model.Specifications[pull.Key].Prefab;
                 
                 pull.Value.CreatePull(pullView);
             }

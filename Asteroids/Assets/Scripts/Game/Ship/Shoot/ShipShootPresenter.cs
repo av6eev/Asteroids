@@ -96,6 +96,8 @@ namespace Game.Ship.Shoot
                 if (_model.BulletsLeft <= 0)
                 {
                     _model.IsReadyToShoot = false;
+                    _model.IsReloading = true;
+                    
                     _reloadCoroutine = GameCoroutines.RunCoroutine(WaitForReload(_model.ReloadTime));
                 }    
             }
@@ -116,8 +118,8 @@ namespace Game.Ship.Shoot
             _bulletsPresenters[model].Deactivate();
             _bulletsPresenters.Remove(model);
             
-            _environment.PullsData.BulletsPull.PutBack(_model.GetActiveBullets()[model]);
-            _model.GetActiveBullets().Remove(model);
+            _environment.PullsData.BulletsPull.PutBack(_model.GetByKey(model));
+            _model.RemoveActiveBullet(model);
         }
         
         private IEnumerator WaitForFireRate(float shotRate)
@@ -136,6 +138,7 @@ namespace Game.Ship.Shoot
             
             _model.BulletsLeft = _model.StartBulletCount;
             _model.IsReadyToShoot = true;
+            _model.IsReloading = false;
             
             GameCoroutines.DisableCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;

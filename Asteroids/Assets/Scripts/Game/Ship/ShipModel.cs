@@ -2,6 +2,7 @@
 using Game.Ship.Move;
 using Game.Ship.Shoot;
 using Specifications.Ships;
+using UnityEngine;
 using Utilities;
 
 namespace Game.Ship
@@ -30,6 +31,8 @@ namespace Game.Ship
             }
         }
 
+        public bool IsImmune { get; set; }
+
         public ShipModel(ShipSpecification specification)
         {
             Specification = specification;
@@ -48,7 +51,10 @@ namespace Game.Ship
 
         public void ApplyDamage()
         {
-            OnDamageApplied?.Invoke();
+            if (!IsImmune)
+            {
+                OnDamageApplied?.Invoke();
+            }
         }
     }
 }

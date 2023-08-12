@@ -54,31 +54,18 @@ namespace Game.Ship.Shoot
             BulletDamage = bulletDamage;
         }
 
-        public void Update(float deltaTime)
-        {
-            OnUpdate?.Invoke(deltaTime);
-        }
+        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
-        public void DestroyBullet(BulletModel model)
-        {
-            OnBulletDestroyed?.Invoke(model);
-        }
+        public void DestroyBullet(BulletModel model) => OnBulletDestroyed?.Invoke(model);
 
-        public void AddActiveBullet(BulletModel model, BulletView view)
-        {
-            _activeBullets.Add(model, view);
-        }
+        public Dictionary<BulletModel, BulletView> GetActiveBullets() => _activeBullets;
         
-        public Dictionary<BulletModel, BulletView> GetActiveBullets()
-        {
-            return _activeBullets;
-        }
+        public void AddActiveBullet(BulletModel model, BulletView view) => _activeBullets.Add(model, view);
 
-        public BulletModel GetByValue(BasePullElementView view)
-        {
-            if (!_activeBullets.ContainsValue(view as BulletView)) return null;
+        public void RemoveActiveBullet(BulletModel model) => _activeBullets.Remove(model);
+        
+        public BulletView GetByKey(BulletModel model) => _activeBullets[model];
 
-            return _activeBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
-        }
+        public BulletModel GetByValue(BasePullElementView view) => !_activeBullets.ContainsValue(view as BulletView) ? null : _activeBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
     }
 }

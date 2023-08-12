@@ -17,5 +17,9 @@ namespace Game.Ship
         {
             transform.position = shipPosition;
         }
+
+        public void EnableImmunity()
+        {
+        }
     }
 }

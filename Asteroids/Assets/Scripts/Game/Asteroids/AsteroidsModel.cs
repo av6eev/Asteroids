@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.Asteroids.Asteroid;
 using Specifications.Asteroids;
 using Utilities;
@@ -11,40 +10,25 @@ namespace Game.Asteroids
     {
         public event Action<float> OnUpdate;
         public event Action<AsteroidModel> OnAsteroidDestroyed;
-        public Dictionary<AsteroidsTypes, AsteroidSpecification> Specification { get; }
+        public Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
         private readonly Dictionary<AsteroidModel, AsteroidView> _activeAsteroids = new();
-        public float SpawnRate { get; } = .5f;
+        public static float SpawnRate => .5f;
 
-        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specification)
+        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specifications)
         {
-            Specification = specification;
+            Specifications = specifications;
         }
 
-        public void Update(float deltaTime)
-        {
-            OnUpdate?.Invoke(deltaTime);
-        }
+        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
-        public void DestroyAsteroid(AsteroidModel model)
-        {
-            OnAsteroidDestroyed?.Invoke(model);
-        }
+        public void DestroyAsteroid(AsteroidModel model) => OnAsteroidDestroyed?.Invoke(model);
 
-        public void AddActiveAsteroid(AsteroidModel model, AsteroidView view)
-        {
-            _activeAsteroids.Add(model, view);
-        }
+        public Dictionary<AsteroidModel, AsteroidView> GetActiveAsteroids() => _activeAsteroids;
+
+        public void AddActiveAsteroid(AsteroidModel model, AsteroidView view) => _activeAsteroids.Add(model, view);
+
+        public void RemoveActiveAsteroid(AsteroidModel model) => _activeAsteroids.Remove(model);
         
-        public Dictionary<AsteroidModel, AsteroidView> GetActiveAsteroids()
-        {
-            return _activeAsteroids;
-        }
-
-        public AsteroidModel GetByValue(AsteroidView view)
-        {
-            if (!_activeAsteroids.ContainsValue(view)) return null;
-
-            return _activeAsteroids.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
-        }
+        public AsteroidView GetByKey(AsteroidModel model) => _activeAsteroids[model];
     }
 }

@@ -2,6 +2,7 @@
 {
     public enum AsteroidsTypes
     {
+        Default,
         Small,
         Medium,
         Big,

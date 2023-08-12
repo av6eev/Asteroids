@@ -51,8 +51,11 @@ namespace Game.Asteroids.Asteroid
                     }
                     break;
                 case TagsHelper.ShipTag:
-                    _environment.ShipModel.ApplyDamage();
-                    _environment.AsteroidsModel.DestroyAsteroid(_model);
+                    if (!_environment.ShipModel.IsImmune)
+                    {
+                        _environment.ShipModel.ApplyDamage();
+                        _environment.AsteroidsModel.DestroyAsteroid(_model);    
+                    }
                     break;
             }
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireAsteroidSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Type: 3
+    Type: 4
     Health: 40
     Speed: 2.5
     ChanceToSpawn: 0.01
