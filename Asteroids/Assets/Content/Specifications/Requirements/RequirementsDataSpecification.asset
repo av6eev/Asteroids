@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a29a4fd0c134b0c8a258ef0ffa8bc81, type: 3}
   m_Name: RequirementsDataSpecification
   m_EditorClassIdentifier: 
-  Assets: []
+  Requirements:
+  - {fileID: 11400000, guid: 8f8f300c374b2fc43b316083314b8753, type: 2}

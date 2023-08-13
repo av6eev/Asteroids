@@ -10,13 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d330e06c088b49a89ce98de7692891a1, type: 3}
-  m_Name: TempShipSpecification
+  m_Name: BlueShipSpecification
   m_EditorClassIdentifier: 
   Specification:
     Id: 2
-    Name: TempShip
+    Type: 2
+    Name: BlueShip
     Price: 150
+    Health: 0
+    BulletPrefab: {fileID: 0}
+    Count: 0
+    ReloadTime: 0
+    ShootRate: 0
+    IsAutomatic: 0
+    BulletHitParticleSystem: {fileID: 0}
     Speed: 7
     Prefab: {fileID: 5611512249491384052, guid: 08b849fdb2a9c0d498dc8b7577399bfe,
       type: 3}
-    PreviewImage: {fileID: 0}
+    PreviewImage: {fileID: 21300000, guid: 9bb60d9b0987c3747b57516cc172d0c7, type: 3}

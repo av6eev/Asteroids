@@ -4,7 +4,6 @@ using Game.Ship.Bullet;
 using Global.Pulls.ParticleSystem.Hit;
 using Specifications.Base;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Specifications.Ships
 {
@@ -13,6 +12,7 @@ namespace Specifications.Ships
     {
         [Header("General")]
         public int Id;
+        public ShipsTypes Type;
         public string Name;
         public int Price;
         public int Health;

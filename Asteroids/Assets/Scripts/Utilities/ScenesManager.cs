@@ -1,5 +1,6 @@
 using Game;
 using Game.Scene;
+using Global;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;

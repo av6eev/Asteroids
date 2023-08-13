@@ -1,9 +1,13 @@
+using System.Linq;
 using Game.Asteroids;
+using Game.Distance;
 using Game.Input;
 using Game.Scene;
+using Game.Score;
 using Game.Ship;
 using Game.Systems;
 using Game.UI;
+using Global;
 using Global.Pulls.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -52,7 +56,7 @@ namespace Game
 
         private void CreateShip()
         {
-            var neededSpecification = _environment.Specifications.Ships[_environment.GlobalUIModel.SelectedShipId];
+            var neededSpecification = _environment.Specifications.Ships.Values.First(ship => ship.Id == _environment.GlobalUIModel.SelectedShipId);
             var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab);
 
             _environment.ShipModel = new ShipModel(neededSpecification);
@@ -63,11 +67,15 @@ namespace Game
         {
             _environment.InputModel = new InputModel();
             _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
+            _environment.ScoreModel = new ScoreModel();
+            _environment.DistanceModel = new DistanceModel();
             _environment.PullsData = new PullsData();
             
             _presenters.Add(new GameUIPresenter(_environment, new GameUIModel(), _view.GameUIView));
             _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
             _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
+            _presenters.Add(new ScorePresenter(_environment, _environment.ScoreModel, _view.GameUIView.ScoreView));
+            _presenters.Add(new DistancePresenter(_environment, _environment.DistanceModel, _view.GameUIView.DistanceView));
             
             _presenters.Activate();
             

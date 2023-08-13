@@ -1,20 +1,25 @@
 ﻿using System;
+using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Global.Save
 {
     public class SaveModel
     {
-        public event Action OnSave;
-        public event Action<ISavable> OnSaveElement; 
+        public event Action OnSave, OnDeserialize;
 
         public void Save()
         {
             OnSave?.Invoke();
         }
 
-        public void SaveElement<TSavable>(TSavable model) where TSavable : ISavable
+        public void Deserialize()
         {
-            OnSaveElement?.Invoke(model);
+            OnDeserialize?.Invoke();
         }
+
+        public T GetElement<T>(string key) => PlayerPrefs.HasKey(key) ? JsonConvert.DeserializeObject<T>(PlayerPrefs.GetString(key)) : default;
+
+        public void SaveElement<T>(string key, T value) => PlayerPrefs.SetString(key, JsonConvert.SerializeObject(value));
     }
 }

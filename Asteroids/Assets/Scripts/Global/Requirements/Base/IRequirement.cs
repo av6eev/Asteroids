@@ -1,8 +1,9 @@
-﻿using Utilities;
+﻿using Global.Save;
+using Utilities;
 
 namespace Global.Requirements.Base
 {
-    public interface IRequirement
+    public interface IRequirement : ISavable
     {
         bool Completed { get; set; }
         RequirementType Type { get; }

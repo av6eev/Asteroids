@@ -1,5 +1,5 @@
 using Global.Dialogs.Base;
-using Global.Pulls.Base;
+using Global.Player;
 using Global.Save;
 using Global.UI;
 using UnityEngine;
@@ -23,7 +23,8 @@ namespace Global
                 new UpdatersEngine(),
                 new UpdatersEngine(),
                 new TimersEngine(),
-                new GlobalUIModel());
+                new GlobalUIModel(),
+                new PlayerModel());
             
             _environment.DialogsModel = new DialogsModel(_environment.Specifications);
             _environment.SaveModel = new SaveModel();
@@ -32,6 +33,8 @@ namespace Global
             _globalPresenters.Add(new DialogsPresenter(_environment, _environment.DialogsModel, GlobalView.DialogsView));
             _globalPresenters.Add(new SavePresenter(_environment, _environment.SaveModel));
             _globalPresenters.Activate();
+            
+            _environment.SaveModel.Deserialize();
         }
 
         private void Update()

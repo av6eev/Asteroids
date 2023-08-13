@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c048fd88ce4f57b58b4f9d6f74273d, type: 3}
   m_Name: RewardsDataSpecification
   m_EditorClassIdentifier: 
-  Assets: []
+  Rewards:
+  - {fileID: 11400000, guid: 75d8e3866e4678341abc479fc317b20a, type: 2}

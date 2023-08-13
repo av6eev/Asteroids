@@ -1,6 +1,4 @@
-﻿using Utilities;
-
-namespace Global.Requirements.Base
+﻿namespace Global.Requirements.Base
 {
     public abstract class SingleRequirement : IRequirement
     {

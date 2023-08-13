@@ -62,7 +62,9 @@ namespace Global.Dialogs.Shop
         {
             foreach (var specification in _model.ShipSpecifications)
             {
-                var model = new ShopCardDialogModel(specification.Key, specification.Value);
+                if (!_environment.GlobalUIModel.AvailableShips.TryGetValue(specification.Key, out var isPurchased)) continue;
+                
+                var model = new ShopCardDialogModel(specification.Value, isPurchased);
                 var presenter = new ShopCardDialogPresenter(_environment, model, _view.InstantiateCard(specification.Value));
                 
                 _model.Cards.Add(model);

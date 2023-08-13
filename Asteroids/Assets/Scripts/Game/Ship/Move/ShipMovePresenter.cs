@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Global;
+using UnityEngine;
 using Utilities;
 
 namespace Game.Ship.Move

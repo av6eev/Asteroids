@@ -1,3 +1,5 @@
+using Global;
+
 namespace Utilities
 {
     public interface IUpdater

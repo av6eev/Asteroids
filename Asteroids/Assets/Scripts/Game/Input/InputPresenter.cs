@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Global;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities;
 

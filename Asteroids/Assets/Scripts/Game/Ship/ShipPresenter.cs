@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Game.Ship.Move;
 using Game.Ship.Shoot;
+using Global;
 using UnityEngine;
 using Utilities;
+using Environment = UnityEditor.Rendering.LookDev.Environment;
 
 namespace Game.Ship
 {
@@ -64,11 +67,9 @@ namespace Game.Ship
             while (currentTime < 3f)
             {
                 currentTime += 1f;
-                Debug.Log(currentTime);
                 yield return new WaitForSeconds(1);
             }
             
-            Debug.Log("test");
             _model.IsImmune = false;
             GameCoroutines.DisableCoroutine(_immunityCoroutine);
             _immunityCoroutine = null;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Global.Dialogs.Base;
 using Global.Dialogs.Shop.Card;
 using Specifications.Ships;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ namespace Global.Dialogs.Shop
     {
         [field: SerializeField] public ShopCardDialogView ShopCardPrefab { get; private set; }
         [field: SerializeField] public Button ExitButton { get; private set; }
+        [field: SerializeField] public TextMeshProUGUI PlayerMoneyTxt { get; private set; }
 
         [NonSerialized] private readonly List<ShopCardDialogView> _cardsViews = new();
 
