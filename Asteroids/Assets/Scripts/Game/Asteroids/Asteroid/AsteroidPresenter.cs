@@ -7,11 +7,11 @@ namespace Game.Asteroids.Asteroid
 {
     public class AsteroidPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly AsteroidModel _model;
         private readonly AsteroidView _view;
 
-        public AsteroidPresenter(GameEnvironment environment, AsteroidModel model, AsteroidView view)
+        public AsteroidPresenter(GlobalEnvironment environment, AsteroidModel model, AsteroidView view)
         {
             _environment = environment;
             _model = model;

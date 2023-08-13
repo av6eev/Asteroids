@@ -4,10 +4,10 @@ namespace Global.Save
 {
     public class SavePresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly SaveModel _model;
 
-        public SavePresenter(GameEnvironment environment, SaveModel model)
+        public SavePresenter(GlobalEnvironment environment, SaveModel model)
         {
             _environment = environment;
             _model = model;

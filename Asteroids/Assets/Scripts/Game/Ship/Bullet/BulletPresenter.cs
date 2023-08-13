@@ -6,13 +6,13 @@ namespace Game.Ship.Bullet
 {
     public class BulletPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly BulletModel _model;
         private readonly BulletView _view;
 
         private HitPullView _lastActiveHit;
         
-        public BulletPresenter(GameEnvironment environment, BulletModel model, BulletView view)
+        public BulletPresenter(GlobalEnvironment environment, BulletModel model, BulletView view)
         {
             _environment = environment;
             _model = model;

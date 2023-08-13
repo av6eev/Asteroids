@@ -11,7 +11,7 @@ namespace Utilities
             _updaters.Add(type, updater);
         }
 
-        public void Update(GameEnvironment environment)
+        public void Update(GlobalEnvironment environment)
         {
             foreach (var system in _updaters.Values)
             {

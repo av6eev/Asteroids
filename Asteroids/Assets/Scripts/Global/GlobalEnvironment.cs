@@ -11,7 +11,7 @@ using Global.UI;
 
 namespace Utilities
 {
-    public class GameEnvironment
+    public class GlobalEnvironment
     {
         public GlobalView GlobalView { get; }
         public GameSceneView GameSceneView { get; set; }
@@ -31,7 +31,7 @@ namespace Utilities
         public SaveModel SaveModel { get; set; }
         public AsteroidsModel AsteroidsModel { get; set; }
 
-        public GameEnvironment(GameSpecifications specifications,
+        public GlobalEnvironment(GameSpecifications specifications,
             GlobalView globalView,
             ScenesManager scenesManager,
             UpdatersEngine updatersEngine,

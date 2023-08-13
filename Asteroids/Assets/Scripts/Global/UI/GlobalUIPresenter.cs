@@ -7,10 +7,10 @@ namespace Global.UI
 {
     public class GlobalUIPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly GlobalUIView _view;
 
-        public GlobalUIPresenter(GameEnvironment environment, GlobalUIModel model, GlobalUIView view)
+        public GlobalUIPresenter(GlobalEnvironment environment, GlobalUIModel model, GlobalUIView view)
         {
             _environment = environment;
             _view = view;

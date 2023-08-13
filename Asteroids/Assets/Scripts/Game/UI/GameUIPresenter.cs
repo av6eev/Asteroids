@@ -5,11 +5,11 @@ namespace Game.UI
 {
     public class GameUIPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly GameUIModel _model;
         private readonly GameUIView _view;
 
-        public GameUIPresenter(GameEnvironment environment, GameUIModel model, GameUIView view)
+        public GameUIPresenter(GlobalEnvironment environment, GameUIModel model, GameUIView view)
         {
             _environment = environment;
             _model = model;

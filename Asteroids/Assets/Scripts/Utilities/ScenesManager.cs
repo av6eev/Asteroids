@@ -8,11 +8,11 @@ namespace Utilities
 {
     public class ScenesManager
     {
-        private GameEnvironment _environment;
+        private GlobalEnvironment _environment;
         private AsyncOperation _asyncOperation;
         private IPresenter _presenter;
 
-        public void LoadScene(ScenesNames sceneName, GameEnvironment environment)
+        public void LoadScene(ScenesNames sceneName, GlobalEnvironment environment)
         {
             _environment = environment;
             

@@ -11,12 +11,12 @@ namespace Global
     {
         [SerializeField] private GlobalView GlobalView;
         
-        private GameEnvironment _environment;
+        private GlobalEnvironment _environment;
         private readonly PresentersEngine _globalPresenters = new();
 
         private void Start()
         {
-            _environment = new GameEnvironment(
+            _environment = new GlobalEnvironment(
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
                 new ScenesManager(),

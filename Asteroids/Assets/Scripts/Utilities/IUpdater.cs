@@ -2,6 +2,6 @@ namespace Utilities
 {
     public interface IUpdater
     {
-        void Update(GameEnvironment environment);
+        void Update(GlobalEnvironment environment);
     }
 }

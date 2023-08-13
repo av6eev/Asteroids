@@ -8,7 +8,7 @@ namespace Game.Ship.Shoot
 {
     public class ShipShootPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly ShipShootModel _model;
 
         private readonly List<BulletModel> _inActiveBullets = new();
@@ -17,7 +17,7 @@ namespace Game.Ship.Shoot
         private Coroutine _reloadCoroutine;
         private Coroutine _shotRateCoroutine;
         
-        public ShipShootPresenter(GameEnvironment environment, ShipShootModel model)
+        public ShipShootPresenter(GlobalEnvironment environment, ShipShootModel model)
         {
             _environment = environment;
             _model = model;

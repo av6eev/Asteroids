@@ -10,7 +10,7 @@ namespace Game.Systems
         private const float SMOOTH_TIME = 0.05f;
         private Vector3 _currentVelocity;
 
-        public void Update(GameEnvironment environment)
+        public void Update(GlobalEnvironment environment)
         {
             var shipTransform = environment.GameSceneView.GameView.CurrentShip.transform;
             var shipPosition = shipTransform.position;

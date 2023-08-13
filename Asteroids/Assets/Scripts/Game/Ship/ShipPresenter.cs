@@ -8,14 +8,14 @@ namespace Game.Ship
 {
     public class ShipPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly ShipModel _model;
         private readonly ShipView _view;
 
         private readonly PresentersEngine _presenters = new();
         private Coroutine _immunityCoroutine;
 
-        public ShipPresenter(GameEnvironment environment, ShipModel model, ShipView view)
+        public ShipPresenter(GlobalEnvironment environment, ShipModel model, ShipView view)
         {
             _environment = environment;
             _model = model;

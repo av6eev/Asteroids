@@ -13,13 +13,13 @@ namespace Game
 {
     public class GamePresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly GameModel _model;
         private readonly GameSceneView _view;
         
         private readonly PresentersEngine _presenters = new();
         
-        public GamePresenter(GameEnvironment environment, GameModel model, GameSceneView view)
+        public GamePresenter(GlobalEnvironment environment, GameModel model, GameSceneView view)
         {
             _environment = environment;
             _model = model;
