@@ -36,5 +36,15 @@ namespace Global.Dialogs.Shop.Card
             BuyButton.gameObject.SetActive(false);
             SelectButton.gameObject.SetActive(true);
         }
+
+        public void ChangePriceText()
+        {
+            var textColor = PriceText.color;
+            textColor.a = .5f;
+            
+            PriceText.color = textColor;
+            PriceText.text = "Получено";
+            PriceText.GetComponentInChildren<Image>().enabled = false;
+        }
     }
 }

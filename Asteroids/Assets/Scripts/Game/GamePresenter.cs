@@ -10,7 +10,6 @@ using Game.UI;
 using Global;
 using Global.Pulls.Base;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Utilities;
 
 namespace Game

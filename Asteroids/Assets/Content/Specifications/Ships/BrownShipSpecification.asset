@@ -27,6 +27,6 @@ MonoBehaviour:
     BulletHitParticleSystem: {fileID: 3235485075728030562, guid: fadc0b393312a994991c47e2db0894cc,
       type: 3}
     Speed: 3
-    Prefab: {fileID: 5611512249491384052, guid: 08b849fdb2a9c0d498dc8b7577399bfe,
+    Prefab: {fileID: 2915137332826695156, guid: 0c71196e992e692428bfb73041fdc93e,
       type: 3}
     PreviewImage: {fileID: 21300000, guid: f900575abc36c9c48a50fd58fa5fa8ac, type: 3}

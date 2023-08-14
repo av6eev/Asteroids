@@ -69,7 +69,8 @@ namespace Global.Dialogs.Shop.Card
         {
             if (_model.IsPurchased)
             {
-                _view.SwitchButtons();    
+                _view.SwitchButtons();
+                _view.ChangePriceText();
             }
             
             _view.ChangeVisibility(true);
