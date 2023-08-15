@@ -13,6 +13,8 @@ namespace Global.Dialogs.Shop.Card
         [field: SerializeField] public TextMeshProUGUI PriceText { get; private set; }
         [field: SerializeField] public Button NextCardButton { get; private set; }
         [field: SerializeField] public Button PreviousCardButton { get; private set; }
+        [field: SerializeField] public Button BuyButton { get; private set; }
+        [field: SerializeField] public Button SelectButton { get; private set; }
 
         public void SetupCard(ShipSpecification specification)
         {
@@ -27,6 +29,22 @@ namespace Global.Dialogs.Shop.Card
 
             TitleText.text = specification.Name;
             PriceText.text = specification.Price.ToString();
+        }
+
+        public void SwitchButtons()
+        {
+            BuyButton.gameObject.SetActive(false);
+            SelectButton.gameObject.SetActive(true);
+        }
+
+        public void ChangePriceText()
+        {
+            var textColor = PriceText.color;
+            textColor.a = .5f;
+            
+            PriceText.color = textColor;
+            PriceText.text = "Получено";
+            PriceText.GetComponentInChildren<Image>().enabled = false;
         }
     }
 }

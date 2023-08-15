@@ -1,5 +1,5 @@
 using Global.Dialogs.Base;
-using Global.Pulls.Base;
+using Global.Player;
 using Global.Save;
 using Global.UI;
 using UnityEngine;
@@ -11,12 +11,12 @@ namespace Global
     {
         [SerializeField] private GlobalView GlobalView;
         
-        private GameEnvironment _environment;
+        private GlobalEnvironment _environment;
         private readonly PresentersEngine _globalPresenters = new();
 
         private void Start()
         {
-            _environment = new GameEnvironment(
+            _environment = new GlobalEnvironment(
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
                 new ScenesManager(),
@@ -24,15 +24,18 @@ namespace Global
                 new UpdatersEngine(),
                 new TimersEngine(),
                 new GlobalUIModel(),
-                new PullsData());
+                new PlayerModel());
             
             _environment.DialogsModel = new DialogsModel(_environment.Specifications);
             _environment.SaveModel = new SaveModel();
             
             _globalPresenters.Add(new GlobalUIPresenter(_environment, _environment.GlobalUIModel, GlobalView.GlobalUIView));
             _globalPresenters.Add(new DialogsPresenter(_environment, _environment.DialogsModel, GlobalView.DialogsView));
+            _globalPresenters.Add(new PlayerPresenter(_environment, _environment.PlayerModel));
             _globalPresenters.Add(new SavePresenter(_environment, _environment.SaveModel));
             _globalPresenters.Activate();
+            
+            _environment.SaveModel.Deserialize();
         }
 
         private void Update()

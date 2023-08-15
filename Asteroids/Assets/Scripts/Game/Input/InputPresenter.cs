@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Global;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities;
 
@@ -6,11 +7,11 @@ namespace Game.Input
 {
     public class InputPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly InputModel _model;
         private readonly InputView _view;
 
-        public InputPresenter(GameEnvironment environment, InputModel model, InputView view)
+        public InputPresenter(GlobalEnvironment environment, InputModel model, InputView view)
         {
             _environment = environment;
             _model = model;
@@ -35,6 +36,8 @@ namespace Game.Input
             _view.PlayerInputAsset.actions.Disable();
             
             _model.OnUpdate -= Update;
+            
+            Debug.Log(nameof(InputPresenter) + " deactivated!");
         }
 
         private void Update(float deltaTime)

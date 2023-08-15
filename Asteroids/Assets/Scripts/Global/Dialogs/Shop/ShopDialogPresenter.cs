@@ -7,13 +7,13 @@ namespace Global.Dialogs.Shop
 {
     public class ShopDialogPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly ShopDialogModel _model;
         private readonly ShopDialogView _view;
 
         private readonly PresentersEngine _cardsPresenters = new();
 
-        public ShopDialogPresenter(GameEnvironment environment, ShopDialogModel model, ShopDialogView view)
+        public ShopDialogPresenter(GlobalEnvironment environment, ShopDialogModel model, ShopDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -28,6 +28,8 @@ namespace Global.Dialogs.Shop
             _model.OnShow += Show;
             _model.OnHide += Hide;
             _model.OnCardChange += ChangeActiveCard;
+
+            _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
         }
 
         public void Deactivate()
@@ -40,6 +42,13 @@ namespace Global.Dialogs.Shop
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
             _model.OnCardChange -= ChangeActiveCard;
+            
+            _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
+        }
+
+        private void UpdatePlayerBalance(int money)
+        {
+            _view.UpdateBalanceText(money);
         }
 
         private void ChangeActiveCard(int changeDirection)
@@ -62,7 +71,9 @@ namespace Global.Dialogs.Shop
         {
             foreach (var specification in _model.ShipSpecifications)
             {
-                var model = new ShopCardDialogModel(specification.Key, specification.Value);
+                if (!_environment.GlobalUIModel.AvailableShips.TryGetValue(specification.Key, out var isPurchased)) continue;
+                
+                var model = new ShopCardDialogModel(specification.Value, isPurchased);
                 var presenter = new ShopCardDialogPresenter(_environment, model, _view.InstantiateCard(specification.Value));
                 
                 _model.Cards.Add(model);

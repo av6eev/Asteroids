@@ -22,8 +22,8 @@ namespace Utilities
         {
             var positionZ = MainCamera.transform.position.z;
             
-            TopSide = positionZ + 25;
-            BottomSide = positionZ;
+            TopSide = positionZ + 35;
+            BottomSide = positionZ - 35;
         }
     }
 }

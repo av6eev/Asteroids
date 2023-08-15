@@ -1,9 +1,9 @@
 ﻿using System;
 using Game.Ship;
-using Game.Ship.Shots;
+using Game.Ship.Bullet;
+using Global.Pulls.ParticleSystem.Hit;
 using Specifications.Base;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Specifications.Ships
 {
@@ -12,15 +12,18 @@ namespace Specifications.Ships
     {
         [Header("General")]
         public int Id;
+        public ShipsTypes Type;
         public string Name;
         public int Price;
+        public int Health;
 
-        [FormerlySerializedAs("ShotPrefab")] [Header("Shots")]
+        [Header("Bullets")]
         public BulletView BulletPrefab;
         public int Count;
         public float ReloadTime;
-        public float ShotRate;
+        public float ShootRate;
         public bool IsAutomatic;
+        public HitPullView BulletHitParticleSystem;
 
         [Header("Movement")]
         [Range(0f, 10f)] public float Speed;

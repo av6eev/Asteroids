@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 9101639214628133867}
   - component: {fileID: 6461385553475284769}
   - component: {fileID: 858409546274187688}
+  - component: {fileID: 3050912136222837423}
+  - component: {fileID: 4493378111662153062}
   m_Layer: 0
   m_Name: FireAsteroid
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9101639214628133867
 MeshFilter:
@@ -96,3 +98,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fff808df44dae74aab97087c077c2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <RotationAngle>k__BackingField: {x: 50, y: 57, z: 23}
+--- !u!64 &3050912136222837423
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804091334024728308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -153830957423991239, guid: 561f5854b1493d3489fa68e26914decd, type: 3}
+--- !u!54 &4493378111662153062
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804091334024728308}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0

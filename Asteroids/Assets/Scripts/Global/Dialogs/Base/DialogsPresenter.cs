@@ -6,13 +6,13 @@ namespace Global.Dialogs.Base
 {
     public class DialogsPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly DialogsModel _model;
         private readonly DialogsView _view;
 
         private readonly PresentersEngine _presenters = new();
 
-        public DialogsPresenter(GameEnvironment environment, DialogsModel model, DialogsView view)
+        public DialogsPresenter(GlobalEnvironment environment, DialogsModel model, DialogsView view)
         {
             _environment = environment;
             _model = model;

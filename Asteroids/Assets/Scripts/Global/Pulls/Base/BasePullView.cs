@@ -12,5 +12,13 @@ namespace Global.Pulls.Base
         {
             return Instantiate(ElementPrefab, PullRoot);
         }
+
+        public void DestroyObjects()
+        {
+            for (var i = 0; i < PullRoot.childCount; i++)
+            {
+                Destroy(PullRoot.GetChild(i).gameObject);
+            }
+        }
     }
 }

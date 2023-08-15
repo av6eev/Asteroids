@@ -9,17 +9,26 @@ namespace Game.Asteroids
     public class AsteroidsModel : IUpdatable
     {
         public event Action<float> OnUpdate;
-        public Dictionary<AsteroidsTypes, AsteroidSpecification> Specification { get; }
-        public float SpawnRate { get; } = .2f;
+        public event Action<AsteroidModel, bool, bool> OnAsteroidDestroyed;
+        public Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
+        private readonly Dictionary<AsteroidModel, AsteroidView> _activeAsteroids = new();
+        public static float SpawnRate => .5f;
 
-        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specification)
+        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specifications)
         {
-            Specification = specification;
+            Specifications = specifications;
         }
 
-        public void Update(float deltaTime)
-        {
-            OnUpdate?.Invoke(deltaTime);
-        }
+        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
+
+        public void DestroyAsteroid(AsteroidModel model, bool byBorder, bool byShip) => OnAsteroidDestroyed?.Invoke(model, byBorder, byShip);
+
+        public Dictionary<AsteroidModel, AsteroidView> GetActiveAsteroids() => _activeAsteroids;
+
+        public void AddActiveAsteroid(AsteroidModel model, AsteroidView view) => _activeAsteroids.Add(model, view);
+
+        public void RemoveActiveAsteroid(AsteroidModel model) => _activeAsteroids.Remove(model);
+        
+        public AsteroidView GetByKey(AsteroidModel model) => _activeAsteroids[model];
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Game.Ship.Shots;
+using Game.Ship.Bullet;
+using Global;
 using UnityEngine;
 using Utilities;
 
@@ -8,17 +9,16 @@ namespace Game.Ship.Shoot
 {
     public class ShipShootPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly ShipShootModel _model;
 
-        private readonly Dictionary<BulletModel, BulletView> _activeBullets = new();
         private readonly List<BulletModel> _inActiveBullets = new();
         private readonly Dictionary<BulletModel, BulletPresenter> _bulletsPresenters = new();
         
         private Coroutine _reloadCoroutine;
         private Coroutine _shotRateCoroutine;
         
-        public ShipShootPresenter(GameEnvironment environment, ShipShootModel model)
+        public ShipShootPresenter(GlobalEnvironment environment, ShipShootModel model)
         {
             _environment = environment;
             _model = model;
@@ -26,30 +26,36 @@ namespace Game.Ship.Shoot
         
         public void Activate()
         {
-            CreateShotsPull();
+            CreateBulletsPull();
 
             _model.IsReadyToShoot = true;
             
             _environment.ShipModel.OnShoot += CreateBullet;
             _model.OnUpdate += Update;
+            _model.OnBulletDestroyed += DestroyBullet;
         }
 
         public void Deactivate()
         {
             _environment.ShipModel.OnShoot -= CreateBullet;
             _model.OnUpdate -= Update;
+            _model.OnBulletDestroyed -= DestroyBullet;
+            
+            Debug.Log(nameof(ShipShootPresenter) + " deactivated!");
         }
 
         private void Update(float deltaTime)
         {
             foreach (var model in _inActiveBullets)
             {
-                DestroyShot(model);
+                DestroyBullet(model);
             }
             
             _inActiveBullets.Clear();
 
-            foreach (var model in _activeBullets.Keys)
+            var activeBullets = _model.GetActiveBullets();
+            
+            foreach (var model in activeBullets.Keys)
             {
                 var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
 
@@ -61,7 +67,7 @@ namespace Game.Ship.Shoot
                 }
             }
             
-            foreach (var model in _activeBullets.Keys)
+            foreach (var model in activeBullets.Keys)
             {
                 model.Update(deltaTime);
             }
@@ -69,50 +75,52 @@ namespace Game.Ship.Shoot
         
         private void CreateBullet()
         {
-            if (!_environment.InputModel.IsShipShooting || _model.IsReloading || _model.ShotsLeft == 0 || !_model.IsReadyToShoot) return;
+            if (!_environment.InputModel.IsShipShooting || _model.IsReloading || _model.BulletsLeft == 0 || !_model.IsReadyToShoot) return;
 
             _model.IsReadyToShoot = false;
             
-            var shotModel = new BulletModel(_environment.GameSceneView.GameView.CurrentShip.transform.position, _model.BulletSpeed);
-            var shotView = _environment.PullsData.ShotsPull.TryGetElement();
+            var shotModel = new BulletModel(_environment.GameSceneView.GameView.CurrentShip.transform.position, _model.BulletSpeed, _model.BulletHealth, _model.BulletDamage);
+            var shotView = _environment.PullsData.BulletsPull.TryGetElement();
             var presenter = new BulletPresenter(_environment, shotModel, shotView);
             
             presenter.Activate();
             
             _bulletsPresenters.Add(shotModel, presenter);
-            _activeBullets.Add(shotModel, shotView);
+            _model.AddActiveBullet(shotModel, shotView);
             
-            _shotRateCoroutine = GameCoroutines.RunCoroutine(WaitForFireRate(_model.ShotRate));
+            _shotRateCoroutine = GameCoroutines.RunCoroutine(WaitForFireRate(_model.ShootRate));
 
             if (!_model.IsAutomatic)
             {
-                _model.ShotsLeft--;
+                _model.BulletsLeft--;
 
-                if (_model.ShotsLeft <= 0)
+                if (_model.BulletsLeft <= 0)
                 {
                     _model.IsReadyToShoot = false;
+                    _model.IsReloading = true;
+                    
                     _reloadCoroutine = GameCoroutines.RunCoroutine(WaitForReload(_model.ReloadTime));
                 }    
             }
         }
         
-        private void CreateShotsPull()
+        private void CreateBulletsPull()
         {
-            var shotsPull = _environment.GameSceneView.GameView.ShotsPullView;
+            var bulletsPull = _environment.GameSceneView.GameView.ShotsPullView;
             
-            shotsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab;
-            shotsPull.Count = _model.StartBulletCount;
+            bulletsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab;
+            bulletsPull.Count = _model.StartBulletCount;
             
-            _environment.PullsData.ShotsPull.CreatePull(shotsPull);   
+            _environment.PullsData.BulletsPull.CreatePull(bulletsPull);   
         }
         
-        private void DestroyShot(BulletModel model)
+        private void DestroyBullet(BulletModel model)
         {
             _bulletsPresenters[model].Deactivate();
             _bulletsPresenters.Remove(model);
             
-            _environment.PullsData.ShotsPull.PutBack(_activeBullets[model]);
-            _activeBullets.Remove(model);
+            _environment.PullsData.BulletsPull.PutBack(_model.GetByKey(model));
+            _model.RemoveActiveBullet(model);
         }
         
         private IEnumerator WaitForFireRate(float shotRate)
@@ -129,8 +137,9 @@ namespace Game.Ship.Shoot
         {
             yield return new WaitForSeconds(reloadTime);
             
-            _model.ShotsLeft = _model.StartBulletCount;
+            _model.BulletsLeft = _model.StartBulletCount;
             _model.IsReadyToShoot = true;
+            _model.IsReloading = false;
             
             GameCoroutines.DisableCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;

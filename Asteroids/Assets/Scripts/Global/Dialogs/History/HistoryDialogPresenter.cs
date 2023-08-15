@@ -4,11 +4,11 @@ namespace Global.Dialogs.History
 {
     public class HistoryDialogPresenter : IPresenter
     {
-        private readonly GameEnvironment _environment;
+        private readonly GlobalEnvironment _environment;
         private readonly HistoryDialogModel _model;
         private readonly HistoryDialogView _view;
 
-        public HistoryDialogPresenter(GameEnvironment environment, HistoryDialogModel model, HistoryDialogView view)
+        public HistoryDialogPresenter(GlobalEnvironment environment, HistoryDialogModel model, HistoryDialogView view)
         {
             _environment = environment;
             _model = model;

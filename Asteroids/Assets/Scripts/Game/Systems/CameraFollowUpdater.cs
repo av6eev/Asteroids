@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Global;
+using UnityEngine;
 using Utilities;
 
 namespace Game.Systems
@@ -10,7 +11,7 @@ namespace Game.Systems
         private const float SMOOTH_TIME = 0.05f;
         private Vector3 _currentVelocity;
 
-        public void Update(GameEnvironment environment)
+        public void Update(GlobalEnvironment environment)
         {
             var shipTransform = environment.GameSceneView.GameView.CurrentShip.transform;
             var shipPosition = shipTransform.position;
@@ -18,8 +19,7 @@ namespace Game.Systems
             var cameraPosition = cameraTransform.position;
             var target = shipPosition + (cameraPosition - shipPosition).normalized + _offset;
             
-            cameraPosition = Vector3.SmoothDamp(cameraPosition, target, ref _currentVelocity, SMOOTH_TIME);
-            
+            cameraPosition = Vector3.SmoothDamp(cameraPosition, new Vector3(cameraPosition.x, cameraPosition.y, target.z), ref _currentVelocity, SMOOTH_TIME);
             cameraTransform.position = cameraPosition;
             
             if (target.y < shipPosition.y)

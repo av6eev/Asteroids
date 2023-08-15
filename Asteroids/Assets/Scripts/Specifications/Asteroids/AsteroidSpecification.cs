@@ -12,11 +12,12 @@ namespace Specifications.Asteroids
     {
         [Header("General")] 
         public AsteroidsTypes Type;
-        [Range(0f, 1f)] public float ChanceToSpawn;
-        public List<AsteroidSpecificationSo> SubAsteroidsOnDestroy;
+        public int Health;
         public float Speed;
+        [Range(0f, 1f)] public float ChanceToSpawn;
 
         [Header("Others")] 
         public AsteroidView Prefab;
+        public List<AsteroidSpecificationSo> SubAsteroidsOnDestroy;
     }
 }

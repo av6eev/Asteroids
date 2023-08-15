@@ -1,20 +1,22 @@
 ﻿using System;
 using Global.Dialogs.Base;
-using Specifications.Base;
+using Specifications.Ships;
 
 namespace Global.Dialogs.Shop.Card
 {
     public class ShopCardDialogModel : ISubDialogModel
     {
-        public event Action OnShow, OnHide; 
-        public ISpecification ShipSpecification { get; }
+        public event Action OnShow, OnHide, OnButtonsSwitch; 
+        public ShipSpecification ShipSpecification { get; }
         public bool IsActive { get; private set; }
+        public bool IsPurchased { get; }
         public int Id { get; }
 
-        public ShopCardDialogModel(int id, ISpecification specification)
+        public ShopCardDialogModel(ShipSpecification specification, bool isPurchased)
         {
-            Id = id;
             ShipSpecification = specification;
+            IsPurchased = isPurchased;
+            Id = specification.Id;
         }
 
         public void Show()
@@ -28,5 +30,7 @@ namespace Global.Dialogs.Shop.Card
             IsActive = false;
             OnHide?.Invoke();
         }
+
+        public void SwitchButtons() => OnButtonsSwitch?.Invoke();
     }
 }

@@ -31,5 +31,18 @@ namespace Utilities
         {
             _presenters.Clear();
         }
+
+        public List<IPresenter> GetAll()
+        {
+            return _presenters;
+        }
+
+        public void Remove(IPresenter presenter)
+        {
+            if (!_presenters.Contains(presenter)) return;
+            
+            presenter.Deactivate();
+            _presenters.Remove(presenter);
+        }
     }
 }
