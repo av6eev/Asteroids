@@ -37,6 +37,7 @@ namespace Global.Dialogs.History
             _view.ChangeVisibility(false);
             
             _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
+            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
         }
 
         private void Show()

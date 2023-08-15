@@ -1,10 +1,12 @@
 ﻿using System;
+using Utilities;
 
 namespace Global.Player
 {
     public class PlayerModel
     {
         public event Action<int> OnMoneyIncreased, OnMoneyDecreased, OnMoneySet;
+        public event Action<IPurchaseable> OnPurchaseConfirmed; 
 
         private int _money;
         public int Money
@@ -37,6 +39,11 @@ namespace Global.Player
         {
             Money -= price;
             OnMoneyDecreased?.Invoke(Money);
+        }
+
+        public void ConfirmPurchase(IPurchaseable data)
+        {
+            OnPurchaseConfirmed?.Invoke(data);
         }
     }
 }

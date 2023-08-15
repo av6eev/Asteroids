@@ -4,17 +4,18 @@ using Game.Ship.Bullet;
 using Global.Pulls.ParticleSystem.Hit;
 using Specifications.Base;
 using UnityEngine;
+using Utilities;
 
 namespace Specifications.Ships
 {
     [Serializable]
-    public class ShipSpecification : ISpecification
+    public class ShipSpecification : ISpecification, IPurchaseable
     {
         [Header("General")]
         public int Id;
         public ShipsTypes Type;
         public string Name;
-        public int Price;
+        [field: SerializeField] public int Price { get; set; }
         public int Health;
 
         [Header("Bullets")]

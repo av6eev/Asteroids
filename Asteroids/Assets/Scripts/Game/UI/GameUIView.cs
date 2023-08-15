@@ -15,13 +15,12 @@ namespace Game.UI
         [field: SerializeField] public MoneyView MoneyView { get; private set; }
         [field: SerializeField] public EndScreenView EndScreenView { get; set; }
 
-        public void ShowEndGameView()
+        public void HideElementsAfterEnd()
         {
             MoneyView.ChangeVisibility(false);
             HealthView.ChangeVisibility(false);
             DistanceView.ChangeVisibility(false);
             ScoreView.ChangeVisibility(false);
-            EndScreenView.ChangeVisibility(false);
         }
     }
 }

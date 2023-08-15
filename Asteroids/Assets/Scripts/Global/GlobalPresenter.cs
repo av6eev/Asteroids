@@ -34,7 +34,7 @@ namespace Global
             _globalPresenters.Add(new PlayerPresenter(_environment, _environment.PlayerModel));
             _globalPresenters.Add(new SavePresenter(_environment, _environment.SaveModel));
             _globalPresenters.Activate();
-            
+
             _environment.SaveModel.Deserialize();
         }
 

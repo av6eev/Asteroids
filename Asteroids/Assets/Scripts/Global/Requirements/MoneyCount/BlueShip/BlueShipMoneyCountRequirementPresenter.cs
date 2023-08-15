@@ -34,8 +34,8 @@ namespace Global.Requirements.MoneyCount.BlueShip
             
             if (_model.Check(_environment))
             {
-                _environment.PlayerModel.DecreaseMoney(price);
                 _environment.SaveModel.SaveElement(nameof(BlueShipMoneyCountRequirement), "true");
+                _environment.SaveModel.Deserialize();
             }
         }
     }

@@ -6,10 +6,10 @@ namespace Global.Dialogs.Shop.Card
 {
     public class ShopCardDialogModel : ISubDialogModel
     {
-        public event Action OnShow, OnHide, OnButtonsSwitch; 
+        public event Action OnShow, OnHide, OnPurchased; 
         public ShipSpecification ShipSpecification { get; }
         public bool IsActive { get; private set; }
-        public bool IsPurchased { get; }
+        public bool IsPurchased { get; private set; }
         public int Id { get; }
 
         public ShopCardDialogModel(ShipSpecification specification, bool isPurchased)
@@ -31,6 +31,10 @@ namespace Global.Dialogs.Shop.Card
             OnHide?.Invoke();
         }
 
-        public void SwitchButtons() => OnButtonsSwitch?.Invoke();
+        public void SetPurchased(bool state)
+        {
+            IsPurchased = state;
+            OnPurchased?.Invoke();
+        }
     }
 }

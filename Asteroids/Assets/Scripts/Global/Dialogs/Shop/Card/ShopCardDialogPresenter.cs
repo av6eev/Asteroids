@@ -24,7 +24,7 @@ namespace Global.Dialogs.Shop.Card
             
             _model.OnShow += Show;
             _model.OnHide += Hide;
-            _model.OnButtonsSwitch += SwitchButtons;
+            _model.OnPurchased += HandlePurchase;
         }
 
         public void Deactivate()
@@ -36,12 +36,13 @@ namespace Global.Dialogs.Shop.Card
 
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
-            _model.OnButtonsSwitch -= SwitchButtons;
+            _model.OnPurchased -= HandlePurchase;
         }
 
-        private void SwitchButtons()
+        private void HandlePurchase()
         {
-            _view.SwitchButtons();
+            _view.SwitchButtons(_model.IsPurchased);
+            _view.ChangePriceText(_model.IsPurchased);
         }
 
         private void SelectShip()
@@ -67,11 +68,8 @@ namespace Global.Dialogs.Shop.Card
 
         private void Show()
         {
-            if (_model.IsPurchased)
-            {
-                _view.SwitchButtons();
-                _view.ChangePriceText();
-            }
+            _view.SwitchButtons(_model.IsPurchased);
+            _view.ChangePriceText(_model.IsPurchased);
             
             _view.ChangeVisibility(true);
         }

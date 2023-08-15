@@ -50,7 +50,7 @@ namespace Global.Save
         private void DeserializePlayerData()
         {
             var playerMoney = _model.GetElement<int>(SavingElementsKeys.PlayerMoney);
-                                                                                        
+
             Debug.Log("deserialized: " + playerMoney);
             _environment.PlayerModel.SetMoneyFromSave(playerMoney);
         }

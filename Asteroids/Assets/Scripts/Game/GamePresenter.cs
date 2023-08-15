@@ -87,6 +87,8 @@ namespace Game
 
         private void SaveGame()
         {
+            _view.GameUIView.HideElementsAfterEnd();
+            
             _environment.SaveModel.Save();
             
             DeactivateNecessaryData();

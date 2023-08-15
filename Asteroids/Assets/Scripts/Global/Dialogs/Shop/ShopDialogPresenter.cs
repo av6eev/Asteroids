@@ -28,6 +28,7 @@ namespace Global.Dialogs.Shop
             _model.OnShow += Show;
             _model.OnHide += Hide;
             _model.OnCardChange += ChangeActiveCard;
+            _model.OnRedraw += RedrawCard;
 
             _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
         }
@@ -42,8 +43,15 @@ namespace Global.Dialogs.Shop
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
             _model.OnCardChange -= ChangeActiveCard;
+            _model.OnRedraw -= RedrawCard;
             
             _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
+        }
+
+        private void RedrawCard(int shipId)
+        {
+            _view.UpdateBalanceText(_environment.PlayerModel.Money);
+            _model.Cards.Find(card => card.Id == shipId).SetPurchased(true);
         }
 
         private void UpdatePlayerBalance(int money)
@@ -97,6 +105,7 @@ namespace Global.Dialogs.Shop
             _view.ChangeVisibility(false);
             
             _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
+            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
         }
     }
 }

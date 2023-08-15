@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Global.Requirements.MoneyCount
 {
-    public abstract class BaseMoneyCountRequirement : SingleRequirement
+    public abstract class BaseMoneyCountRequirement : IRequirement
     {
-        public override bool Completed { get; set; }
-        public override SubRequirementType SubType { get; } = SubRequirementType.MoneyCount;
-        public override string RewardName { get; protected set; }
-        public abstract ShipsTypes ShipType { get; protected set; }
+        public bool Completed { get; set; }
+        public SubRequirementType SubType => SubRequirementType.MoneyCount;
+        [field: SerializeField] public string RewardName { get; set; }
+        [field: SerializeField] public ShipsTypes ShipType { get; private set; }
 
-        public override bool Check(GlobalEnvironment environment)
+        public bool Check(GlobalEnvironment environment)
         {
             var chosenShipPrice = environment.Specifications.Ships[ShipType].Price;
 

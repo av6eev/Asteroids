@@ -1,6 +1,5 @@
 using Global.Dialogs.History;
 using Global.Dialogs.Shop;
-using UnityEngine.EventSystems;
 using Utilities;
 
 namespace Global.UI
@@ -34,14 +33,14 @@ namespace Global.UI
 
         private void OpenShopMenu()
         {
-            _view.MainMenuRoot.SetActive(false);
+            HideMenuAndTitle();
             
             _environment.DialogsModel.GetByType<ShopDialogModel>().Show();
         }
         
         private void OpenHistoryMenu()
         {
-            _view.MainMenuRoot.SetActive(false);
+            HideMenuAndTitle();
             
             _environment.DialogsModel.GetByType<HistoryDialogModel>().Show();
         }
@@ -50,6 +49,12 @@ namespace Global.UI
         {
             _view.ChangeVisibility(false);
             _environment.ScenesManager.LoadScene(ScenesNames.GameScene, _environment);
+        }
+
+        private void HideMenuAndTitle()
+        {
+            _view.MainMenuRoot.SetActive(false);
+            _view.Title.SetActive(false);
         }
     }
 }

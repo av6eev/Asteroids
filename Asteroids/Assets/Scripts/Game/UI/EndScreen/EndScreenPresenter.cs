@@ -32,8 +32,8 @@ namespace Game.UI.EndScreen
         {
             var gameModel = _environment.GameModel;
             
-            _view.ChangeVisibility(true);
             _view.SetData(gameModel.CurrentDistance, gameModel.CurrentScore, gameModel.CalculateGainedMoney());
+            _view.ChangeVisibility(true);
         }
 
         private void EndGame()

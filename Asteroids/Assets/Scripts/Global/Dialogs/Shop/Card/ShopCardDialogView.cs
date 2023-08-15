@@ -31,14 +31,16 @@ namespace Global.Dialogs.Shop.Card
             PriceText.text = specification.Price.ToString();
         }
 
-        public void SwitchButtons()
+        public void SwitchButtons(bool isPurchased)
         {
-            BuyButton.gameObject.SetActive(false);
-            SelectButton.gameObject.SetActive(true);
+            BuyButton.gameObject.SetActive(!isPurchased);
+            SelectButton.gameObject.SetActive(isPurchased);
         }
 
-        public void ChangePriceText()
+        public void ChangePriceText(bool isPurchased)
         {
+            if (!isPurchased) return;
+            
             var textColor = PriceText.color;
             textColor.a = .5f;
             
