@@ -1,4 +1,6 @@
-﻿using Global;
+﻿using Game.Asteroids;
+using Game.Asteroids.Asteroid;
+using Global;
 using Utilities;
 
 namespace Game.UI.Money
@@ -6,30 +8,40 @@ namespace Game.UI.Money
     public class MoneyPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly MoneyModel _model;
         private readonly MoneyView _view;
 
-        public MoneyPresenter(GlobalEnvironment environment, MoneyModel model, MoneyView view)
+        public MoneyPresenter(GlobalEnvironment environment, MoneyView view)
         {
             _environment = environment;
-            _model = model;
             _view = view;
         }
         
         public void Activate()
         {
-            _environment.PlayerModel.OnMoneyIncreased += UpdateMoneyCounter;
+            _environment.AsteroidsModel.OnAsteroidDestroyed += UpdateMoneyCounter;
         }
 
         public void Deactivate()
         {
-            _environment.PlayerModel.OnMoneyIncreased -= UpdateMoneyCounter;
+            _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateMoneyCounter;
         }
         
-        private void UpdateMoneyCounter(int bonus)
+        private void UpdateMoneyCounter(AsteroidModel asteroidModel, bool byBorder, bool byShip)
         {
-            _model.UpdateBalance(bonus);
-            _view.UpdateMoneyCounter(_model.MoneyGained);
+            if (byBorder || byShip) return;
+
+            var moneyBonus = asteroidModel.Specification.Type switch
+            {
+                AsteroidsTypes.Small => .5f,
+                AsteroidsTypes.Medium => 1f,
+                AsteroidsTypes.Big => 1.5f,
+                AsteroidsTypes.Fire => 1f,
+                AsteroidsTypes.Default => 0,
+                _ => 0
+            };
+
+            _environment.GameModel.UpdateBalance(moneyBonus);
+            _view.UpdateMoneyCounter(_environment.GameModel.CurrentMoney);
         }
     }
 }

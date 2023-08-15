@@ -30,10 +30,10 @@ namespace Game.UI.EndScreen
 
         private void Show()
         {
-            var uiModel = _environment.GameUIModel;
+            var gameModel = _environment.GameModel;
             
             _view.ChangeVisibility(true);
-            _view.SetData(uiModel.DistanceModel.CurrentDistance, uiModel.ScoreModel.CurrentScore, uiModel.MoneyModel.MoneyGained);
+            _view.SetData(gameModel.CurrentDistance, gameModel.CurrentScore, gameModel.CalculateGainedMoney());
         }
 
         private void EndGame()

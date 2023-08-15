@@ -7,7 +7,7 @@ namespace Game.UI.Distance
     {
         [field: SerializeField] public TextMeshProUGUI DistanceText { get; private set; }
 
-        public void UpdateElement(int value)
+        public void UpdateDistance(int value)
         {
             DistanceText.text = value.ToString();
         }

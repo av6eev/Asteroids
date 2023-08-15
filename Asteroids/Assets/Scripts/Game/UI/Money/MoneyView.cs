@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 namespace Game.UI.Money
@@ -7,9 +9,10 @@ namespace Game.UI.Money
     {
         [field: SerializeField] public TextMeshProUGUI CurrentMoneyText { get; private set; }
     
-        public void UpdateMoneyCounter(int money)
+        public void UpdateMoneyCounter(float money)
         {
-            CurrentMoneyText.text = money.ToString();
+            var value = Math.Floor(money);
+            CurrentMoneyText.text = value.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

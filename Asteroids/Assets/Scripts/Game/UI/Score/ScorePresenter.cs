@@ -8,13 +8,11 @@ namespace Game.UI.Score
     public class ScorePresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly ScoreModel _model;
         private readonly ScoreView _view;
 
-        public ScorePresenter(GlobalEnvironment environment, ScoreModel model, ScoreView view)
+        public ScorePresenter(GlobalEnvironment environment, ScoreView view)
         {
             _environment = environment;
-            _model = model;
             _view = view;
         }
 
@@ -28,44 +26,22 @@ namespace Game.UI.Score
             _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateScore;
         }
 
-        private void UpdateScore(AsteroidModel asteroidModel, bool byBorder)
+        private void UpdateScore(AsteroidModel asteroidModel, bool byBorder, bool byShip)
         {
-            int scoreBonus;
-            int moneyBonus;
+            if (byBorder || byShip) return;
 
-            if (byBorder) return;
-            
-            switch (asteroidModel.Specification.Type)
+            var scoreBonus = asteroidModel.Specification.Type switch
             {
-                case AsteroidsTypes.Small:
-                    scoreBonus = 1;
-                    moneyBonus = 1;
-                    break;
-                case AsteroidsTypes.Medium:
-                    scoreBonus = 2;
-                    moneyBonus = 2;
-                    break;
-                case AsteroidsTypes.Big:
-                    scoreBonus = 3;
-                    moneyBonus = 3;
-                    break;
-                case AsteroidsTypes.Fire:
-                    scoreBonus = 4;
-                    moneyBonus = 4;
-                    break;
-                case AsteroidsTypes.Default:
-                    scoreBonus = 0;
-                    moneyBonus = 0;
-                    break;
-                default:
-                    scoreBonus = 0;
-                    moneyBonus = 0;
-                    break;
-            }
-            
-            _environment.PlayerModel.IncreaseMoney(moneyBonus);
-            _model.UpdateScore(scoreBonus);
-            _view.UpdateScore(_model.CurrentScore);
+                AsteroidsTypes.Small => 1,
+                AsteroidsTypes.Medium => 2,
+                AsteroidsTypes.Big => 3,
+                AsteroidsTypes.Fire => 4,
+                AsteroidsTypes.Default => 0,
+                _ => 0
+            };
+
+            _environment.GameModel.UpdateScore(scoreBonus);
+            _view.UpdateScore(_environment.GameModel.CurrentScore);
         }
     }
 }

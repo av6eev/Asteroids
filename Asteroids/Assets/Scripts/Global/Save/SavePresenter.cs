@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Game.Ship;
 using Global.Requirements.MoneyCount.BlueShip;
+using UnityEngine;
 using Utilities;
 
 namespace Global.Save
@@ -38,7 +39,10 @@ namespace Global.Save
 
         private void SaveGame()
         {
-            _model.SaveElement(SavingElementsKeys.PlayerMoney, _environment.GameUIModel.MoneyModel.MoneyGained);
+            Debug.Log("gained: " + _environment.GameModel.CalculateGainedMoney());
+            Debug.Log("current: " + _environment.PlayerModel.Money);
+            
+            _model.SaveElement(SavingElementsKeys.PlayerMoney, _environment.GameModel.CalculateGainedMoney() + _environment.PlayerModel.Money);
             
             DeserializePlayerData();
         }
@@ -46,7 +50,8 @@ namespace Global.Save
         private void DeserializePlayerData()
         {
             var playerMoney = _model.GetElement<int>(SavingElementsKeys.PlayerMoney);
-            
+                                                                                        
+            Debug.Log("deserialized: " + playerMoney);
             _environment.PlayerModel.SetMoneyFromSave(playerMoney);
         }
 

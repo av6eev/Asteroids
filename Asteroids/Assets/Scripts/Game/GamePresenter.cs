@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Game.Asteroids;
 using Game.Input;
@@ -6,8 +5,6 @@ using Game.Scene;
 using Game.Ship;
 using Game.Systems;
 using Game.UI;
-using Game.UI.Distance;
-using Game.UI.Score;
 using Global;
 using Global.Pulls.Base;
 using UnityEngine;
@@ -69,12 +66,11 @@ namespace Game
         {
             _environment.InputModel = new InputModel();
             _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
-            _environment.GameUIModel = new GameUIModel();
             _environment.PullsData = new PullsData();
 
             _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
             _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
-            _presenters.Add(new GameUIPresenter(_environment, _environment.GameUIModel, _view.GameUIView));
+            _presenters.Add(new GameUIPresenter(_environment, _view.GameUIView));
 
             _presenters.Activate();
             

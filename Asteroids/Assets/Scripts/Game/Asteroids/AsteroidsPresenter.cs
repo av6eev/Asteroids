@@ -58,7 +58,7 @@ namespace Game.Asteroids
         {
             foreach (var model in _inActiveAsteroids)
             {
-                DestroyAsteroid(model, true);
+                DestroyAsteroid(model, true, false);
             }
             
             _inActiveAsteroids.Clear();
@@ -83,12 +83,12 @@ namespace Game.Asteroids
             }
         }
 
-        private void DestroyAsteroid(AsteroidModel model, bool byBorder = false)
+        private void DestroyAsteroid(AsteroidModel model, bool byBorder, bool byShip)
         {
             _asteroidsPresenters[model].Deactivate();
             _asteroidsPresenters.Remove(model);
 
-            if (!byBorder && model.Specification.SubAsteroidsOnDestroy.Count != 0)
+            if (!byBorder && !byShip && model.Specification.SubAsteroidsOnDestroy.Count != 0)
             {
                 foreach (var specification in model.Specification.SubAsteroidsOnDestroy.Select(item => item.Specification))
                 {
