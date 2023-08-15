@@ -9,7 +9,7 @@ namespace Game.Asteroids
     public class AsteroidsModel : IUpdatable
     {
         public event Action<float> OnUpdate;
-        public event Action<AsteroidModel> OnAsteroidDestroyed;
+        public event Action<AsteroidModel, bool> OnAsteroidDestroyed;
         public Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
         private readonly Dictionary<AsteroidModel, AsteroidView> _activeAsteroids = new();
         public static float SpawnRate => .5f;
@@ -21,7 +21,7 @@ namespace Game.Asteroids
 
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
-        public void DestroyAsteroid(AsteroidModel model) => OnAsteroidDestroyed?.Invoke(model);
+        public void DestroyAsteroid(AsteroidModel model, bool byBorder) => OnAsteroidDestroyed?.Invoke(model, byBorder);
 
         public Dictionary<AsteroidModel, AsteroidView> GetActiveAsteroids() => _activeAsteroids;
 

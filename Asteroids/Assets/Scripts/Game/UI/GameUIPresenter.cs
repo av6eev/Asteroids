@@ -1,4 +1,9 @@
-﻿using Global;
+﻿using Game.UI.Distance;
+using Game.UI.EndScreen;
+using Game.UI.Health;
+using Game.UI.Money;
+using Game.UI.Score;
+using Global;
 using UnityEngine;
 using Utilities;
 
@@ -10,6 +15,8 @@ namespace Game.UI
         private readonly GameUIModel _model;
         private readonly GameUIView _view;
 
+        private readonly PresentersEngine _presenters = new();
+        
         public GameUIPresenter(GlobalEnvironment environment, GameUIModel model, GameUIView view)
         {
             _environment = environment;
@@ -19,26 +26,28 @@ namespace Game.UI
         
         public void Activate()
         {
-            SetStartedHealth(_environment.ShipModel.Health);
+            _view.EndScreenView.ChangeVisibility(false);
             
-            _environment.ShipModel.OnDamageApplied += UpdateHealthBar;
-        }
-
-        private void SetStartedHealth(int maxHealth)
-        {
-            _view.SetStartedHealth(maxHealth);
+            CreateNecessaryData();
         }
 
         public void Deactivate()
         {
-            _environment.ShipModel.OnDamageApplied -= UpdateHealthBar;
-
+            _presenters.Deactivate();
+            _presenters.Clear();
+            
             Debug.Log(nameof(GameUIPresenter) + " deactivated!");
         }
 
-        private void UpdateHealthBar()
+        private void CreateNecessaryData()
         {
-            _view.UpdateHealthBar();
+            _presenters.Add(new ScorePresenter(_environment, _model.ScoreModel, _view.ScoreView));
+            _presenters.Add(new DistancePresenter(_environment, _model.DistanceModel, _view.DistanceView));
+            _presenters.Add(new MoneyPresenter(_environment, _model.MoneyModel, _view.MoneyView));
+            _presenters.Add(new HealthPresenter(_environment, _view.HealthView));
+            _presenters.Add(new EndScreenPresenter(_environment, _view.EndScreenView));
+
+            _presenters.Activate();
         }
     }
 }

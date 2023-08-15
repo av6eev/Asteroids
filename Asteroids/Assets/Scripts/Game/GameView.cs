@@ -3,7 +3,6 @@ using Game.Ship;
 using Global.Pulls.Asteroids;
 using Global.Pulls.ParticleSystem.Hit;
 using Global.Pulls.Shots;
-using Unity.Mathematics;
 using UnityEngine;
 using Utilities;
 
@@ -28,6 +27,22 @@ namespace Game
             CurrentShip = go;
             
             return go;
+        }
+
+        public void DestroyShip()
+        {
+            Destroy(CurrentShip.gameObject);
+        }
+
+        public void DestroyPulls()
+        {
+            ShotsPullView.DestroyObjects();
+            HitsPullView.DestroyObjects();
+            
+            foreach (var asteroidsPull in AsteroidsPullView)
+            {
+                asteroidsPull.DestroyObjects();                
+            }
         }
     }
 }

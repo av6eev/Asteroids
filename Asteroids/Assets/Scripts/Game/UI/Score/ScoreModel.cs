@@ -1,4 +1,4 @@
-﻿namespace Game.Score
+﻿namespace Game.UI.Score
 {
     public class ScoreModel
     {

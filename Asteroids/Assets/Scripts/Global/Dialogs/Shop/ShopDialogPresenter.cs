@@ -28,6 +28,8 @@ namespace Global.Dialogs.Shop
             _model.OnShow += Show;
             _model.OnHide += Hide;
             _model.OnCardChange += ChangeActiveCard;
+
+            _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
         }
 
         public void Deactivate()
@@ -40,6 +42,13 @@ namespace Global.Dialogs.Shop
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
             _model.OnCardChange -= ChangeActiveCard;
+            
+            _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
+        }
+
+        private void UpdatePlayerBalance(int money)
+        {
+            _view.UpdateBalanceText(money);
         }
 
         private void ChangeActiveCard(int changeDirection)

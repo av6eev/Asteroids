@@ -1,7 +1,8 @@
 ﻿using Global;
+using UnityEngine;
 using Utilities;
 
-namespace Game.Distance
+namespace Game.UI.Distance
 {
     public class DistancePresenter : IPresenter
     {
@@ -28,10 +29,15 @@ namespace Game.Distance
 
         private void UpdateDistance(float deltaTime)
         {
-            var shipPosition = _environment.ShipModel.MoveModel.Position.z;
-            
+            var shipPosition = (int)_environment.ShipModel.MoveModel.Position.z;
+
             _model.UpdateDistance(shipPosition);
-            _view.UpdateDistance(shipPosition);
+            _view.UpdateElement(Mathf.Abs(shipPosition));
+            
+            if (_model.CurrentDistance != 0 && _model.CurrentDistance % 400 == 0)
+            {
+                _environment.PlayerModel.IncreaseMoney(2);
+            }
         }
     }
 }

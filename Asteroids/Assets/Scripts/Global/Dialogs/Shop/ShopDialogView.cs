@@ -39,5 +39,10 @@ namespace Global.Dialogs.Shop
             
             _cardsViews.Clear();
         }
+
+        public void UpdateBalanceText(int money)
+        {
+            PlayerMoneyTxt.text = money.ToString();
+        }
     }
 }

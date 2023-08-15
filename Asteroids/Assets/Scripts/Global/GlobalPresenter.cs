@@ -31,6 +31,7 @@ namespace Global
             
             _globalPresenters.Add(new GlobalUIPresenter(_environment, _environment.GlobalUIModel, GlobalView.GlobalUIView));
             _globalPresenters.Add(new DialogsPresenter(_environment, _environment.DialogsModel, GlobalView.DialogsView));
+            _globalPresenters.Add(new PlayerPresenter(_environment, _environment.PlayerModel));
             _globalPresenters.Add(new SavePresenter(_environment, _environment.SaveModel));
             _globalPresenters.Activate();
             

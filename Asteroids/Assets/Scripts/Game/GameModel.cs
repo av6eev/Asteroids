@@ -4,11 +4,16 @@ namespace Game
 {
     public class GameModel
     {
-        public event Action OnGameEnded;
+        public event Action OnClosed, OnEnded;
 
-        public void EndGame()
+        public void Close()
         {
-            OnGameEnded?.Invoke();
+            OnClosed?.Invoke();
+        }
+
+        public void End()
+        {
+            OnEnded?.Invoke();
         }
     }
 }

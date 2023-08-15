@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Game.Ship.Move;
 using Game.Ship.Shoot;
 using Global;
 using UnityEngine;
 using Utilities;
-using Environment = UnityEditor.Rendering.LookDev.Environment;
 
 namespace Game.Ship
 {
@@ -51,7 +49,7 @@ namespace Game.Ship
 
             if (_model.Health <= 0)
             {
-                _environment.GameModel.EndGame();
+                _environment.GameModel.End();
                 return;
             }
 

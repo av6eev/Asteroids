@@ -2,7 +2,7 @@
 using Specifications.Asteroids;
 using UnityEngine;
 using Utilities;
-using Random = Unity.Mathematics.Random;
+using Random = UnityEngine.Random;
 
 namespace Game.Asteroids.Asteroid
 {
@@ -16,12 +16,10 @@ namespace Game.Asteroids.Asteroid
 
         public AsteroidModel(AsteroidSpecification specification, Vector3 position)
         {
-            var random = new Random((uint)DateTime.Now.Second);
-
             Specification = specification;
             Position = position;
             Health = specification.Health;
-            Direction = new Vector3(random.NextFloat(-1f, 1f), 0, random.NextFloat(-1f, 1f));
+            Direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         }
 
         public void Update(float deltaTime)

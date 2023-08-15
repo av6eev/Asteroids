@@ -1,9 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Game.Score
+namespace Game.UI.Score
 {
-    public class ScoreView : MonoBehaviour
+    public class ScoreView : BaseGameUIView
     {
         [field: SerializeField] public TextMeshProUGUI ScoreText { get; private set; }
 

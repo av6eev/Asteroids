@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using System.Linq;
 using Game.Asteroids;
-using Game.Distance;
 using Game.Input;
 using Game.Scene;
-using Game.Score;
 using Game.Ship;
 using Game.Systems;
 using Game.UI;
+using Game.UI.Distance;
+using Game.UI.Score;
 using Global;
 using Global.Pulls.Base;
 using UnityEngine;
@@ -34,21 +35,17 @@ namespace Game
             CreateShip();
             CreateNecessaryData();
 
-            _model.OnGameEnded += EndGame;
+            _model.OnClosed += Close;
+            _model.OnEnded += SaveGame;
         }
 
         public void Deactivate()
         {
-            _environment.GlobalView.MainCamera.enabled = true;
-            
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Input);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
-            
             _presenters.Deactivate();
             _presenters.Clear();
             
-            _model.OnGameEnded -= EndGame;
+            _model.OnClosed -= Close;
+            _model.OnEnded -= SaveGame;
             
             Debug.Log(nameof(GamePresenter) + " deactivated!");
         }
@@ -59,23 +56,26 @@ namespace Game
             var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab);
 
             _environment.ShipModel = new ShipModel(neededSpecification);
+            
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
+        }
+
+        private void DestroyShip()
+        {
+            _view.GameView.DestroyShip();
         }
 
         private void CreateNecessaryData()
         {
             _environment.InputModel = new InputModel();
             _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
-            _environment.ScoreModel = new ScoreModel();
-            _environment.DistanceModel = new DistanceModel();
+            _environment.GameUIModel = new GameUIModel();
             _environment.PullsData = new PullsData();
-            
-            _presenters.Add(new GameUIPresenter(_environment, new GameUIModel(), _view.GameUIView));
+
             _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
             _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
-            _presenters.Add(new ScorePresenter(_environment, _environment.ScoreModel, _view.GameUIView.ScoreView));
-            _presenters.Add(new DistancePresenter(_environment, _environment.DistanceModel, _view.GameUIView.DistanceView));
-            
+            _presenters.Add(new GameUIPresenter(_environment, _environment.GameUIModel, _view.GameUIView));
+
             _presenters.Activate();
             
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
@@ -83,12 +83,47 @@ namespace Game
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
         }
 
-        private void EndGame()
+        private void Close()
         {
-            Deactivate();
-            
             _environment.ScenesManager.UnloadScene(ScenesNames.GameScene);            
-            _environment.GlobalView.GlobalUIView.ChangeVisibility(true);
+            _view.GameUIView.ChangeVisibility(false);
+        }
+
+        private void SaveGame()
+        {
+            _environment.SaveModel.Save();
+            
+            DeactivateNecessaryData();
+        }
+
+        private void DeactivateNecessaryData()
+        {
+            var removedPresenters = new PresentersEngine();
+            
+            foreach (var presenter in _presenters.GetAll())
+            {
+                switch (presenter)
+                {
+                    case GameUIPresenter:
+                        continue;
+                }
+                
+                removedPresenters.Add(presenter);
+            }
+            
+            foreach (var presenter in removedPresenters.GetAll())
+            {
+                _presenters.Remove(presenter);
+            }
+            
+            removedPresenters.Clear();
+            
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Input);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
+
+            DestroyShip();
+            _view.GameView.DestroyPulls();
         }
     }
 }

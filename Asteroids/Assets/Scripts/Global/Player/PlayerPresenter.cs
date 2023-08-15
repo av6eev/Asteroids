@@ -15,11 +15,12 @@ namespace Global.Player
         
         public void Activate()
         {
+          
         }
 
         public void Deactivate()
         {
-            
+           
         }
     }
 }

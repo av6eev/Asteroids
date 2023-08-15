@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BlueShipMoneyCountRequirement
   m_EditorClassIdentifier: 
   Requirement:
-    <ShipType>k__BackingField: 1
+    <ShipType>k__BackingField: 2

@@ -1,10 +1,11 @@
 using Game;
 using Game.Asteroids;
-using Game.Distance;
 using Game.Input;
 using Game.Scene;
-using Game.Score;
 using Game.Ship;
+using Game.UI;
+using Game.UI.Distance;
+using Game.UI.Score;
 using Global.Dialogs.Base;
 using Global.Player;
 using Global.Pulls.Base;
@@ -27,6 +28,7 @@ namespace Global
         public PullsData PullsData { get; set; }
 
         public GlobalUIModel GlobalUIModel { get; }
+        public GameUIModel GameUIModel { get; set; }
         public PlayerModel PlayerModel { get; }
         public ShipModel ShipModel { get; set; }
         public GameModel GameModel { get; set; }
@@ -34,8 +36,6 @@ namespace Global
         public InputModel InputModel { get; set; }
         public SaveModel SaveModel { get; set; }
         public AsteroidsModel AsteroidsModel { get; set; }
-        public ScoreModel ScoreModel { get; set; }
-        public DistanceModel DistanceModel { get; set; }
 
         public GlobalEnvironment(GameSpecifications specifications,
             GlobalView globalView,

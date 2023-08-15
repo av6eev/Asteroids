@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Game.Asteroids.Asteroid;
 using Global;
 using Specifications.Asteroids;
 using UnityEngine;
 using Utilities;
-using Random = Unity.Mathematics.Random;
+using Random = UnityEngine.Random;
 
 namespace Game.Asteroids
 {
@@ -19,7 +18,6 @@ namespace Game.Asteroids
         private readonly List<AsteroidModel> _inActiveAsteroids = new();
         
         private Timer _spawnTimer;
-        private Random _random;
 
         public AsteroidsPresenter(GlobalEnvironment environment, AsteroidsModel model)
         {
@@ -31,7 +29,6 @@ namespace Game.Asteroids
         {
             CreateAsteroidsPulls();
 
-            _random = new Random((uint)DateTime.Now.Millisecond);
             _spawnTimer = new Timer(AsteroidsModel.SpawnRate, true);
             _environment.TimersEngine.Add(_spawnTimer);
             
@@ -61,41 +58,43 @@ namespace Game.Asteroids
         {
             foreach (var model in _inActiveAsteroids)
             {
-                DestroyAsteroid(model);
+                DestroyAsteroid(model, true);
             }
             
             _inActiveAsteroids.Clear();
 
-            var activeAsteroids = _model.GetActiveAsteroids();
-            
-            foreach (var model in activeAsteroids.Keys)
+            foreach (var model in _model.GetActiveAsteroids().Keys)
             {
                 var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
 
-                if (!(model.Position.x < zoneLimits.LeftSide) && !(model.Position.x > zoneLimits.RightSide) && !(model.Position.z > zoneLimits.TopSide) && !(model.Position.z < zoneLimits.BottomSide)) continue;
+                if (!(model.Position.x < zoneLimits.LeftSide) &&
+                    !(model.Position.x > zoneLimits.RightSide) &&
+                    !(model.Position.z > zoneLimits.TopSide) && 
+                    !(model.Position.z < zoneLimits.BottomSide))
+                {
+                    model.Update(deltaTime);
+                    continue;
+                }
                 
                 if (!_inActiveAsteroids.Contains(model))
                 {
                     _inActiveAsteroids.Add(model);
                 }
             }
-            
-            foreach (var model in activeAsteroids.Keys)
-            {
-                model.Update(deltaTime);
-            }
         }
 
-        private void DestroyAsteroid(AsteroidModel model)
+        private void DestroyAsteroid(AsteroidModel model, bool byBorder = false)
         {
             _asteroidsPresenters[model].Deactivate();
             _asteroidsPresenters.Remove(model);
 
-            if (model.Specification.SubAsteroidsOnDestroy.Count != 0)
+            if (!byBorder && model.Specification.SubAsteroidsOnDestroy.Count != 0)
             {
                 foreach (var specification in model.Specification.SubAsteroidsOnDestroy.Select(item => item.Specification))
                 {
-                    CreateAsteroid(specification, model.Position);
+                    var newPosition = new Vector3(model.Position.x + Random.Range(-7f, 7f), 0, model.Position.z + Random.Range(-7f, 7f));
+                    
+                    CreateAsteroid(specification, newPosition);
                 }
             }
 
@@ -117,8 +116,8 @@ namespace Game.Asteroids
         private void DefineNewAsteroid()
         {
             var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
-            var position = new Vector3(_random.NextFloat(zoneLimits.LeftSide + 2, zoneLimits.RightSide - 2), 0, zoneLimits.TopSide - 3f);
-            var randomChance = _random.NextFloat();
+            var position = new Vector3(Random.Range(zoneLimits.LeftSide + 2, zoneLimits.RightSide - 2), 0, zoneLimits.TopSide - 3f);
+            var randomChance = Random.Range(0f, 1f);
             var randomType = AsteroidsTypes.Default;
             
             if (randomChance < _model.Specifications[AsteroidsTypes.Fire].ChanceToSpawn)

@@ -59,7 +59,10 @@ namespace Utilities
                 _presenter.Deactivate();
             }
             
+            _environment.GlobalView.GlobalUIView.ChangeVisibility(true);
             _environment.GlobalView.EventSystem.enabled = true;
+            _environment.GlobalView.MainCamera.enabled = true;
+            
             _presenter = null;
         }
     }

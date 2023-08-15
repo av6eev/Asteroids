@@ -48,14 +48,14 @@ namespace Game.Asteroids.Asteroid
                     
                     if (_model.Health <= 0)
                     {
-                        _environment.AsteroidsModel.DestroyAsteroid(_model);    
+                        _environment.AsteroidsModel.DestroyAsteroid(_model, false);    
                     }
                     break;
                 case TagsHelper.ShipTag:
                     if (!_environment.ShipModel.IsImmune)
                     {
                         _environment.ShipModel.ApplyDamage();
-                        _environment.AsteroidsModel.DestroyAsteroid(_model);    
+                        _environment.AsteroidsModel.DestroyAsteroid(_model, false);    
                     }
                     break;
             }
