@@ -6,11 +6,6 @@ namespace Utilities
     {
         private readonly List<ITimer> _timers = new();
 
-        public void Add(ITimer timer)
-        {
-            _timers.Add(timer);
-        }
-
         public void Update(float deltaTime)
         {
             foreach (var timer in _timers)
@@ -18,6 +13,8 @@ namespace Utilities
                 timer.Update(deltaTime);
             }
         }
+
+        public void Add(ITimer timer) => _timers.Add(timer);
 
         public void Remove(ITimer timer) => _timers.Remove(timer);
 

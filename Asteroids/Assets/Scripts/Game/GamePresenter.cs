@@ -1,9 +1,9 @@
 using System.Linq;
 using Game.Asteroids;
+using Game.CameraUpdater;
 using Game.Input;
 using Game.Scene;
 using Game.Ship;
-using Game.Systems;
 using Game.UI;
 using Global;
 using Global.Dialogs.History;

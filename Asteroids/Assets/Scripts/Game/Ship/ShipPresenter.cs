@@ -78,7 +78,7 @@ namespace Game.Ship
             var specification = _model.Specification;
             var hitsPull = _environment.GameSceneView.GameView.HitsPullView;
             
-            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Speed, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
+            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
             _model.MoveModel = new ShipMoveModel(specification.Speed);
             
             _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));

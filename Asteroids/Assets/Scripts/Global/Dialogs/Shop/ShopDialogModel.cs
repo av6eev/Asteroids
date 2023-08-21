@@ -15,11 +15,8 @@ namespace Global.Dialogs.Shop
         public Dictionary<ShipsTypes, ShipSpecification> ShipSpecifications { get; }
         public List<ShopCardDialogModel> Cards { get; } = new();
         
-        public ShopDialogModel(Dictionary<ShipsTypes, ShipSpecification> shipSpecifications)
-        {
-            ShipSpecifications = shipSpecifications;
-        }
-        
+        public ShopDialogModel(Dictionary<ShipsTypes, ShipSpecification> shipSpecifications) => ShipSpecifications = shipSpecifications;
+
         public void Show() => OnShow?.Invoke();
 
         public void Hide() => OnHide?.Invoke();

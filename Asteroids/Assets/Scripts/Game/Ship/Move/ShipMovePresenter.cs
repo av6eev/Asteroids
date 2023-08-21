@@ -18,10 +18,7 @@ namespace Game.Ship.Move
             _model = model;
         }
         
-        public void Activate()
-        {
-            _model.OnUpdate += Update;
-        }
+        public void Activate() => _model.OnUpdate += Update;
 
         public void Deactivate()
         {
@@ -30,11 +27,8 @@ namespace Game.Ship.Move
             Debug.Log(nameof(ShipMovePresenter) + " deactivated!");
         }
 
-        private void Update(float deltaTime)
-        {
-            Move(deltaTime);
-        }
-        
+        private void Update(float deltaTime) => Move(deltaTime);
+
         private void Move(float deltaTime)
         {
             var shipView = _environment.GameSceneView.GameView.CurrentShip;

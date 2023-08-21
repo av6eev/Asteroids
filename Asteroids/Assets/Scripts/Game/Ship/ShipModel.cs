@@ -29,7 +29,6 @@ namespace Game.Ship
                 _health = value;
             }
         }
-
         public bool IsImmune { get; set; }
 
         public ShipModel(ShipSpecification specification)

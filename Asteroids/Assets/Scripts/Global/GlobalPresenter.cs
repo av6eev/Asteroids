@@ -1,3 +1,4 @@
+using System;
 using Global.Dialogs.Base;
 using Global.Player;
 using Global.Save;
@@ -9,14 +10,13 @@ namespace Global
 {
     public class GlobalPresenter : MonoBehaviour
     {
-        [SerializeField] private GlobalView GlobalView;
-        
-        private GlobalEnvironment _environment;
-        private readonly PresentersEngine _globalPresenters = new();
+        [field: SerializeField] private GlobalView GlobalView { get; set; }
+        [field: NonSerialized] private GlobalEnvironment Environment { get; set; }
+        [field: NonSerialized] private PresentersEngine GlobalPresenters { get; } = new();
 
         private void Start()
         {
-            _environment = new GlobalEnvironment(
+            Environment = new GlobalEnvironment(
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
                 new ScenesManager(),
@@ -26,24 +26,30 @@ namespace Global
                 new GlobalUIModel(),
                 new PlayerModel());
             
-            _environment.DialogsModel = new DialogsModel(_environment.Specifications);
-            _environment.SaveModel = new SaveModel();
+            Environment.DialogsModel = new DialogsModel(Environment.Specifications);
+            Environment.SaveModel = new SaveModel();
             
-            _globalPresenters.Add(new GlobalUIPresenter(_environment, _environment.GlobalUIModel, GlobalView.GlobalUIView));
-            _globalPresenters.Add(new DialogsPresenter(_environment, _environment.DialogsModel, GlobalView.DialogsView));
-            _globalPresenters.Add(new PlayerPresenter(_environment, _environment.PlayerModel));
-            _globalPresenters.Add(new SavePresenter(_environment, _environment.SaveModel));
-            _globalPresenters.Activate();
+            GlobalPresenters.Add(new GlobalUIPresenter(Environment, Environment.GlobalUIModel, GlobalView.GlobalUIView));
+            GlobalPresenters.Add(new DialogsPresenter(Environment, Environment.DialogsModel, GlobalView.DialogsView));
+            GlobalPresenters.Add(new PlayerPresenter(Environment, Environment.PlayerModel));
+            GlobalPresenters.Add(new SavePresenter(Environment, Environment.SaveModel));
+            GlobalPresenters.Activate();
 
-            _environment.SaveModel.Deserialize();
+            Environment.SaveModel.Deserialize();
         }
 
         private void Update()
         {
-            _environment.UpdatersEngine.Update(_environment);
-            _environment.TimersEngine.Update(Time.deltaTime);
+            Environment.UpdatersEngine.Update(Environment);
+            Environment.TimersEngine.Update(Time.deltaTime);
         }
 
-        private void FixedUpdate() => _environment.FixedUpdatersEngine.Update(_environment);
+        private void FixedUpdate() => Environment.FixedUpdatersEngine.Update(Environment);
+
+        public void OnApplicationQuit()
+        {
+            GlobalPresenters.Deactivate();
+            GlobalPresenters.Clear();
+        }
     }
 }

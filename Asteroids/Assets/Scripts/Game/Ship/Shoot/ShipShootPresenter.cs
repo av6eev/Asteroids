@@ -79,7 +79,7 @@ namespace Game.Ship.Shoot
 
             _model.IsReadyToShoot = false;
             
-            var shotModel = new BulletModel(_environment.GameSceneView.GameView.CurrentShip.transform.position, _model.BulletSpeed, _model.BulletHealth, _model.BulletDamage);
+            var shotModel = new BulletModel(_environment.GameSceneView.GameView.CurrentShip.transform.position, _model.BulletHealth, _model.BulletDamage);
             var shotView = _environment.PullsData.BulletsPull.TryGetElement();
             var presenter = new BulletPresenter(_environment, shotModel, shotView);
             

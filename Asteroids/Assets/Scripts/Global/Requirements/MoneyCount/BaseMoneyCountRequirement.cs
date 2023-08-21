@@ -17,8 +17,6 @@ namespace Global.Requirements.MoneyCount
 
             if (environment.PlayerModel.Money < chosenShipPrice)
             {
-                Debug.Log(chosenShipPrice);
-                Debug.Log(environment.PlayerModel.Money);
                 return false;
             }
             

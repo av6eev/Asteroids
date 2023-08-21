@@ -58,10 +58,7 @@ namespace Game.Ship.Bullet
             }
         }
 
-        private void Update(float deltaTime)
-        {
-            Move(deltaTime);
-        }
+        private void Update(float deltaTime) => Move(deltaTime);
 
         private void Move(float deltaTime) => _model.Position = _view.Move(deltaTime);
     }

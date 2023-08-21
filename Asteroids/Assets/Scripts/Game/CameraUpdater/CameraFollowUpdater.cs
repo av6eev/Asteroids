@@ -2,7 +2,7 @@
 using UnityEngine;
 using Utilities;
 
-namespace Game.Systems
+namespace Game.CameraUpdater
 {
     public class CameraFollowUpdater : IUpdater
     {

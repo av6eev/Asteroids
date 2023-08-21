@@ -11,10 +11,11 @@ namespace Game.Asteroids.Asteroid
         public event Action<string, BasePullElementView> OnCollision;
         [field: SerializeField] public Vector3 RotationAngle { get; private set; }
 
-        public void SetPosition(Vector3 position)
-        {
-            transform.position = position;
-        }
+        public void SetPosition(Vector3 position) => transform.position = position;
+        
+        public void OnCollisionEnter(Collision otherGo) => OnCollision?.Invoke(otherGo.gameObject.tag, otherGo.gameObject.GetComponent<BulletView>());
+        
+        public void Rotate(float deltaTime) => transform.Rotate(RotationAngle * deltaTime);
 
         public Vector3 Move(Vector3 multiplier)
         {
@@ -23,16 +24,6 @@ namespace Game.Asteroids.Asteroid
             (cachedTransform = transform).Translate(multiplier);
             
             return cachedTransform.position;
-        }
-
-        public void Rotate(float deltaTime)
-        {
-            transform.Rotate(RotationAngle * deltaTime);
-        }
-
-        public void OnCollisionEnter(Collision otherGo)
-        {
-            OnCollision?.Invoke(otherGo.gameObject.tag, otherGo.gameObject.GetComponent<BulletView>());           
         }
     }
 }
