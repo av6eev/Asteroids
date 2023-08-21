@@ -1,7 +1,6 @@
 ﻿using Game.Ship.Bullet;
 using Global;
 using Global.Pulls.Base;
-using UnityEngine;
 using Utilities;
 
 namespace Game.Asteroids.Asteroid
@@ -31,8 +30,6 @@ namespace Game.Asteroids.Asteroid
         {
             _model.OnUpdate -= Update;
             _view.OnCollision -= CalculateDamage;
-            
-            Debug.Log(nameof(AsteroidPresenter) + " deactivated!");
         }
 
         private void CalculateDamage(string otherGoTag, BasePullElementView bulletView)

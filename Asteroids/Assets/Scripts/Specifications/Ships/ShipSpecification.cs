@@ -24,7 +24,6 @@ namespace Specifications.Ships
         public float ReloadTime;
         public float ShootRate;
         public bool IsAutomatic;
-        public HitPullView BulletHitParticleSystem;
 
         [Header("Movement")]
         [Range(0f, 10f)] public float Speed;

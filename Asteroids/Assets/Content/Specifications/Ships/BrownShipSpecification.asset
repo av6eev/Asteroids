@@ -24,8 +24,6 @@ MonoBehaviour:
     ReloadTime: 1
     ShootRate: 0.15
     IsAutomatic: 1
-    BulletHitParticleSystem: {fileID: 3235485075728030562, guid: fadc0b393312a994991c47e2db0894cc,
-      type: 3}
     Speed: 3
     Prefab: {fileID: 2915137332826695156, guid: 0c71196e992e692428bfb73041fdc93e,
       type: 3}

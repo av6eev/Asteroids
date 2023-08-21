@@ -88,7 +88,7 @@ namespace Game.Ship
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
             
-            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletHitParticleSystem;
+            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab.HitEffect;
             hitsPull.Count = 10;
             
             _environment.PullsData.HitsPull.CreatePull(hitsPull);

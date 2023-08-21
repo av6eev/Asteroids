@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00053648785, g: 0.00051057147, b: 0.0005058589, a: 1}
+  m_IndirectSpecularColor: {r: 0.0012672899, g: 0.0012408226, b: 0.0012902999, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 297158089}
   - component: {fileID: 297158088}
   m_Layer: 0
-  m_Name: ShotsPull
+  m_Name: BulletsPull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2957,7 +2957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1485826611
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3351,7 +3351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ZoneLimits>k__BackingField: {fileID: 1705807711}
   <ShipSpawnPoint>k__BackingField: {fileID: 780888007}
-  <ShotsPullView>k__BackingField: {fileID: 297158088}
+  <BulletsPullView>k__BackingField: {fileID: 297158088}
   <HitsPullView>k__BackingField: {fileID: 1322235255}
   <AsteroidsPullView>k__BackingField:
   - {fileID: 17633621}
