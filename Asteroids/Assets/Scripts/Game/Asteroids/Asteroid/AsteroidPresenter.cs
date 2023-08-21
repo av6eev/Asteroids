@@ -67,16 +67,8 @@ namespace Game.Asteroids.Asteroid
             Rotate(deltaTime);
         }
         
-        private void Move(float deltaTime)
-        {
-            var multiplier = _model.Direction * (_model.Specification.Speed * deltaTime);
-            
-            _model.Position = _view.Move(multiplier);
-        }
+        private void Move(float deltaTime) => _model.Position = _view.Move(_model.Direction * (_model.Specification.Speed * deltaTime));
 
-        private void Rotate(float deltaTime)
-        {
-            _view.Rotate(deltaTime);
-        }
+        private void Rotate(float deltaTime) => _view.Rotate(deltaTime);
     }
 }

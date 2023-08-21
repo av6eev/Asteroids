@@ -44,9 +44,6 @@ namespace Global
             _environment.TimersEngine.Update(Time.deltaTime);
         }
 
-        private void FixedUpdate()
-        {
-            _environment.FixedUpdatersEngine.Update(_environment);
-        }
+        private void FixedUpdate() => _environment.FixedUpdatersEngine.Update(_environment);
     }
 }

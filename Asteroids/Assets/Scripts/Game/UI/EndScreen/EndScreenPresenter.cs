@@ -36,9 +36,6 @@ namespace Game.UI.EndScreen
             _view.ChangeVisibility(true);
         }
 
-        private void EndGame()
-        {
-            _environment.GameModel.Close();
-        }
+        private void EndGame() => _environment.GameModel.Close();
     }
 }

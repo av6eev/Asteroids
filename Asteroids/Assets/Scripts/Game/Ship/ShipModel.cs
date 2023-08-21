@@ -2,7 +2,6 @@
 using Game.Ship.Move;
 using Game.Ship.Shoot;
 using Specifications.Ships;
-using UnityEngine;
 using Utilities;
 
 namespace Game.Ship
@@ -39,15 +38,9 @@ namespace Game.Ship
             Health = specification.Health;
         }
 
-        public void Shoot()
-        {
-            OnShoot?.Invoke();
-        }
+        public void Shoot() => OnShoot?.Invoke();
 
-        public void Update(float deltaTime)
-        {
-            OnUpdate?.Invoke(deltaTime);
-        }
+        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
         public void ApplyDamage()
         {

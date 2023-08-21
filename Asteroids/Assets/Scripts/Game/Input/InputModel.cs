@@ -10,9 +10,6 @@ namespace Game.Input
         public float ShipRotateDirection { get; set; }
         public event Action<float> OnUpdate;
         
-        public void Update(float deltaTime)
-        {
-            OnUpdate?.Invoke(deltaTime);
-        }
+        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
     }
 }

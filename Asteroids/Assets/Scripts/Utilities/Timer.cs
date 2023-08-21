@@ -36,9 +36,6 @@ namespace Utilities
             }
         }
 
-        public void Reset()
-        {
-            _currentTime = 0;
-        }
+        public void Reset() => _currentTime = 0;
     }
 }

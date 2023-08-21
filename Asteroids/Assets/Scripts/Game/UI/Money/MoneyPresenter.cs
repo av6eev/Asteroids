@@ -16,16 +16,10 @@ namespace Game.UI.Money
             _view = view;
         }
         
-        public void Activate()
-        {
-            _environment.AsteroidsModel.OnAsteroidDestroyed += UpdateMoneyCounter;
-        }
+        public void Activate() => _environment.AsteroidsModel.OnAsteroidDestroyed += UpdateMoneyCounter;
 
-        public void Deactivate()
-        {
-            _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateMoneyCounter;
-        }
-        
+        public void Deactivate() => _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateMoneyCounter;
+
         private void UpdateMoneyCounter(AsteroidModel asteroidModel, bool byBorder, bool byShip)
         {
             if (byBorder || byShip) return;

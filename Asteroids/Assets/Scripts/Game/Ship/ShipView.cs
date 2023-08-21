@@ -13,13 +13,8 @@ namespace Game.Ship
             return cachedTransform.position;
         }
 
-        public void ResetPosition(Vector3 shipPosition)
-        {
-            transform.position = shipPosition;
-        }
+        public void ResetPosition(Vector3 shipPosition) => transform.position = shipPosition;
 
-        public void EnableImmunity()
-        {
-        }
+        public void EnableImmunity(){}
     }
 }

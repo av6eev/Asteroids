@@ -20,14 +20,8 @@ namespace Utilities
             }
         }
 
-        public void Remove(UpdatersTypes type)
-        {
-            _updaters.Remove(type);
-        }
-        
-        public void Clear()
-        {
-            _updaters.Clear();
-        }
+        public void Remove(UpdatersTypes type) => _updaters.Remove(type);
+
+        public void Clear() => _updaters.Clear();
     }
 }

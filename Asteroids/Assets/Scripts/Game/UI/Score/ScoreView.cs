@@ -7,9 +7,6 @@ namespace Game.UI.Score
     {
         [field: SerializeField] public TextMeshProUGUI ScoreText { get; private set; }
 
-        public void UpdateScore(int score)
-        {
-            ScoreText.text = score.ToString();
-        }
+        public void UpdateScore(int score) => ScoreText.text = score.ToString();
     }
 }

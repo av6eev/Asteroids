@@ -6,11 +6,8 @@ namespace Utilities
     {
         private readonly List<IPresenter> _presenters = new();
 
-        public void Add(IPresenter presenter)
-        {
-            _presenters.Add(presenter);
-        }
-        
+        public void Add(IPresenter presenter) => _presenters.Add(presenter);
+
         public void Activate()
         {
             foreach (var presenter in _presenters)
@@ -27,15 +24,9 @@ namespace Utilities
             }
         }
 
-        public void Clear()
-        {
-            _presenters.Clear();
-        }
+        public void Clear() => _presenters.Clear();
 
-        public List<IPresenter> GetAll()
-        {
-            return _presenters;
-        }
+        public List<IPresenter> GetAll() => _presenters;
 
         public void Remove(IPresenter presenter)
         {

@@ -22,10 +22,7 @@ namespace Utilities
 
         private static GameCoroutines _instance;
 
-        public static Coroutine RunCoroutine(IEnumerator enumerator)
-        {
-            return Instance.StartCoroutine(enumerator);
-        }
+        public static Coroutine RunCoroutine(IEnumerator enumerator) => Instance.StartCoroutine(enumerator);
 
         public static void DisableCoroutine(Coroutine coroutine)
         {

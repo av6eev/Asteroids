@@ -29,10 +29,7 @@ namespace Game
             return go;
         }
 
-        public void DestroyShip()
-        {
-            Destroy(CurrentShip.gameObject);
-        }
+        public void DestroyShip() => Destroy(CurrentShip.gameObject);
 
         public void DestroyPulls()
         {

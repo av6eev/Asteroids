@@ -28,9 +28,6 @@ namespace Global.Dialogs.Shop
 
         public void BuyShip(ShipsTypes type, int price) => OnShipBought?.Invoke(type, price);
 
-        public void Redraw(int shipId)
-        {
-            OnRedraw?.Invoke(shipId);
-        }
+        public void Redraw(int shipId) => OnRedraw?.Invoke(shipId);
     }
 }

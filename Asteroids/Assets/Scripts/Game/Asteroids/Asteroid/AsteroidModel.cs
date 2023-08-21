@@ -22,9 +22,6 @@ namespace Game.Asteroids.Asteroid
             Direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         }
 
-        public void Update(float deltaTime)
-        {
-            OnUpdate?.Invoke(deltaTime);
-        }
+        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Game.Asteroids;
-using Game.Asteroids.Asteroid;
 using Global.Pulls.Asteroids;
 using Global.Pulls.ParticleSystem.Hit;
 using Global.Pulls.Shots;

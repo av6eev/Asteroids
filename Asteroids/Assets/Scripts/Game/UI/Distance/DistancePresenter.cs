@@ -15,15 +15,9 @@ namespace Game.UI.Distance
             _view = view;
         }
         
-        public void Activate()
-        {
-            _environment.ShipModel.MoveModel.OnUpdate += UpdateDistance;
-        }
+        public void Activate() => _environment.ShipModel.MoveModel.OnUpdate += UpdateDistance;
 
-        public void Deactivate()
-        {
-            _environment.ShipModel.MoveModel.OnUpdate -= UpdateDistance;
-        }
+        public void Deactivate() => _environment.ShipModel.MoveModel.OnUpdate -= UpdateDistance;
 
         private void UpdateDistance(float deltaTime)
         {

@@ -5,6 +5,5 @@ namespace Global.Pulls.Shots
 {
     public class ShotsPullView : BasePullView<BulletView>
     {
-        
     }
 }

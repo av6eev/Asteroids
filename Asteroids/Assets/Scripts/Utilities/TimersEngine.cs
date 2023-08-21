@@ -19,14 +19,8 @@ namespace Utilities
             }
         }
 
-        public void Remove(ITimer timer)
-        {
-            _timers.Remove(timer);
-        }
+        public void Remove(ITimer timer) => _timers.Remove(timer);
 
-        public void Clear()
-        {
-            _timers.Clear();
-        }
+        public void Clear() => _timers.Clear();
     }
 }

@@ -43,10 +43,7 @@ namespace Game
 
         public void UpdateScore(int bonus) => CurrentScore += bonus;
 
-        public void UpdateBalance(float bonus)
-        {
-            CurrentMoney += bonus;
-        }
+        public void UpdateBalance(float bonus) => CurrentMoney += bonus;
 
         public int CalculateGainedMoney() => CurrentDistance / 400 + Convert.ToInt32(Math.Floor(CurrentMoney));
 

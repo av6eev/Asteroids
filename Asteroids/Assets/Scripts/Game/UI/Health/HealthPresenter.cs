@@ -21,19 +21,10 @@ namespace Game.UI.Health
             _environment.ShipModel.OnDamageApplied += UpdateHealthBar;
         }
 
-        public void Deactivate()
-        {
-            _environment.ShipModel.OnDamageApplied -= UpdateHealthBar;
-        }
-        
-        private void SetStartedHealth(int maxHealth)
-        {
-            _view.SetStartedHealth(maxHealth);
-        }
+        public void Deactivate() => _environment.ShipModel.OnDamageApplied -= UpdateHealthBar;
 
-        private void UpdateHealthBar()
-        {
-            _view.UpdateElement(.33f);
-        }
+        private void SetStartedHealth(int maxHealth) => _view.SetStartedHealth(maxHealth);
+
+        private void UpdateHealthBar() => _view.UpdateElement(.33f);
     }
 }

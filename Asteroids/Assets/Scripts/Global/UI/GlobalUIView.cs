@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Global.UI
@@ -12,9 +11,6 @@ namespace Global.UI
         [field: SerializeField] public GameObject MainMenuRoot { get; private set; }
         [field: SerializeField] public GameObject Title { get; private set; }
 
-        public void ChangeVisibility(bool state)
-        {
-            gameObject.SetActive(state);
-        }
+        public void ChangeVisibility(bool state) => gameObject.SetActive(state);
     }
 }

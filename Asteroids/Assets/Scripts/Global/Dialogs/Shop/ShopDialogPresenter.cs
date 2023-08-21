@@ -54,10 +54,7 @@ namespace Global.Dialogs.Shop
             _model.Cards.Find(card => card.Id == shipId).SetPurchased(true);
         }
 
-        private void UpdatePlayerBalance(int money)
-        {
-            _view.UpdateBalanceText(money);
-        }
+        private void UpdatePlayerBalance(int money) => _view.UpdateBalanceText(money);
 
         private void ChangeActiveCard(int changeDirection)
         {

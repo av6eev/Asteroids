@@ -51,20 +51,11 @@ namespace Global.Dialogs.Shop.Card
             _environment.DialogsModel.GetByType<ShopDialogModel>().Hide();
         }
 
-        private void BuyShip()
-        {
-            _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification.Type, _model.ShipSpecification.Price);
-        }
+        private void BuyShip() => _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification.Type, _model.ShipSpecification.Price);
 
-        private void ShowPreviousCard()
-        {
-            _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
-        }
+        private void ShowPreviousCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
 
-        private void ShowNextCard()
-        {
-            _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(1);
-        }
+        private void ShowNextCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(1);
 
         private void Show()
         {
@@ -74,9 +65,6 @@ namespace Global.Dialogs.Shop.Card
             _view.ChangeVisibility(true);
         }
         
-        private void Hide()
-        {
-            _view.ChangeVisibility(false);
-        }
+        private void Hide() => _view.ChangeVisibility(false);
     }
 }

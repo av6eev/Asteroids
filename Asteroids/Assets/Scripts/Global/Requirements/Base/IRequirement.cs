@@ -1,8 +1,6 @@
-﻿using Global.Save;
-
-namespace Global.Requirements.Base
+﻿namespace Global.Requirements.Base
 {
-    public interface IRequirement : ISavable
+    public interface IRequirement
     {
         bool Completed { get; set; }
         SubRequirementType SubType { get; }
