@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Global.Dialogs.Shop.Card;
+﻿using Global.Dialogs.Shop.Card;
 using UnityEngine;
 using Utilities;
 
@@ -86,8 +85,7 @@ namespace Global.Dialogs.Shop
             }
             
             _cardsPresenters.Activate();
-            _model.Cards.First().Show();
-            
+            _model.Cards.Find(card => card.Id == _environment.GlobalUIModel.SelectedShipId).Show();
             _view.ChangeVisibility(true);
         }
 

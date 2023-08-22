@@ -4,5 +4,6 @@
     {
         public const string PlayerMoney = "player_money";
         public const string ScoresHistory = "scores_history";
+        public const string SelectedShip = "selected_ship";
     }
 }

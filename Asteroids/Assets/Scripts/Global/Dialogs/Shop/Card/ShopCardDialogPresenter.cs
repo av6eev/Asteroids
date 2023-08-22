@@ -47,7 +47,7 @@ namespace Global.Dialogs.Shop.Card
 
         private void SelectShip()
         {
-            _environment.GlobalUIModel.SelectedShipId = _model.Id;
+            _environment.GlobalUIModel.SetSelectedShip(_model.Id);
             _environment.DialogsModel.GetByType<ShopDialogModel>().Hide();
         }
 
