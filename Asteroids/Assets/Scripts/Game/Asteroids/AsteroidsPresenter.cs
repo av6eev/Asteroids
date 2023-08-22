@@ -150,6 +150,7 @@ namespace Game.Asteroids
                 var pullView = _environment.GameSceneView.GameView.AsteroidsPullView.Find(item => item.Type == pull.Key);
 
                 pullView.ElementPrefab = _model.Specifications[pull.Key].Prefab;
+                pullView.Count = 20;
                 
                 pull.Value.CreatePull(pullView);
             }

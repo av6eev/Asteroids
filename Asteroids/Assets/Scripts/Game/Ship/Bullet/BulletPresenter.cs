@@ -11,8 +11,8 @@ namespace Game.Ship.Bullet
         private readonly BulletModel _model;
         private readonly BulletView _view;
 
-        private HitPullView _lastActiveHit;
-        
+        private HitPullView _hit;
+
         public BulletPresenter(GlobalEnvironment environment, BulletModel model, BulletView view)
         {
             _environment = environment;
@@ -34,21 +34,22 @@ namespace Game.Ship.Bullet
             _view.OnBumped -= CalculateDamage;
         }
 
-        private void Update(float deltaTime)
-        {
-            Move(deltaTime);
-        }
-
         private void CalculateDamage(AsteroidModel asteroidModel)
         {
-            if (_lastActiveHit != null)
+            var hitsPull = _environment.PullsData.HitsPull;
+            var lastActiveHit = hitsPull.LastActiveHit;
+            
+            if (lastActiveHit != null)
             {
-                _environment.PullsData.HitsPull.PutBack(_lastActiveHit);
+                hitsPull.PutBack(lastActiveHit);
+                hitsPull.LastActiveHit = null;
             }
-    
-            _lastActiveHit = _environment.PullsData.HitsPull.TryGetElement();
-            _lastActiveHit.transform.position = _view.transform.position;
+            
+            _hit = hitsPull.TryGetElement();
+            _hit.transform.position = _view.transform.position;
 
+            hitsPull.LastActiveHit = _hit;
+            
             _model.Health -= asteroidModel.Health;
             
             if (_model.Health <= 0)
@@ -57,9 +58,8 @@ namespace Game.Ship.Bullet
             }
         }
 
-        private void Move(float deltaTime)
-        {
-            _model.Position = _view.Move(deltaTime);
-        }
+        private void Update(float deltaTime) => Move(deltaTime);
+
+        private void Move(float deltaTime) => _model.Position = _view.Move(deltaTime);
     }
 }

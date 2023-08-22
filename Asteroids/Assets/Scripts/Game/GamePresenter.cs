@@ -1,11 +1,12 @@
 using System.Linq;
 using Game.Asteroids;
+using Game.CameraUpdater;
 using Game.Input;
 using Game.Scene;
 using Game.Ship;
-using Game.Systems;
 using Game.UI;
 using Global;
+using Global.Dialogs.History;
 using Global.Pulls.Base;
 using UnityEngine;
 using Utilities;
@@ -33,7 +34,7 @@ namespace Game
             CreateNecessaryData();
 
             _model.OnClosed += Close;
-            _model.OnEnded += SaveGame;
+            _model.OnEnded += Save;
         }
 
         public void Deactivate()
@@ -42,7 +43,7 @@ namespace Game
             _presenters.Clear();
             
             _model.OnClosed -= Close;
-            _model.OnEnded -= SaveGame;
+            _model.OnEnded -= Save;
             
             Debug.Log(nameof(GamePresenter) + " deactivated!");
         }
@@ -57,10 +58,7 @@ namespace Game
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
         }
 
-        private void DestroyShip()
-        {
-            _view.GameView.DestroyShip();
-        }
+        private void DestroyShip() => _view.GameView.DestroyShip();
 
         private void CreateNecessaryData()
         {
@@ -85,14 +83,17 @@ namespace Game
             _view.GameUIView.ChangeVisibility(false);
         }
 
-        private void SaveGame()
+        private void Save()
         {
+            _view.GameUIView.HideElementsAfterEnd();
+            
+            _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
             _environment.SaveModel.Save();
             
-            DeactivateNecessaryData();
+            DeactivateUnnecessaryData();
         }
 
-        private void DeactivateNecessaryData()
+        private void DeactivateUnnecessaryData()
         {
             var removedPresenters = new PresentersEngine();
             

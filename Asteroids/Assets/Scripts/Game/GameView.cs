@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game.Ship;
 using Global.Pulls.Asteroids;
+using Global.Pulls.Bullets;
 using Global.Pulls.ParticleSystem.Hit;
-using Global.Pulls.Shots;
 using UnityEngine;
 using Utilities;
 
@@ -13,10 +14,10 @@ namespace Game
         [field: SerializeField] public GameZoneLimits ZoneLimits { get; private set; }
         [field: SerializeField] public Transform ShipSpawnPoint { get; private set; }
         [field: Header("Pulls")]
-        [field: SerializeField] public ShotsPullView ShotsPullView { get; private set; }
+        [field: SerializeField] public BulletsPullView BulletsPullView { get; private set; }
         [field: SerializeField] public HitsPullView HitsPullView { get; private set; }
         [field: SerializeField] public List<AsteroidsPullView> AsteroidsPullView { get; private set; }
-        public ShipView CurrentShip { get; private set; }
+        [field: NonSerialized] public ShipView CurrentShip { get; private set; }
         
         public ShipView InstantiateShip(ShipView shipPrefab)
         {
@@ -29,14 +30,9 @@ namespace Game
             return go;
         }
 
-        public void DestroyShip()
-        {
-            Destroy(CurrentShip.gameObject);
-        }
-
         public void DestroyPulls()
         {
-            ShotsPullView.DestroyObjects();
+            BulletsPullView.DestroyObjects();
             HitsPullView.DestroyObjects();
             
             foreach (var asteroidsPull in AsteroidsPullView)
@@ -44,5 +40,7 @@ namespace Game
                 asteroidsPull.DestroyObjects();                
             }
         }
+
+        public void DestroyShip() => Destroy(CurrentShip.gameObject);
     }
 }

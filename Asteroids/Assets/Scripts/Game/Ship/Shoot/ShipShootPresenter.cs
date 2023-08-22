@@ -79,7 +79,7 @@ namespace Game.Ship.Shoot
 
             _model.IsReadyToShoot = false;
             
-            var shotModel = new BulletModel(_environment.GameSceneView.GameView.CurrentShip.transform.position, _model.BulletSpeed, _model.BulletHealth, _model.BulletDamage);
+            var shotModel = new BulletModel(_environment.GameSceneView.GameView.CurrentShip.transform.position, _model.BulletHealth, _model.BulletDamage);
             var shotView = _environment.PullsData.BulletsPull.TryGetElement();
             var presenter = new BulletPresenter(_environment, shotModel, shotView);
             
@@ -103,26 +103,17 @@ namespace Game.Ship.Shoot
                 }    
             }
         }
-        
-        private void CreateBulletsPull()
-        {
-            var bulletsPull = _environment.GameSceneView.GameView.ShotsPullView;
-            
-            bulletsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab;
-            bulletsPull.Count = _model.StartBulletCount;
-            
-            _environment.PullsData.BulletsPull.CreatePull(bulletsPull);   
-        }
-        
+
         private void DestroyBullet(BulletModel model)
         {
             _bulletsPresenters[model].Deactivate();
             _bulletsPresenters.Remove(model);
             
             _environment.PullsData.BulletsPull.PutBack(_model.GetByKey(model));
+            
             _model.RemoveActiveBullet(model);
         }
-        
+
         private IEnumerator WaitForFireRate(float shotRate)
         {
             yield return new WaitForSeconds(shotRate);
@@ -143,6 +134,16 @@ namespace Game.Ship.Shoot
             
             GameCoroutines.DisableCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;
+        }
+
+        private void CreateBulletsPull()
+        {
+            var bulletsPull = _environment.GameSceneView.GameView.BulletsPullView;
+            
+            bulletsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab;
+            bulletsPull.Count = _model.StartBulletCount;
+            
+            _environment.PullsData.BulletsPull.CreatePull(bulletsPull);   
         }
     }
 }

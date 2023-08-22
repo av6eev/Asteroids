@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Game.Ship;
+using Global.Dialogs.History;
 using Global.Requirements.MoneyCount.BlueShip;
-using UnityEngine;
 using Utilities;
 
 namespace Global.Save
@@ -23,12 +23,19 @@ namespace Global.Save
         {
             _model.OnSave += SaveGame;
             _model.OnDeserialize += DeserializeData;
+            
+            _environment.GlobalUIModel.OnShipChanged += SaveCurrentShip;
         }
 
         public void Deactivate()
         {
+            _requirementsPresenters.Deactivate();
+            _requirementsPresenters.Clear();
+            
             _model.OnSave -= SaveGame;
             _model.OnDeserialize -= DeserializeData;
+            
+            _environment.GlobalUIModel.OnShipChanged -= SaveCurrentShip;
         }
 
         private void DeserializeData()
@@ -39,20 +46,23 @@ namespace Global.Save
 
         private void SaveGame()
         {
-            Debug.Log("gained: " + _environment.GameModel.CalculateGainedMoney());
-            Debug.Log("current: " + _environment.PlayerModel.Money);
-            
             _model.SaveElement(SavingElementsKeys.PlayerMoney, _environment.GameModel.CalculateGainedMoney() + _environment.PlayerModel.Money);
+            _model.SaveElement(SavingElementsKeys.ScoresHistory, _environment.DialogsModel.GetByType<HistoryDialogModel>().GetScores());
             
             DeserializePlayerData();
         }
 
+        private void SaveCurrentShip(int shipId) => _model.SaveElement(SavingElementsKeys.SelectedShip, shipId);
+
         private void DeserializePlayerData()
         {
-            var playerMoney = _model.GetElement<int>(SavingElementsKeys.PlayerMoney);
-                                                                                        
-            Debug.Log("deserialized: " + playerMoney);
-            _environment.PlayerModel.SetMoneyFromSave(playerMoney);
+            var money = _model.GetElement<int>(SavingElementsKeys.PlayerMoney);
+            var scoresHistory = _model.GetElement<List<int>>(SavingElementsKeys.ScoresHistory);
+            var lastSelectedShip = _model.GetElement<int>(SavingElementsKeys.SelectedShip);
+
+            _environment.PlayerModel.SetMoneyFromSave(money);
+            _environment.DialogsModel.GetByType<HistoryDialogModel>().SetScoresFromSave(scoresHistory);
+            _environment.GlobalUIModel.SetSelectedShip(lastSelectedShip);
         }
 
         private void DeserializeRequirements()
@@ -70,9 +80,7 @@ namespace Global.Save
                 {
                     case BlueShipMoneyCountRequirement:
                         type = ShipsTypes.Blue;
-                        isPurchased = false;
-                        _requirementsPresenters.Add(
-                            new BlueShipMoneyCountRequirementPresenter(_environment, requirement.Value));
+                        _requirementsPresenters.Add(new BlueShipMoneyCountRequirementPresenter(_environment, requirement.Value));
                         break;
                 }
 

@@ -8,10 +8,7 @@ namespace Global.Pulls.Base
         public T ElementPrefab { get; set; }
         public virtual int Count { get; set; }
 
-        public T CreateObject()
-        {
-            return Instantiate(ElementPrefab, PullRoot);
-        }
+        public T CreateObject() => Instantiate(ElementPrefab, PullRoot);
 
         public void DestroyObjects()
         {

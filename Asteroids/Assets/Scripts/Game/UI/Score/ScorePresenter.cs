@@ -16,15 +16,9 @@ namespace Game.UI.Score
             _view = view;
         }
 
-        public void Activate()
-        {
-            _environment.AsteroidsModel.OnAsteroidDestroyed += UpdateScore;
-        }
+        public void Activate() => _environment.AsteroidsModel.OnAsteroidDestroyed += UpdateScore;
 
-        public void Deactivate()
-        {
-            _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateScore;
-        }
+        public void Deactivate() => _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateScore;
 
         private void UpdateScore(AsteroidModel asteroidModel, bool byBorder, bool byShip)
         {

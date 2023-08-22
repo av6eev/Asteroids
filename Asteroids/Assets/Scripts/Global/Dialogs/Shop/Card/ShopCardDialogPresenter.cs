@@ -24,7 +24,7 @@ namespace Global.Dialogs.Shop.Card
             
             _model.OnShow += Show;
             _model.OnHide += Hide;
-            _model.OnButtonsSwitch += SwitchButtons;
+            _model.OnPurchased += HandlePurchase;
         }
 
         public void Deactivate()
@@ -36,49 +36,35 @@ namespace Global.Dialogs.Shop.Card
 
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
-            _model.OnButtonsSwitch -= SwitchButtons;
+            _model.OnPurchased -= HandlePurchase;
         }
 
-        private void SwitchButtons()
+        private void HandlePurchase()
         {
-            _view.SwitchButtons();
+            _view.SwitchButtons(_model.IsPurchased);
+            _view.ChangePriceText(_model.IsPurchased);
         }
 
         private void SelectShip()
         {
-            _environment.GlobalUIModel.SelectedShipId = _model.Id;
+            _environment.GlobalUIModel.SetSelectedShip(_model.Id);
             _environment.DialogsModel.GetByType<ShopDialogModel>().Hide();
         }
 
-        private void BuyShip()
-        {
-            _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification.Type, _model.ShipSpecification.Price);
-        }
+        private void BuyShip() => _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification.Type, _model.ShipSpecification.Price);
 
-        private void ShowPreviousCard()
-        {
-            _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
-        }
+        private void ShowPreviousCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
 
-        private void ShowNextCard()
-        {
-            _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(1);
-        }
+        private void ShowNextCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(1);
 
         private void Show()
         {
-            if (_model.IsPurchased)
-            {
-                _view.SwitchButtons();
-                _view.ChangePriceText();
-            }
+            _view.SwitchButtons(_model.IsPurchased);
+            _view.ChangePriceText(_model.IsPurchased);
             
             _view.ChangeVisibility(true);
         }
         
-        private void Hide()
-        {
-            _view.ChangeVisibility(false);
-        }
+        private void Hide() => _view.ChangeVisibility(false);
     }
 }

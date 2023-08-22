@@ -8,15 +8,9 @@ namespace Global.Save
     {
         public event Action OnSave, OnDeserialize;
 
-        public void Save()
-        {
-            OnSave?.Invoke();
-        }
+        public void Save() => OnSave?.Invoke();
 
-        public void Deserialize()
-        {
-            OnDeserialize?.Invoke();
-        }
+        public void Deserialize() => OnDeserialize?.Invoke();
 
         public T GetElement<T>(string key) => PlayerPrefs.HasKey(key) ? JsonConvert.DeserializeObject<T>(PlayerPrefs.GetString(key)) : default;
 

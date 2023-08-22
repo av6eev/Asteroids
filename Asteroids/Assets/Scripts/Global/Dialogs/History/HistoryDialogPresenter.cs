@@ -22,6 +22,7 @@ namespace Global.Dialogs.History
 
             _model.OnShow += Show;
             _model.OnHide += Hide;
+            _model.OnScoreAdded += ResetView;
         }
 
         public void Deactivate()
@@ -30,6 +31,15 @@ namespace Global.Dialogs.History
 
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
+            _model.OnScoreAdded -= ResetView;
+        }
+
+        private void ResetView() => _view.SetScores(_model.GetScores());
+
+        private void Show()
+        {
+            _view.SetScores(_model.GetScores());
+            _view.ChangeVisibility(true);
         }
 
         private void Hide()
@@ -37,11 +47,7 @@ namespace Global.Dialogs.History
             _view.ChangeVisibility(false);
             
             _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
-        }
-
-        private void Show()
-        {
-            _view.ChangeVisibility(true);
+            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
         }
     }
 }

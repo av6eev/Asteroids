@@ -1,20 +1,20 @@
 ﻿using System;
 using Game.Ship;
 using Game.Ship.Bullet;
-using Global.Pulls.ParticleSystem.Hit;
 using Specifications.Base;
 using UnityEngine;
+using Utilities;
 
 namespace Specifications.Ships
 {
     [Serializable]
-    public class ShipSpecification : ISpecification
+    public class ShipSpecification : ISpecification, IPurchaseable
     {
         [Header("General")]
         public int Id;
         public ShipsTypes Type;
         public string Name;
-        public int Price;
+        [field: SerializeField] public int Price { get; set; }
         public int Health;
 
         [Header("Bullets")]
@@ -23,7 +23,6 @@ namespace Specifications.Ships
         public float ReloadTime;
         public float ShootRate;
         public bool IsAutomatic;
-        public HitPullView BulletHitParticleSystem;
 
         [Header("Movement")]
         [Range(0f, 10f)] public float Speed;

@@ -31,7 +31,6 @@ namespace Game.Ship.Shoot
         public int StartBulletCount { get; }
         public int BulletHealth { get; }
 
-        public float BulletSpeed { get; }
         public float ReloadTime { get; }
         public float ShootRate { get; }
 
@@ -42,14 +41,13 @@ namespace Game.Ship.Shoot
 
         private readonly Dictionary<BulletModel, BulletView> _activeBullets = new();
 
-        public ShipShootModel(int bulletCount, float reloadTime, float shootRate, bool isAutomatic, float bulletSpeed, int bulletHealth, int bulletDamage)
+        public ShipShootModel(int bulletCount, float reloadTime, float shootRate, bool isAutomatic, int bulletHealth, int bulletDamage)
         {
             StartBulletCount = bulletCount;
             BulletsLeft = bulletCount;
             ReloadTime = reloadTime;
             ShootRate = shootRate;
             IsAutomatic = isAutomatic;
-            BulletSpeed = bulletSpeed;
             BulletHealth = bulletHealth;
             BulletDamage = bulletDamage;
         }

@@ -13,6 +13,6 @@ namespace Global
         [field: SerializeField] public SpecificationsCollectionSo SpecificationsCollection { get; private set; }
         [field: SerializeField] public GlobalUIView GlobalUIView { get; private set; }
         [field: SerializeField] public DialogsView DialogsView { get; private set; }
-        [field: SerializeField] public EventSystem EventSystem { get; set; }
+        [field: SerializeField] public EventSystem EventSystem { get; private set; }
     }
 }

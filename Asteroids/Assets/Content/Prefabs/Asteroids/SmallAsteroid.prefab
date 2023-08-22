@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7355083779442272855}
   - component: {fileID: 4753117245284294301}
   - component: {fileID: 1419948838234494996}
-  - component: {fileID: 5393956307498126491}
   - component: {fileID: -948187978058062860}
+  - component: {fileID: 378019141850035475}
   m_Layer: 0
   m_Name: SmallAsteroid
   m_TagString: Asteroid
@@ -99,20 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RotationAngle>k__BackingField: {x: 55, y: 77, z: 126}
---- !u!64 &5393956307498126491
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6554578605653606216}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -153830957423991239, guid: 561f5854b1493d3489fa68e26914decd, type: 3}
 --- !u!54 &-948187978058062860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,3 +115,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!65 &378019141850035475
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6554578605653606216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03563012, y: 0.029540958, z: 0.024114775}
+  m_Center: {x: 0.0031750316, y: -0.0010470072, z: 0.002102216}

@@ -16,14 +16,8 @@ namespace Global.Dialogs.Base
             Add(new HistoryDialogModel());
         }
 
-        private void Add(IGlobalDialogModel dialog)
-        {
-            _dialogs.Add(dialog);
-        }
+        private void Add(IGlobalDialogModel dialog) => _dialogs.Add(dialog);
 
-        public TType GetByType<TType>() where TType : IGlobalDialogModel
-        {
-            return _dialogs.OfType<TType>().First();
-        }
+        public TType GetByType<TType>() where TType : IGlobalDialogModel => _dialogs.OfType<TType>().First();
     }
 }

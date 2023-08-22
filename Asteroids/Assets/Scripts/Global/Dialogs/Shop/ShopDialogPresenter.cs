@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Global.Dialogs.Shop.Card;
+﻿using Global.Dialogs.Shop.Card;
 using UnityEngine;
 using Utilities;
 
@@ -28,6 +27,7 @@ namespace Global.Dialogs.Shop
             _model.OnShow += Show;
             _model.OnHide += Hide;
             _model.OnCardChange += ChangeActiveCard;
+            _model.OnRedraw += RedrawCard;
 
             _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
         }
@@ -42,14 +42,18 @@ namespace Global.Dialogs.Shop
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
             _model.OnCardChange -= ChangeActiveCard;
+            _model.OnRedraw -= RedrawCard;
             
             _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
         }
 
-        private void UpdatePlayerBalance(int money)
+        private void RedrawCard(int shipId)
         {
-            _view.UpdateBalanceText(money);
+            _view.UpdateBalanceText(_environment.PlayerModel.Money);
+            _model.Cards.Find(card => card.Id == shipId).SetPurchased(true);
         }
+
+        private void UpdatePlayerBalance(int money) => _view.UpdateBalanceText(money);
 
         private void ChangeActiveCard(int changeDirection)
         {
@@ -81,8 +85,7 @@ namespace Global.Dialogs.Shop
             }
             
             _cardsPresenters.Activate();
-            _model.Cards.First().Show();
-            
+            _model.Cards.Find(card => card.Id == _environment.GlobalUIModel.SelectedShipId).Show();
             _view.ChangeVisibility(true);
         }
 
@@ -97,6 +100,7 @@ namespace Global.Dialogs.Shop
             _view.ChangeVisibility(false);
             
             _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
+            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
         }
     }
 }

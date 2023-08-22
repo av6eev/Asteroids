@@ -8,7 +8,9 @@ namespace Global.Rewards.MoneyCount
     {
         public override void Give(GlobalEnvironment environment)
         {
-            environment.DialogsModel.GetByType<ShopDialogModel>().Cards.First(card => card.IsActive).SwitchButtons();
+            var activeShipCard = environment.DialogsModel.GetByType<ShopDialogModel>().Cards.First(card => card.IsActive);
+            
+            environment.PlayerModel.ConfirmPurchase(activeShipCard.ShipSpecification);
         }
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
     Id: 2
     Type: 2
     Name: BlueShip
-    Price: 150
+    <Price>k__BackingField: 150
     Health: 0
     BulletPrefab: {fileID: 0}
     Count: 0

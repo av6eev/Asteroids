@@ -78,7 +78,7 @@ namespace Game.Ship
             var specification = _model.Specification;
             var hitsPull = _environment.GameSceneView.GameView.HitsPullView;
             
-            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Speed, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
+            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
             _model.MoveModel = new ShipMoveModel(specification.Speed);
             
             _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));
@@ -88,7 +88,7 @@ namespace Game.Ship
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
             
-            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletHitParticleSystem;
+            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab.HitEffect;
             hitsPull.Count = 10;
             
             _environment.PullsData.HitsPull.CreatePull(hitsPull);
