@@ -9,6 +9,7 @@ namespace Game.Asteroids.Asteroid
     public class AsteroidView : BasePullElementView, IColliable
     {
         public event Action<string, BasePullElementView> OnCollision;
+        [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField] public Vector3 RotationAngle { get; private set; }
 
         public void SetPosition(Vector3 position) => transform.position = position;
@@ -17,13 +18,11 @@ namespace Game.Asteroids.Asteroid
         
         public void Rotate(float deltaTime) => transform.Rotate(RotationAngle * deltaTime);
 
-        public Vector3 Move(Vector3 multiplier)
+        public Vector3 Move(Vector3 direction)
         {
-            Transform cachedTransform;
+            Rigidbody.velocity = new Vector3(direction.x, Rigidbody.velocity.y, direction.z);
             
-            (cachedTransform = transform).Translate(multiplier);
-            
-            return cachedTransform.position;
+            return transform.position;
         }
     }
 }

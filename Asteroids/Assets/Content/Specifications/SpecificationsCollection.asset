@@ -17,3 +17,4 @@ MonoBehaviour:
     Asteroids: {fileID: 11400000, guid: c7005a8a50d9beb4ba0f6615a4b84a7f, type: 2}
     RewardsData: {fileID: 11400000, guid: 47bf3a28df8ebb1419a0e10c5af79e03, type: 2}
     RequirementsData: {fileID: 11400000, guid: ef9c62b62782f504a84d5e22f788470a, type: 2}
+    GameDifficulties: {fileID: 11400000, guid: f5c55e2b686c5ec45a40368628d72005, type: 2}

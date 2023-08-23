@@ -2,6 +2,7 @@
 {
     public enum SubRequirementType
     {
-        MoneyCount
+        MoneyCount,
+        DistancePassed
     }
 }

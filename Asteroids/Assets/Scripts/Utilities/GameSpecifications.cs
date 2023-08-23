@@ -6,6 +6,7 @@ using Global.Requirements.Base;
 using Global.Rewards.Base;
 using Specifications.Asteroids;
 using Specifications.Base;
+using Specifications.GameDifficulties;
 using Specifications.Ships;
 
 namespace Utilities
@@ -16,6 +17,7 @@ namespace Utilities
         public Dictionary<AsteroidsTypes, AsteroidSpecification> Asteroids { get; } = new();
         public Dictionary<string, IReward> Rewards { get; } = new();
         public Dictionary<string, IRequirement> Requirements { get; } = new();
+        public Dictionary<DifficultyStages, GameDifficultySpecification> GameDifficulties { get; } = new();
 
         public GameSpecifications(SpecificationsCollectionSo collection)
         {
@@ -37,6 +39,11 @@ namespace Utilities
             foreach (var requirement in collection.Collection.RequirementsData.Requirements)
             {
                 Requirements.Add(requirement.name, requirement.Get());
+            }
+
+            foreach (var difficulty in collection.Collection.GameDifficulties.Specification.Difficulties.Select(element => element.Specification))
+            {
+                GameDifficulties.Add(difficulty.Stage, difficulty);
             }
         }
     }

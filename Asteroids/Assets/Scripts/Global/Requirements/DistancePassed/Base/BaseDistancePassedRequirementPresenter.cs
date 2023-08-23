@@ -1,0 +1,29 @@
+﻿using Global.Requirements.Base;
+using Utilities;
+
+namespace Global.Requirements.DistancePassed.Base
+{
+    public class BaseDistancePassedRequirementPresenter<T> : IPresenter where T : BaseDistancePassedRequirement
+    {
+        private readonly GlobalEnvironment _environment;
+        private readonly T _model;
+
+        protected BaseDistancePassedRequirementPresenter(GlobalEnvironment environment, IRequirement model)
+        {
+            _environment = environment;
+            _model = (T) model;
+        }
+        
+        public void Activate() => _environment.ShipModel.MoveModel.OnUpdate += Check;
+
+        public void Deactivate() => _environment.ShipModel.MoveModel.OnUpdate -= Check;
+
+        private void Check(float deltaTime)
+        {
+            if (_model.Check(_environment))
+            {
+                Deactivate();
+            }
+        }
+    }
+}

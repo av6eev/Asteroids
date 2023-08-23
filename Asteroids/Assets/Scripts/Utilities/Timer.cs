@@ -6,7 +6,7 @@ namespace Utilities
     {
         public event Action OnTick;
         
-        private readonly float _givenTime;
+        private float _givenTime;
         private float _currentTime;
         
         private readonly bool _isLooped;
@@ -37,5 +37,7 @@ namespace Utilities
         }
 
         public void Reset() => _currentTime = 0;
+
+        public void ChangeGivenTime(float newTime) => _givenTime = newTime;
     }
 }

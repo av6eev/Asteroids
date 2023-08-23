@@ -1,4 +1,5 @@
-﻿using Game.UI.Distance;
+﻿using Game.UI.Difficulty;
+using Game.UI.Distance;
 using Game.UI.EndScreen;
 using Game.UI.Health;
 using Game.UI.Money;
@@ -42,6 +43,7 @@ namespace Game.UI
             _presenters.Add(new ScorePresenter(_environment, _view.ScoreView));
             _presenters.Add(new DistancePresenter(_environment, _view.DistanceView));
             _presenters.Add(new MoneyPresenter(_environment, _view.MoneyView));
+            _presenters.Add(new DifficultyPresenter(_environment, _view.DifficultyView));
             _presenters.Add(new HealthPresenter(_environment, _view.HealthView));
             _presenters.Add(new EndScreenPresenter(_environment, _view.EndScreenView));
 

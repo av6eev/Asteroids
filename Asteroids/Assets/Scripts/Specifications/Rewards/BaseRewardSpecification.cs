@@ -2,9 +2,9 @@
 
 namespace Specifications.Rewards
 {
-    public class BaseRewardSpecification<T> : RewardSpecificationSo where T : BaseReward
+    public class BaseRewardSpecification<T> : RewardSpecificationSo where T : IReward
     {
         public T Reward;
-        public override BaseReward Get() => Reward;
+        public override IReward Get() => Reward;
     }
 }

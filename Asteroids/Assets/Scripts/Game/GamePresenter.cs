@@ -8,6 +8,10 @@ using Game.UI;
 using Global;
 using Global.Dialogs.History;
 using Global.Pulls.Base;
+using Global.Requirements.DistancePassed.First;
+using Global.Requirements.DistancePassed.Second;
+using Global.Requirements.DistancePassed.Third;
+using Specifications.GameDifficulties;
 using UnityEngine;
 using Utilities;
 
@@ -20,6 +24,7 @@ namespace Game
         private readonly GameSceneView _view;
         
         private readonly PresentersEngine _presenters = new();
+        private readonly PresentersEngine _requirementsPresenters = new();
         
         public GamePresenter(GlobalEnvironment environment, GameModel model, GameSceneView view)
         {
@@ -35,6 +40,7 @@ namespace Game
 
             _model.OnClosed += Close;
             _model.OnEnded += Save;
+            _model.OnDifficultyIncreased += UpdateModifiers;
         }
 
         public void Deactivate()
@@ -42,10 +48,18 @@ namespace Game
             _presenters.Deactivate();
             _presenters.Clear();
             
+            _requirementsPresenters.Deactivate();
+            _requirementsPresenters.Clear();
+            
             _model.OnClosed -= Close;
             _model.OnEnded -= Save;
+            _model.OnDifficultyIncreased -= UpdateModifiers;
             
             Debug.Log(nameof(GamePresenter) + " deactivated!");
+        }
+
+        private void UpdateModifiers(GameDifficultySpecification specification)
+        {
         }
 
         private void CreateShip()
@@ -75,6 +89,24 @@ namespace Game
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
+
+            foreach (var requirement in _environment.Specifications.Requirements)
+            {
+                switch (requirement.Value)
+                {
+                    case FirstDistancePassedRequirement:
+                        _requirementsPresenters.Add(new FirstDistancePassedRequirementPresenter(_environment, requirement.Value));
+                        break;
+                    case SecondDistancePassedRequirement:
+                        _requirementsPresenters.Add(new SecondDistancePassedRequirementPresenter(_environment, requirement.Value));
+                        break;
+                    case ThirdDistancePassedRequirement:
+                        _requirementsPresenters.Add(new ThirdDistancePassedRequirementPresenter(_environment, requirement.Value));
+                        break;
+                }
+            }
+            
+            _requirementsPresenters.Activate();
         }
 
         private void Close()

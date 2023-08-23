@@ -1,5 +1,6 @@
 ﻿using System;
 using Specifications.Asteroids.Collection;
+using Specifications.GameDifficulties.Collection;
 using Specifications.Requirements;
 using Specifications.Rewards;
 using Specifications.Ships.Collection;
@@ -13,5 +14,6 @@ namespace Specifications.Base
         public AsteroidsCollectionSpecificationSo Asteroids;
         public RewardsDataSpecification RewardsData;
         public RequirementsDataSpecification RequirementsData;
+        public GameDifficultiesCollectionSpecificationSo GameDifficulties;
     }
 }

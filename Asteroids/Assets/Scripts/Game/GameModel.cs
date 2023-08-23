@@ -1,10 +1,12 @@
 ﻿using System;
+using Specifications.GameDifficulties;
 using UnityEngine;
 
 namespace Game
 {
     public class GameModel
     {
+        public event Action<GameDifficultySpecification> OnDifficultyIncreased;
         public event Action OnClosed, OnEnded;
 
         private float _currentMoney;
@@ -46,6 +48,8 @@ namespace Game
         public void UpdateBalance(float bonus) => CurrentMoney += bonus;
 
         public int CalculateGainedMoney() => CurrentDistance / 400 + Convert.ToInt32(Math.Floor(CurrentMoney));
+        
+        public void UpdateDifficulty(GameDifficultySpecification newDifficultySpecification) => OnDifficultyIncreased?.Invoke(newDifficultySpecification);
 
         public void Close() => OnClosed?.Invoke();
 
