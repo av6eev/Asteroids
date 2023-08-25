@@ -47,7 +47,6 @@ namespace Game.Ship.Move
             _model.Direction = direction;
             
             direction *= _model.ShipSpeed;
-            Debug.Log(direction);
             _model.SetPosition(shipView.Move(direction));
 
             var shipPosition = _model.Position;

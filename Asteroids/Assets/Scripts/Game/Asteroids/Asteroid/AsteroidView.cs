@@ -6,6 +6,7 @@ using Utilities;
 
 namespace Game.Asteroids.Asteroid
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class AsteroidView : BasePullElementView, ITriggerable
     {
         public event Action<string, BasePullElementView> OnTriggered;

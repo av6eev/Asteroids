@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c892733a6dd324cb4525e5c183cd26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Rigidbody>k__BackingField: {fileID: -4641498870307249847}
   <Speed>k__BackingField: 100
   <Health>k__BackingField: 20
   <Damage>k__BackingField: 20

@@ -6,10 +6,12 @@ using UnityEngine;
 
 namespace Game.Ship.Bullet
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class BulletView : BasePullElementView
     {
         public event Action<AsteroidModel> OnBumped; 
         
+        [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
         [field: SerializeField] public int Damage { get; private set; }
@@ -17,12 +19,11 @@ namespace Game.Ship.Bullet
 
         public Vector3 Move(float deltaTime)
         {
-            Transform cachedTransform;
+            var direction = new Vector3(0, 0, Speed);
             
-            (cachedTransform = transform).Translate(new Vector3(0, 0, Speed) * deltaTime);
-            var position = cachedTransform.position;
+            Rigidbody.velocity = new Vector3(direction.x, Rigidbody.velocity.y, direction.z);
             
-            return new Vector3(position.x, position.y, position.z);
+            return transform.position;
         }
 
         public void SetCurrentPosition(Vector3 position) => transform.position = position;
