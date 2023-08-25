@@ -85,9 +85,9 @@ namespace Game
             _presenters.Add(new GameUIPresenter(_environment, _view.GameUIView));
 
             _presenters.Activate();
-            
+
+            _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
             foreach (var requirement in _environment.Specifications.Requirements)
@@ -146,9 +146,9 @@ namespace Game
             }
             
             removedPresenters.Clear();
-            
+
+            _environment.UpdatersEngine.Remove(UpdatersTypes.Input);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Input);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
             DestroyShip();

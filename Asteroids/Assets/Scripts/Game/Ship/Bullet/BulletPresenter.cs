@@ -1,6 +1,7 @@
 ﻿using Game.Asteroids.Asteroid;
 using Global;
 using Global.Pulls.ParticleSystem.Hit;
+using UnityEngine;
 using Utilities;
 
 namespace Game.Ship.Bullet
@@ -12,6 +13,7 @@ namespace Game.Ship.Bullet
         private readonly BulletView _view;
 
         private HitPullView _hit;
+        private readonly Vector3 _spawnOffset = new Vector3(0f, 0f, 4.5f);
 
         public BulletPresenter(GlobalEnvironment environment, BulletModel model, BulletView view)
         {
@@ -22,7 +24,7 @@ namespace Game.Ship.Bullet
         
         public void Activate()
         {
-            _view.SetCurrentPosition(_model.Position);
+            _view.SetCurrentPosition(_model.Position + _spawnOffset);
             
             _model.OnUpdate += Update;
             _view.OnBumped += CalculateDamage;

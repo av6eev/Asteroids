@@ -23,7 +23,7 @@ namespace Game
         {
             var go = Instantiate(shipPrefab, ShipSpawnPoint.position, shipPrefab.transform.rotation);
             
-            go.transform.SetParent(transform);
+            go.transform.SetParent(ShipSpawnPoint);
             
             CurrentShip = go;
             

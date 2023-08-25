@@ -5,6 +5,7 @@ namespace Utilities
         CameraFollow,
         ShipMove,
         ShipShoot,
+        ShipRotate,
         Input,
         Asteroids
     }

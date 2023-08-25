@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Ship.Move;
+using Game.Ship.Rotate;
 using Game.Ship.Shoot;
 using Specifications.Ships;
 using Utilities;
@@ -13,6 +14,7 @@ namespace Game.Ship
 
         public ShipMoveModel MoveModel { get; set; }
         public ShipShootModel ShootModel { get; set; }
+        public ShipRotateModel RotateModel { get; set; }
         public ShipSpecification Specification { get; }
         
         private int _health;
