@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rewards:
   - {fileID: 11400000, guid: 75d8e3866e4678341abc479fc317b20a, type: 2}
+  - {fileID: 11400000, guid: 2a6f7e754e3dc8b418935b89723d1597, type: 2}
+  - {fileID: 11400000, guid: 63db0efdd6a3a5a4db9b6c640dff95d2, type: 2}
+  - {fileID: 11400000, guid: 34743074a12fb3444b936c1e1a5d12cf, type: 2}

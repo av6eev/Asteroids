@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Game.Ship.Move;
+using Game.Ship.Rotate;
 using Game.Ship.Shoot;
 using Global;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace Game.Ship
         {
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMove);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipShoot);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipRotate);
             
             _presenters.Deactivate();
             _presenters.Clear();
@@ -80,13 +82,16 @@ namespace Game.Ship
             
             _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
             _model.MoveModel = new ShipMoveModel(specification.Speed);
+            _model.RotateModel = new ShipRotateModel();
             
             _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));
             _presenters.Add(new ShipShootPresenter(_environment, _model.ShootModel));
+            _presenters.Add(new ShipRotatePresenter(_environment, _model.RotateModel));
             _presenters.Activate();
             
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipRotate, new ShipRotateUpdater());
             
             hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab.HitEffect;
             hitsPull.Count = 10;

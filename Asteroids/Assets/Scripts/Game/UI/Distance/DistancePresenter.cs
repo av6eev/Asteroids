@@ -22,9 +22,8 @@ namespace Game.UI.Distance
         private void UpdateDistance(float deltaTime)
         {
             var shipPosition = (int)_environment.ShipModel.MoveModel.Position.z;
-            var gameModel = _environment.GameModel;
             
-            gameModel.UpdateDistance(shipPosition);
+            _environment.GameModel.UpdateDistance(shipPosition);
             _view.UpdateDistance(Mathf.Abs(shipPosition));
         }
     }

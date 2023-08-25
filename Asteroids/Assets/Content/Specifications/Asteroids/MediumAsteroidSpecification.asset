@@ -15,7 +15,7 @@ MonoBehaviour:
   Specification:
     Type: 2
     Health: 60
-    Speed: 1.5
+    Speed: 20
     ChanceToSpawn: 0.4
     Prefab: {fileID: 5191930319756989481, guid: b0268cd435492254e96fbc379afa8ee6,
       type: 3}

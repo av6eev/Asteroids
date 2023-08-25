@@ -3,6 +3,7 @@ using System.Linq;
 using Game.Asteroids.Asteroid;
 using Global;
 using Specifications.Asteroids;
+using Specifications.GameDifficulties;
 using UnityEngine;
 using Utilities;
 using Random = UnityEngine.Random;
@@ -29,12 +30,13 @@ namespace Game.Asteroids
         {
             CreateAsteroidsPulls();
 
-            _spawnTimer = new Timer(AsteroidsModel.SpawnRate, true);
+            _spawnTimer = new Timer(_model.SpawnRate, true);
             _environment.TimersEngine.Add(_spawnTimer);
             
             _spawnTimer.OnTick += DefineNewAsteroid;
             _model.OnUpdate += Update;
             _model.OnAsteroidDestroyed += DestroyAsteroid;
+            _environment.GameModel.OnDifficultyIncreased += UpdateModifiers;
         }
 
         public void Deactivate()
@@ -50,8 +52,17 @@ namespace Game.Asteroids
             _spawnTimer.OnTick -= DefineNewAsteroid;
             _model.OnUpdate -= Update;
             _model.OnAsteroidDestroyed -= DestroyAsteroid;
+            _environment.GameModel.OnDifficultyIncreased -= UpdateModifiers;
             
             Debug.Log(nameof(AsteroidsPresenter) + " deactivated!");
+        }
+
+        private void UpdateModifiers(GameDifficultySpecification difficultySpecification)
+        {
+            _model.UpdateModifiers(difficultySpecification.AsteroidsSpawnRateShift, difficultySpecification.AsteroidsSpeedShift);
+            
+            _spawnTimer.Reset();
+            _spawnTimer.ChangeGivenTime(_model.SpawnRate);
         }
 
         private void Update(float deltaTime)
@@ -67,9 +78,8 @@ namespace Game.Asteroids
             {
                 var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
 
-                if (!(model.Position.x < zoneLimits.LeftSide) &&
-                    !(model.Position.x > zoneLimits.RightSide) &&
-                    !(model.Position.z > zoneLimits.TopSide) && 
+                if (!(model.Position.x < zoneLimits.LeftSide - 3) &&
+                    !(model.Position.x > zoneLimits.RightSide + 3) &&
                     !(model.Position.z < zoneLimits.BottomSide))
                 {
                     model.Update(deltaTime);
@@ -104,7 +114,7 @@ namespace Game.Asteroids
 
         private void CreateAsteroid(AsteroidSpecification specification, Vector3 position)
         {
-            var model = new AsteroidModel(specification, position);
+            var model = new AsteroidModel(specification, _model.SpeedShift, position);
             var view = _environment.PullsData.AsteroidsPulls[specification.Type].TryGetElement();
             var presenter = new AsteroidPresenter(_environment, model, view);
                         

@@ -10,6 +10,8 @@ namespace Game.Asteroids.Asteroid
         private readonly GlobalEnvironment _environment;
         private readonly AsteroidModel _model;
         private readonly AsteroidView _view;
+        
+        private const float MOVE_FORWARD_MULTIPLIER = 30f;
 
         public AsteroidPresenter(GlobalEnvironment environment, AsteroidModel model, AsteroidView view)
         {
@@ -23,13 +25,13 @@ namespace Game.Asteroids.Asteroid
             _view.SetPosition(_model.Position);
             
             _model.OnUpdate += Update;
-            _view.OnCollision += CalculateDamage;
+            _view.OnTriggered += CalculateDamage;
         }
 
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
-            _view.OnCollision -= CalculateDamage;
+            _view.OnTriggered -= CalculateDamage;
         }
 
         private void CalculateDamage(string otherGoTag, BasePullElementView bulletView)
@@ -64,7 +66,7 @@ namespace Game.Asteroids.Asteroid
             Rotate(deltaTime);
         }
         
-        private void Move(float deltaTime) => _model.Position = _view.Move(_model.Direction * (_model.Specification.Speed * deltaTime));
+        private void Move(float deltaTime) => _model.Position = _view.Move(_model.Direction * (_model.Speed * MOVE_FORWARD_MULTIPLIER * deltaTime));
 
         private void Rotate(float deltaTime) => _view.Rotate(deltaTime);
     }

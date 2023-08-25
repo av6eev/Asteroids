@@ -9,7 +9,7 @@ namespace Game.Ship.Move
         private readonly GlobalEnvironment _environment;
         private readonly ShipMoveModel _model;
 
-        private const float MOVE_FORWARD_VALUE = 10f;
+        private const float MOVE_FORWARD_VALUE = 7f;
         private const float TURN_SIDE_VALUE = 20f;
         
         public ShipMovePresenter(GlobalEnvironment environment, ShipMoveModel model)
@@ -33,9 +33,10 @@ namespace Game.Ship.Move
         {
             var shipView = _environment.GameSceneView.GameView.CurrentShip;
             var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
+            
             var direction = new Vector3(0,0,MOVE_FORWARD_VALUE)
             {
-                x = _environment.InputModel.ShipRotateDirection switch
+                x = _environment.InputModel.ShipTurnDirection switch
                 {
                     1.0f => TURN_SIDE_VALUE,
                     -1.0f => -TURN_SIDE_VALUE,
@@ -43,8 +44,10 @@ namespace Game.Ship.Move
                 }
             };
 
-            direction *= _model.ShipSpeed * deltaTime;
-            _model.Position = shipView.Move(direction);
+            _model.Direction = direction;
+            
+            direction *= _model.ShipSpeed;
+            _model.SetPosition(shipView.Move(direction));
 
             var shipPosition = _model.Position;
             var x = shipPosition.x;
@@ -61,7 +64,7 @@ namespace Game.Ship.Move
             shipPosition.x = x;
             
             shipView.ResetPosition(shipPosition);
-            _model.Position = shipPosition;
+            _model.SetPosition(shipPosition);
         }
     }
 }

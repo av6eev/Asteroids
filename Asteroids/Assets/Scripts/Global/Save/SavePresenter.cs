@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Game.Ship;
 using Global.Dialogs.History;
+using Global.Requirements.DistancePassed.First;
+using Global.Requirements.DistancePassed.Second;
+using Global.Requirements.DistancePassed.Third;
 using Global.Requirements.MoneyCount.BlueShip;
 using Utilities;
 
@@ -70,7 +73,6 @@ namespace Global.Save
             var requirements = _environment.Specifications.Requirements;
             var availableShips = new Dictionary<ShipsTypes, bool>();
             var type = ShipsTypes.Default;
-            var isPurchased = false;
 
             availableShips.Add(ShipsTypes.Brown, true);
 
@@ -80,18 +82,14 @@ namespace Global.Save
                 {
                     case BlueShipMoneyCountRequirement:
                         type = ShipsTypes.Blue;
+                        availableShips.Add(type, false);
                         _requirementsPresenters.Add(new BlueShipMoneyCountRequirementPresenter(_environment, requirement.Value));
                         break;
                 }
 
                 if (_model.GetElement<string>(requirement.Key) == "true")
                 {
-                    isPurchased = true;
-                }
-
-                if (type != ShipsTypes.Default)
-                {
-                    availableShips.Add(type, isPurchased);
+                    availableShips[type] = true;
                 }
             }
 

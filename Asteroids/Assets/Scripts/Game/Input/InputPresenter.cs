@@ -53,8 +53,8 @@ namespace Game.Input
             }
         }
 
-        private void StopMove(InputAction.CallbackContext context) => _model.ShipRotateDirection = 0f;
+        private void StopMove(InputAction.CallbackContext context) => _model.ShipTurnDirection = 0f;
 
-        private void PerformMove(InputAction.CallbackContext context) => _model.ShipRotateDirection = context.ReadValue<Vector2>().x;
+        private void PerformMove(InputAction.CallbackContext context) => _model.ShipTurnDirection = context.ReadValue<Vector2>().x;
     }
 }

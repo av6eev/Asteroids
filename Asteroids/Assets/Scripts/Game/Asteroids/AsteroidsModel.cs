@@ -12,12 +12,10 @@ namespace Game.Asteroids
         public event Action<AsteroidModel, bool, bool> OnAsteroidDestroyed;
         public Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
         private readonly Dictionary<AsteroidModel, AsteroidView> _activeAsteroids = new();
-        public static float SpawnRate => .5f;
+        public float SpawnRate { get; private set; } = .5f;
+        public float SpeedShift { get; private set; }
 
-        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specifications)
-        {
-            Specifications = specifications;
-        }
+        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specifications) => Specifications = specifications;
 
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
@@ -30,5 +28,11 @@ namespace Game.Asteroids
         public void RemoveActiveAsteroid(AsteroidModel model) => _activeAsteroids.Remove(model);
         
         public AsteroidView GetByKey(AsteroidModel model) => _activeAsteroids[model];
+
+        public void UpdateModifiers(float spawnRateShift, float speedShift)
+        {
+            SpeedShift = speedShift;
+            SpawnRate *= spawnRateShift;
+        }
     }
 }

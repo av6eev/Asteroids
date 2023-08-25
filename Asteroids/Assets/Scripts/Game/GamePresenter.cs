@@ -8,6 +8,9 @@ using Game.UI;
 using Global;
 using Global.Dialogs.History;
 using Global.Pulls.Base;
+using Global.Requirements.DistancePassed.First;
+using Global.Requirements.DistancePassed.Second;
+using Global.Requirements.DistancePassed.Third;
 using UnityEngine;
 using Utilities;
 
@@ -20,6 +23,7 @@ namespace Game
         private readonly GameSceneView _view;
         
         private readonly PresentersEngine _presenters = new();
+        private readonly PresentersEngine _requirementsPresenters = new();
         
         public GamePresenter(GlobalEnvironment environment, GameModel model, GameSceneView view)
         {
@@ -35,6 +39,7 @@ namespace Game
 
             _model.OnClosed += Close;
             _model.OnEnded += Save;
+            _model.OnCameraChanged += ChangeActiveCamera;
         }
 
         public void Deactivate()
@@ -42,10 +47,29 @@ namespace Game
             _presenters.Deactivate();
             _presenters.Clear();
             
+            _requirementsPresenters.Deactivate();
+            _requirementsPresenters.Clear();
+            
             _model.OnClosed -= Close;
             _model.OnEnded -= Save;
+            _model.OnCameraChanged -= ChangeActiveCamera;
             
             Debug.Log(nameof(GamePresenter) + " deactivated!");
+        }
+
+        private void ChangeActiveCamera(int counter)
+        {
+            switch (counter)
+            {
+                case 0:
+                    _view.TopDownCamera.gameObject.SetActive(true);
+                    _view.ThirdPersonCamera.gameObject.SetActive(false);
+                    break;
+                case 1:
+                    _view.TopDownCamera.gameObject.SetActive(false);
+                    _view.ThirdPersonCamera.gameObject.SetActive(true);
+                    break;
+            }
         }
 
         private void CreateShip()
@@ -59,23 +83,6 @@ namespace Game
         }
 
         private void DestroyShip() => _view.GameView.DestroyShip();
-
-        private void CreateNecessaryData()
-        {
-            _environment.InputModel = new InputModel();
-            _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
-            _environment.PullsData = new PullsData();
-
-            _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
-            _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
-            _presenters.Add(new GameUIPresenter(_environment, _view.GameUIView));
-
-            _presenters.Activate();
-            
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
-        }
 
         private void Close()
         {
@@ -91,6 +98,42 @@ namespace Game
             _environment.SaveModel.Save();
             
             DeactivateUnnecessaryData();
+        }
+
+        private void CreateNecessaryData()
+        {
+            _environment.InputModel = new InputModel();
+            _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
+            _environment.PullsData = new PullsData();
+
+            _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
+            _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
+            _presenters.Add(new GameUIPresenter(_environment, _view.GameUIView));
+
+            _presenters.Activate();
+
+            _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownBaseCameraFollowUpdater(new Vector3(0f, 70f, 30f), _view.TopDownCamera));
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonBaseCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
+
+            foreach (var requirement in _environment.Specifications.Requirements)
+            {
+                switch (requirement.Value)
+                {
+                    case FirstDistancePassedRequirement:
+                        _requirementsPresenters.Add(new FirstDistancePassedRequirementPresenter(_environment, requirement.Value));
+                        break;
+                    case SecondDistancePassedRequirement:
+                        _requirementsPresenters.Add(new SecondDistancePassedRequirementPresenter(_environment, requirement.Value));
+                        break;
+                    case ThirdDistancePassedRequirement:
+                        _requirementsPresenters.Add(new ThirdDistancePassedRequirementPresenter(_environment, requirement.Value));
+                        break;
+                }
+            }
+            
+            _requirementsPresenters.Activate();
         }
 
         private void DeactivateUnnecessaryData()
@@ -114,9 +157,10 @@ namespace Game
             }
             
             removedPresenters.Clear();
-            
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Input);
+
+            _environment.UpdatersEngine.Remove(UpdatersTypes.Input);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
             DestroyShip();

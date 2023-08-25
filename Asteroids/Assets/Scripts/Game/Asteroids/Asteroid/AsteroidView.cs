@@ -6,24 +6,24 @@ using Utilities;
 
 namespace Game.Asteroids.Asteroid
 {
-    public class AsteroidView : BasePullElementView, IColliable
+    [RequireComponent(typeof(Rigidbody))]
+    public class AsteroidView : BasePullElementView, ITriggerable
     {
-        public event Action<string, BasePullElementView> OnCollision;
+        public event Action<string, BasePullElementView> OnTriggered;
+        [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField] public Vector3 RotationAngle { get; private set; }
 
         public void SetPosition(Vector3 position) => transform.position = position;
         
-        public void OnCollisionEnter(Collision otherGo) => OnCollision?.Invoke(otherGo.gameObject.tag, otherGo.gameObject.GetComponent<BulletView>());
+        public void OnTriggerEnter(Collider otherGo) => OnTriggered?.Invoke(otherGo.gameObject.tag, otherGo.gameObject.GetComponent<BulletView>());
         
         public void Rotate(float deltaTime) => transform.Rotate(RotationAngle * deltaTime);
 
-        public Vector3 Move(Vector3 multiplier)
+        public Vector3 Move(Vector3 direction)
         {
-            Transform cachedTransform;
+            Rigidbody.velocity = new Vector3(direction.x, Rigidbody.velocity.y, direction.z);
             
-            (cachedTransform = transform).Translate(multiplier);
-            
-            return cachedTransform.position;
+            return transform.position;
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Specifications.Rewards
 {
     public abstract class RewardSpecificationSo : ScriptableObject
     {
-        public abstract BaseReward Get();
+        public abstract IReward Get();
     }
 }
