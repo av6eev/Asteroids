@@ -11,7 +11,6 @@ using Global.Pulls.Base;
 using Global.Requirements.DistancePassed.First;
 using Global.Requirements.DistancePassed.Second;
 using Global.Requirements.DistancePassed.Third;
-using Specifications.GameDifficulties;
 using UnityEngine;
 using Utilities;
 
@@ -40,7 +39,7 @@ namespace Game
 
             _model.OnClosed += Close;
             _model.OnEnded += Save;
-            _model.OnDifficultyIncreased += UpdateModifiers;
+            _model.OnCameraChanged += ChangeActiveCamera;
         }
 
         public void Deactivate()
@@ -53,13 +52,24 @@ namespace Game
             
             _model.OnClosed -= Close;
             _model.OnEnded -= Save;
-            _model.OnDifficultyIncreased -= UpdateModifiers;
+            _model.OnCameraChanged -= ChangeActiveCamera;
             
             Debug.Log(nameof(GamePresenter) + " deactivated!");
         }
 
-        private void UpdateModifiers(GameDifficultySpecification specification)
+        private void ChangeActiveCamera(int counter)
         {
+            switch (counter)
+            {
+                case 0:
+                    _view.TopDownCamera.gameObject.SetActive(true);
+                    _view.ThirdPersonCamera.gameObject.SetActive(false);
+                    break;
+                case 1:
+                    _view.TopDownCamera.gameObject.SetActive(false);
+                    _view.ThirdPersonCamera.gameObject.SetActive(true);
+                    break;
+            }
         }
 
         private void CreateShip()
@@ -74,6 +84,22 @@ namespace Game
 
         private void DestroyShip() => _view.GameView.DestroyShip();
 
+        private void Close()
+        {
+            _environment.ScenesManager.UnloadScene(ScenesNames.GameScene);            
+            _view.GameUIView.ChangeVisibility(false);
+        }
+
+        private void Save()
+        {
+            _view.GameUIView.HideElementsAfterEnd();
+            
+            _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
+            _environment.SaveModel.Save();
+            
+            DeactivateUnnecessaryData();
+        }
+
         private void CreateNecessaryData()
         {
             _environment.InputModel = new InputModel();
@@ -87,7 +113,8 @@ namespace Game
             _presenters.Activate();
 
             _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.CameraFollow, new CameraFollowUpdater());
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownBaseCameraFollowUpdater(new Vector3(0f, 70f, 30f), _view.TopDownCamera));
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonBaseCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
             foreach (var requirement in _environment.Specifications.Requirements)
@@ -107,22 +134,6 @@ namespace Game
             }
             
             _requirementsPresenters.Activate();
-        }
-
-        private void Close()
-        {
-            _environment.ScenesManager.UnloadScene(ScenesNames.GameScene);            
-            _view.GameUIView.ChangeVisibility(false);
-        }
-
-        private void Save()
-        {
-            _view.GameUIView.HideElementsAfterEnd();
-            
-            _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
-            _environment.SaveModel.Save();
-            
-            DeactivateUnnecessaryData();
         }
 
         private void DeactivateUnnecessaryData()
@@ -148,7 +159,8 @@ namespace Game
             removedPresenters.Clear();
 
             _environment.UpdatersEngine.Remove(UpdatersTypes.Input);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
             DestroyShip();

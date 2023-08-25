@@ -5,6 +5,7 @@ using Game.UI.Health;
 using Game.UI.Money;
 using Game.UI.Score;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -16,6 +17,7 @@ namespace Game.UI
         [field: SerializeField] public MoneyView MoneyView { get; private set; }
         [field: SerializeField] public DifficultyView DifficultyView { get; private set; }
         [field: SerializeField] public EndScreenView EndScreenView { get; private set; }
+        [field: SerializeField] public Button ChangeCameraButton { get; private set; }
 
         public void HideElementsAfterEnd()
         {
@@ -24,6 +26,7 @@ namespace Game.UI
             DistanceView.ChangeVisibility(false);
             ScoreView.ChangeVisibility(false);
             DifficultyView.ChangeVisibility(false);
+            ChangeCameraButton.gameObject.SetActive(false);
         }
     }
 }

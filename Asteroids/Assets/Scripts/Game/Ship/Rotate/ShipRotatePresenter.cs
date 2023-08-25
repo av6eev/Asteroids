@@ -17,20 +17,16 @@ namespace Game.Ship.Rotate
             _model = model;
         }
         
-        public void Activate()
-        {
-            _model.OnUpdate += Update;
-        }
+        public void Activate() => _model.OnUpdate += Update;
 
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
+            
+            Debug.Log(nameof(ShipRotatePresenter) + " deactivated!");
         }
 
-        private void Update(float deltaTime)
-        {
-            Rotate(deltaTime);
-        }
+        private void Update(float deltaTime) => Rotate(deltaTime);
 
         private void Rotate(float deltaTime)
         {

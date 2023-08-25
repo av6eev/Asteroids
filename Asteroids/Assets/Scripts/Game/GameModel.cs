@@ -7,6 +7,7 @@ namespace Game
     public class GameModel
     {
         public event Action<GameDifficultySpecification> OnDifficultyIncreased;
+        public event Action<int> OnCameraChanged; 
         public event Action OnClosed, OnEnded;
 
         private float _currentMoney;
@@ -54,5 +55,7 @@ namespace Game
         public void Close() => OnClosed?.Invoke();
 
         public void End() => OnEnded?.Invoke();
+
+        public void ChangeCameraView(int counter) => OnCameraChanged?.Invoke(counter);
     }
 }

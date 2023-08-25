@@ -2,7 +2,8 @@ namespace Utilities
 {
     public enum UpdatersTypes
     {
-        CameraFollow,
+        TopDownCameraFollow,
+        ThirdPersonCameraFollow,
         ShipMove,
         ShipShoot,
         ShipRotate,

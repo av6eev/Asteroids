@@ -15,7 +15,7 @@ MonoBehaviour:
   Specification:
     Type: 4
     Health: 40
-    Speed: 23
+    Speed: 20
     ChanceToSpawn: 0.01
     Prefab: {fileID: 858409546274187688, guid: c709b5037f8fb154b8cb03c4ab2fba6e, type: 3}
     SubAsteroidsOnDestroy: []
