@@ -9,7 +9,7 @@ namespace Game.Ship.Move
         private readonly GlobalEnvironment _environment;
         private readonly ShipMoveModel _model;
 
-        private const float MOVE_FORWARD_VALUE = 3f;
+        private const float MOVE_FORWARD_VALUE = 7f;
         private const float TURN_SIDE_VALUE = 20f;
         
         public ShipMovePresenter(GlobalEnvironment environment, ShipMoveModel model)

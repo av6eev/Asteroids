@@ -18,6 +18,8 @@ namespace Game.Ship
 
         public void EnableImmunity(){}
 
-        public void Rotate(Vector3 clampedValue) => transform.Rotate(clampedValue, Space.World);
+        public void Rotate(float rotation) => transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, rotation), .5f);
+
+        public Quaternion ResetRotation() => transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), .05f);
     }
 }
