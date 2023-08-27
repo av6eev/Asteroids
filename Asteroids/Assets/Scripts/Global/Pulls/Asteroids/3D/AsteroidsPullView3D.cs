@@ -3,9 +3,9 @@ using Game.Asteroids.Asteroid;
 using Global.Pulls.Base;
 using UnityEngine;
 
-namespace Global.Pulls.Asteroids
+namespace Global.Pulls.Asteroids._3D
 {
-    public class AsteroidsPullView : BasePullView<AsteroidView>
+    public class AsteroidsPullView3D : BasePullView<AsteroidView3D>
     {
         [field: SerializeField] public AsteroidsTypes Type { get; private set; }
     }

@@ -17,5 +17,17 @@ namespace Global.Pulls.Base
                 Destroy(PullRoot.GetChild(i).gameObject);
             }
         }
+
+        public void HideAll()
+        {
+            for (var i = 0; i < PullRoot.childCount; i++)
+            {
+                var child = PullRoot.GetChild(i).gameObject;
+                
+                if (!child.activeInHierarchy) continue;
+                
+                child.SetActive(false);
+            }
+        }
     }
 }

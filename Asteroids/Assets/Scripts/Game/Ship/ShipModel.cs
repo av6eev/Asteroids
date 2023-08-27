@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Ship.Base;
 using Game.Ship.Move;
 using Game.Ship.Rotate;
 using Game.Ship.Shoot;
@@ -9,8 +10,9 @@ namespace Game.Ship
 {
     public class ShipModel : IUpdatable
     {
-        public event Action OnShoot, OnDamageApplied;
+        public event Action OnShoot, OnDamageApplied, OnActionsPaused, OnActionsContinued;
         public event Action<float> OnUpdate;
+        public event Action<BaseShipView> OnViewChanged;
 
         public ShipMoveModel MoveModel { get; set; }
         public ShipShootModel ShootModel { get; set; }
@@ -43,6 +45,8 @@ namespace Game.Ship
 
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
+        public void ChangeView(BaseShipView newShipView) => OnViewChanged?.Invoke(newShipView);
+
         public void ApplyDamage()
         {
             if (!IsImmune)
@@ -50,5 +54,9 @@ namespace Game.Ship
                 OnDamageApplied?.Invoke();
             }
         }
+
+        public void PauseActions() => OnActionsPaused?.Invoke();
+
+        public void ContinueActions() => OnActionsContinued?.Invoke();
     }
 }

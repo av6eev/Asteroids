@@ -17,7 +17,9 @@ MonoBehaviour:
     Health: 80
     Speed: 15
     ChanceToSpawn: 0.15
-    Prefab: {fileID: 2323940380799329005, guid: 5075091e1c8733541b28da658daa748e,
+    Prefab3D: {fileID: 2323940380799329005, guid: 5075091e1c8733541b28da658daa748e,
+      type: 3}
+    Prefab2D: {fileID: 9001710423514706538, guid: f7cc136b51770ed49b06c47f4fd60bdc,
       type: 3}
     SubAsteroidsOnDestroy:
     - {fileID: 11400000, guid: 9061f089aa689e24098a434eb259eb46, type: 2}

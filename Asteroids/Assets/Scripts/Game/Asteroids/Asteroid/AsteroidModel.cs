@@ -9,6 +9,8 @@ namespace Game.Asteroids.Asteroid
     public class AsteroidModel : IUpdatable
     {
         public event Action<float> OnUpdate;
+        public event Action<BaseAsteroidView> OnViewChanged;
+        
         public AsteroidSpecification Specification { get; }
         public Vector3 Position { get; set; }
         public Vector3 Direction { get; }
@@ -25,5 +27,9 @@ namespace Game.Asteroids.Asteroid
         }
 
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
+
+        public void ChangeView(BaseAsteroidView newView) => OnViewChanged?.Invoke(newView);
+
+        public void ResetPosition(Vector3 newPosition) => Position = newPosition;
     }
 }

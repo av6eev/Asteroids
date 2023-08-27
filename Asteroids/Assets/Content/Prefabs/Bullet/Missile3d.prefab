@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4641498870307249847}
   - component: {fileID: 889929838725233368}
   m_Layer: 8
-  m_Name: PfCruiseMissile
+  m_Name: Missile3d
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

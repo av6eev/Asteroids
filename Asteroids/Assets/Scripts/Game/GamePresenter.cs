@@ -4,6 +4,7 @@ using Game.CameraUpdater;
 using Game.Input;
 using Game.Scene;
 using Game.Ship;
+using Game.Ship.Base;
 using Game.UI;
 using Global;
 using Global.Dialogs.History;
@@ -39,7 +40,7 @@ namespace Game
 
             _model.OnClosed += Close;
             _model.OnEnded += Save;
-            _model.OnCameraChanged += ChangeActiveCamera;
+            _model.OnDimensionChanged += ChangeActiveDimension;
         }
 
         public void Deactivate()
@@ -52,33 +53,50 @@ namespace Game
             
             _model.OnClosed -= Close;
             _model.OnEnded -= Save;
-            _model.OnCameraChanged -= ChangeActiveCamera;
-            
-            Debug.Log(nameof(GamePresenter) + " deactivated!");
+            _model.OnDimensionChanged -= ChangeActiveDimension;
         }
 
-        private void ChangeActiveCamera(int counter)
+        private void ChangeActiveDimension()
         {
-            switch (counter)
+            var shipModel = _environment.ShipModel;
+            shipModel.PauseActions();
+            
+            BaseShipView neededShipPrefab = null;
+
+            switch (_model.CurrentDimension)
             {
-                case 0:
+                case CameraDimensionsTypes.TwoD:
+                    neededShipPrefab = shipModel.Specification.Prefab2D;
+                    
+                    _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+                    _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
+                    
                     _view.TopDownCamera.gameObject.SetActive(true);
                     _view.ThirdPersonCamera.gameObject.SetActive(false);
                     break;
-                case 1:
+                case CameraDimensionsTypes.ThreeD:
+                    neededShipPrefab = shipModel.Specification.Prefab3D;
+                    
+                    _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+                    _environment.FixedUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
+                    
                     _view.TopDownCamera.gameObject.SetActive(false);
                     _view.ThirdPersonCamera.gameObject.SetActive(true);
                     break;
             }
+
+            _view.GameView.ChangeActivePulls(_model.CurrentDimension);
+            
+            shipModel.ChangeView(_view.GameView.RedrawShip(neededShipPrefab, shipModel.MoveModel.RecalculatePosition(_model.CurrentDimension)));
+            shipModel.ContinueActions();
         }
 
         private void CreateShip()
         {
             var neededSpecification = _environment.Specifications.Ships.Values.First(ship => ship.Id == _environment.GlobalUIModel.SelectedShipId);
-            var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab);
+            var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab2D);
 
             _environment.ShipModel = new ShipModel(neededSpecification);
-            
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
         }
 
@@ -113,8 +131,7 @@ namespace Game
             _presenters.Activate();
 
             _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownBaseCameraFollowUpdater(new Vector3(0f, 70f, 30f), _view.TopDownCamera));
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonBaseCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
+            _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
             foreach (var requirement in _environment.Specifications.Requirements)

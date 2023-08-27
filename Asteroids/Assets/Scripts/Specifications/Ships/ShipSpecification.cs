@@ -18,7 +18,8 @@ namespace Specifications.Ships
         public int Health;
 
         [Header("Bullets")]
-        public BulletView BulletPrefab;
+        public BulletView3D BulletPrefab3D;
+        public BulletView2D BulletPrefab2D;
         public int Count;
         public float ReloadTime;
         public float ShootRate;
@@ -28,7 +29,8 @@ namespace Specifications.Ships
         [Range(0f, 10f)] public float Speed;
 
         [Header("Others")]
-        public ShipView Prefab;
+        public ShipView3D Prefab3D;
+        public ShipView2D Prefab2D;
         public Sprite PreviewImage;
     }
 }

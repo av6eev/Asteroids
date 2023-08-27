@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Ship.Bullet;
+using Game.Ship.Bullet.Base;
 using Global.Pulls.Base;
 using Utilities;
 
@@ -39,7 +40,7 @@ namespace Game.Ship.Shoot
         public bool IsAutomatic { get; }
         public int BulletDamage { get; }
 
-        private readonly Dictionary<BulletModel, BulletView> _activeBullets = new();
+        private Dictionary<BulletModel, BaseBulletView> ActiveBullets { get; set; } = new();
 
         public ShipShootModel(int bulletCount, float reloadTime, float shootRate, bool isAutomatic, int bulletHealth, int bulletDamage)
         {
@@ -56,14 +57,16 @@ namespace Game.Ship.Shoot
 
         public void DestroyBullet(BulletModel model) => OnBulletDestroyed?.Invoke(model);
 
-        public Dictionary<BulletModel, BulletView> GetActiveBullets() => _activeBullets;
-        
-        public void AddActiveBullet(BulletModel model, BulletView view) => _activeBullets.Add(model, view);
+        public Dictionary<BulletModel, BaseBulletView> GetActiveBullets() => ActiveBullets;
 
-        public void RemoveActiveBullet(BulletModel model) => _activeBullets.Remove(model);
+        public void ResetActiveBullets() => ActiveBullets.Clear();
         
-        public BulletView GetByKey(BulletModel model) => _activeBullets[model];
+        public void AddActiveBullet(BulletModel model, BaseBulletView view3D) => ActiveBullets.Add(model, view3D);
 
-        public BulletModel GetByValue(BasePullElementView view) => !_activeBullets.ContainsValue(view as BulletView) ? null : _activeBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
+        public void RemoveActiveBullet(BulletModel model) => ActiveBullets.Remove(model);
+
+        public BaseBulletView GetByKey(BulletModel model) => ActiveBullets[model];
+
+        public BulletModel GetByValue(BasePullElementView view) => !ActiveBullets.ContainsValue(view as BaseBulletView) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
     }
 }

@@ -3,26 +3,18 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public class GameZoneLimits : MonoBehaviour
+    public class GameZoneLimits
     {
-        [field: SerializeField] public Camera MainCamera { get; private set; }
-        [field: NonSerialized] public float LeftSide { get; private set; }
-        [field: NonSerialized] public float RightSide { get; private set; }
+        [field: NonSerialized] public float LeftSide { get; private set; } = -75f;
+        [field: NonSerialized] public float RightSide { get; private set; } = 75f;
         [field: NonSerialized] public float TopSide { get; private set; }
         [field: NonSerialized] public float BottomSide { get; private set; }
-        
-        private void Start()
-        {
-            LeftSide = -75f;
-            RightSide = 75f;
-        }
 
-        private void Update()
+        public void UpdateTopDownBorders(float topSide, float bottomSide)
         {
-            var positionZ = MainCamera.transform.position.z;
-            
-            TopSide = positionZ + 35;
-            BottomSide = positionZ - 35;
+            TopSide = topSide;
+            BottomSide = bottomSide;
+            // Debug.Log($"top: {topSide}, bot: {bottomSide}");
         }
     }
 }

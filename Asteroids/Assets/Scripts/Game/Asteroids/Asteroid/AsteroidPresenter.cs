@@ -1,4 +1,6 @@
-﻿using Game.Ship.Bullet;
+﻿using Game.CameraUpdater;
+using Game.Ship.Bullet;
+using Game.Ship.Bullet.Base;
 using Global;
 using Global.Pulls.Base;
 using Utilities;
@@ -9,11 +11,11 @@ namespace Game.Asteroids.Asteroid
     {
         private readonly GlobalEnvironment _environment;
         private readonly AsteroidModel _model;
-        private readonly AsteroidView _view;
+        private BaseAsteroidView _view;
         
         private const float MOVE_FORWARD_MULTIPLIER = 30f;
 
-        public AsteroidPresenter(GlobalEnvironment environment, AsteroidModel model, AsteroidView view)
+        public AsteroidPresenter(GlobalEnvironment environment, AsteroidModel model, BaseAsteroidView view)
         {
             _environment = environment;
             _model = model;
@@ -25,14 +27,20 @@ namespace Game.Asteroids.Asteroid
             _view.SetPosition(_model.Position);
             
             _model.OnUpdate += Update;
+            _model.OnViewChanged += ChangeView;
+            
             _view.OnTriggered += CalculateDamage;
         }
 
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
+            _model.OnViewChanged -= ChangeView;
+            
             _view.OnTriggered -= CalculateDamage;
         }
+
+        private void ChangeView(BaseAsteroidView newView) => _view = newView;
 
         private void CalculateDamage(string otherGoTag, BasePullElementView bulletView)
         {
@@ -41,9 +49,21 @@ namespace Game.Asteroids.Asteroid
                 case TagsHelper.AsteroidTag:
                     break;
                 case TagsHelper.BulletTag:
-                    _model.Health -= _environment.ShipModel.ShootModel.GetByValue((BulletView)bulletView).Damage;
+                    BaseBulletView concreteBullet = _environment.GameModel.CurrentDimension switch
+                    {
+                        CameraDimensionsTypes.TwoD => (BulletView2D)bulletView,
+                        CameraDimensionsTypes.ThreeD => (BulletView3D)bulletView,
+                        _ => null
+                    };
+                    
+                    var bulletDamage = _environment.ShipModel.ShootModel.GetByValue(concreteBullet).Damage;
 
-                    ((BulletView)bulletView).Bump(_model);
+                    if (concreteBullet != null)
+                    {
+                        concreteBullet.Bump(_model);
+                    }
+
+                    _model.Health -= bulletDamage;
                     
                     if (_model.Health <= 0)
                     {

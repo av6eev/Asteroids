@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7383344273742297370}
   - component: {fileID: 2915137332826695157}
   m_Layer: 6
-  m_Name: Ship_2
+  m_Name: brown_ship_3d
   m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
