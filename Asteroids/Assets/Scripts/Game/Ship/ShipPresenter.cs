@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Game.Ship.Base;
 using Game.Ship.Move;
 using Game.Ship.Rotate;
 using Game.Ship.Shoot;
@@ -12,12 +13,12 @@ namespace Game.Ship
     {
         private readonly GlobalEnvironment _environment;
         private readonly ShipModel _model;
-        private readonly ShipView _view;
+        private IShipView _view;
 
         private readonly PresentersEngine _presenters = new();
         private Coroutine _immunityCoroutine;
 
-        public ShipPresenter(GlobalEnvironment environment, ShipModel model, ShipView view)
+        public ShipPresenter(GlobalEnvironment environment, ShipModel model, IShipView view)
         {
             _environment = environment;
             _model = model;
@@ -27,10 +28,11 @@ namespace Game.Ship
         public void Activate()
         {
             CreateNecessaryData();
-
+            
             _model.OnDamageApplied += ApplyDamage;
+            _model.OnViewChanged += RedrawShip;
         }
-        
+
         public void Deactivate()
         {
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMove);
@@ -41,6 +43,7 @@ namespace Game.Ship
             _presenters.Clear();
 
             _model.OnDamageApplied -= ApplyDamage;
+            _model.OnViewChanged -= RedrawShip;
             
             Debug.Log(nameof(ShipPresenter) + " deactivated!");
         }
@@ -75,12 +78,14 @@ namespace Game.Ship
             _immunityCoroutine = null;
         }
 
+        private void RedrawShip(BaseShipView newShipView) => _view = newShipView;
+        
         private void CreateNecessaryData()
         {
             var specification = _model.Specification;
             var hitsPull = _environment.GameSceneView.GameView.HitsPullView;
             
-            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab.Health, specification.BulletPrefab.Damage);
+            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab2D.Health, specification.BulletPrefab2D.Damage);
             _model.MoveModel = new ShipMoveModel(specification.Speed);
             _model.RotateModel = new ShipRotateModel();
             
@@ -93,7 +98,7 @@ namespace Game.Ship
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipRotate, new ShipRotateUpdater());
             
-            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab.HitEffect;
+            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab2D.HitEffect;
             hitsPull.Count = 10;
             
             _environment.PullsData.HitsPull.CreatePull(hitsPull);

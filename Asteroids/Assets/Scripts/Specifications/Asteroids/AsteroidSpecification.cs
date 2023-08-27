@@ -17,7 +17,8 @@ namespace Specifications.Asteroids
         [Range(0f, 1f)] public float ChanceToSpawn;
 
         [Header("Others")] 
-        public AsteroidView Prefab;
+        public AsteroidView3D Prefab3D;
+        public AsteroidView2D Prefab2D;
         public List<AsteroidSpecificationSo> SubAsteroidsOnDestroy;
     }
 }

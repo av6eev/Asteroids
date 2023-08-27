@@ -1,4 +1,6 @@
 ﻿using Game.Asteroids.Asteroid;
+using Game.CameraUpdater;
+using Game.Ship.Bullet.Base;
 using Global;
 using Global.Pulls.ParticleSystem.Hit;
 using UnityEngine;
@@ -10,12 +12,12 @@ namespace Game.Ship.Bullet
     {
         private readonly GlobalEnvironment _environment;
         private readonly BulletModel _model;
-        private readonly BulletView _view;
+        private readonly BaseBulletView _view;
 
         private HitPullView _hit;
-        private readonly Vector3 _spawnOffset = new Vector3(0f, 0f, 4.5f);
+        private Vector3 _spawnOffset;
 
-        public BulletPresenter(GlobalEnvironment environment, BulletModel model, BulletView view)
+        public BulletPresenter(GlobalEnvironment environment, BulletModel model, BaseBulletView view)
         {
             _environment = environment;
             _model = model;
@@ -24,6 +26,13 @@ namespace Game.Ship.Bullet
         
         public void Activate()
         {
+            _spawnOffset = _environment.GameModel.CurrentDimension switch
+            {
+                CameraDimensionsTypes.TwoD => new Vector3(0f, 6.5f, 0f),
+                CameraDimensionsTypes.ThreeD => new Vector3(0f, 0f, 6.5f),
+                _ => _spawnOffset
+            };
+
             _view.SetCurrentPosition(_model.Position + _spawnOffset);
             
             _model.OnUpdate += Update;

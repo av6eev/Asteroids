@@ -18,13 +18,17 @@ MonoBehaviour:
     Name: BrownShip
     <Price>k__BackingField: 0
     Health: 3
-    BulletPrefab: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+      type: 3}
+    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
       type: 3}
     Count: 10
     ReloadTime: 1
     ShootRate: 0.15
     IsAutomatic: 1
     Speed: 3
-    Prefab: {fileID: 2915137332826695156, guid: 0c71196e992e692428bfb73041fdc93e,
+    Prefab3D: {fileID: 2915137332826695156, guid: 0c71196e992e692428bfb73041fdc93e,
+      type: 3}
+    Prefab2D: {fileID: 2694132403630432662, guid: 2e8a828604c35b947ad511e2b75d3a5f,
       type: 3}
     PreviewImage: {fileID: 21300000, guid: f900575abc36c9c48a50fd58fa5fa8ac, type: 3}

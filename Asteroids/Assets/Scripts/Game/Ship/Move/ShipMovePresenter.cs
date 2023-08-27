@@ -8,6 +8,7 @@ namespace Game.Ship.Move
     {
         private readonly GlobalEnvironment _environment;
         private readonly ShipMoveModel _model;
+        private bool _isPaused;
 
         private const float MOVE_FORWARD_VALUE = 7f;
         private const float TURN_SIDE_VALUE = 20f;
@@ -18,21 +19,33 @@ namespace Game.Ship.Move
             _model = model;
         }
         
-        public void Activate() => _model.OnUpdate += Update;
+        public void Activate()
+        {
+            _model.OnUpdate += Update;
+            
+            _environment.ShipModel.OnActionsPaused += PauseActions;
+            _environment.ShipModel.OnActionsContinued += ContinueActions;
+        }
 
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
             
-            Debug.Log(nameof(ShipMovePresenter) + " deactivated!");
+            _environment.ShipModel.OnActionsPaused -= PauseActions;
+            _environment.ShipModel.OnActionsContinued -= ContinueActions;
         }
 
-        private void Update(float deltaTime) => Move(deltaTime);
+        private void Update(float deltaTime)
+        {
+            if (_isPaused) return;
+            
+            Move(deltaTime);
+        }
 
         private void Move(float deltaTime)
         {
             var shipView = _environment.GameSceneView.GameView.CurrentShip;
-            var zoneLimits = _environment.GameSceneView.GameView.ZoneLimits;
+            var zoneLimits = _environment.GameModel.ZoneLimits;
             
             var direction = new Vector3(0,0,MOVE_FORWARD_VALUE)
             {
@@ -66,5 +79,9 @@ namespace Game.Ship.Move
             shipView.ResetPosition(shipPosition);
             _model.SetPosition(shipPosition);
         }
+        
+        private void ContinueActions() => _isPaused = false;
+
+        private void PauseActions() => _isPaused = true;
     }
 }

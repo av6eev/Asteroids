@@ -1,4 +1,6 @@
-﻿using Global;
+﻿using System;
+using Game.CameraUpdater;
+using Global;
 using UnityEngine;
 using Utilities;
 
@@ -21,8 +23,13 @@ namespace Game.UI.Distance
 
         private void UpdateDistance(float deltaTime)
         {
-            var shipPosition = (int)_environment.ShipModel.MoveModel.Position.z;
-            
+            var shipPosition = _environment.GameModel.CurrentDimension switch
+            {
+                CameraDimensionsTypes.TwoD => (int)_environment.ShipModel.MoveModel.Position.y,
+                CameraDimensionsTypes.ThreeD => (int)_environment.ShipModel.MoveModel.Position.z,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
             _environment.GameModel.UpdateDistance(shipPosition);
             _view.UpdateDistance(Mathf.Abs(shipPosition));
         }

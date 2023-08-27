@@ -37,7 +37,7 @@ namespace Game.UI
         {
             _cameraChangeCounter++;
             
-            _environment.GameModel.ChangeCameraView(_cameraChangeCounter % 2);
+            _environment.GameModel.ChangeDimension(_cameraChangeCounter % 2);
         }
 
         public void Deactivate()

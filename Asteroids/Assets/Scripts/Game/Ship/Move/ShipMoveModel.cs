@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.CameraUpdater;
 using UnityEngine;
 using Utilities;
 
@@ -17,5 +18,18 @@ namespace Game.Ship.Move
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
         public void SetPosition(Vector3 newPosition) => Position = newPosition;
+
+        public Vector3 RecalculatePosition(CameraDimensionsTypes dimension)
+        {
+            var newPosition = dimension switch
+            {
+                CameraDimensionsTypes.TwoD => new Vector3(Position.x, Position.z, 0),
+                CameraDimensionsTypes.ThreeD => new Vector3(Position.x, 0, Position.y),
+                _ => Vector3.zero
+            };
+
+            Position = newPosition;
+            return Position;
+        }
     }
 }
