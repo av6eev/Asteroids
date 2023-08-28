@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Game.Asteroids;
+using Game.Entities.Asteroids;
 using Global.Pulls.Asteroids._2D;
 using Global.Pulls.Asteroids._3D;
 using Global.Pulls.Bullets._2D;

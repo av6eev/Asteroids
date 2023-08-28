@@ -22,6 +22,7 @@ namespace Global
                 new ScenesManager(),
                 new UpdatersEngine(),
                 new UpdatersEngine(),
+                new UpdatersEngine(),
                 new TimersEngine(),
                 new GlobalUIModel(),
                 new PlayerModel());
@@ -45,6 +46,8 @@ namespace Global
         }
 
         private void FixedUpdate() => Environment.FixedUpdatersEngine.Update(Environment);
+
+        private void LateUpdate() => Environment.LateUpdatersEngine.Update(Environment);
 
         public void OnApplicationQuit()
         {

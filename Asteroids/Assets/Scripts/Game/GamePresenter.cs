@@ -1,10 +1,10 @@
 using System.Linq;
-using Game.Asteroids;
-using Game.CameraUpdater;
+using Game.CamerasUpdaters;
+using Game.Entities.Asteroids;
+using Game.Entities.Ship;
+using Game.Entities.Ship.Base;
 using Game.Input;
 using Game.Scene;
-using Game.Ship;
-using Game.Ship.Base;
 using Game.UI;
 using Global;
 using Global.Dialogs.History;
@@ -67,21 +67,19 @@ namespace Game
             {
                 case CameraDimensionsTypes.TwoD:
                     neededShipPrefab = shipModel.Specification.Prefab2D;
-                    
-                    _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
-                    _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
-                    
-                    _view.TopDownCamera.gameObject.SetActive(true);
-                    _view.ThirdPersonCamera.gameObject.SetActive(false);
+
+                    _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
+                    _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+
+                    _view.SwitchCamera(CameraDimensionsTypes.TwoD);
                     break;
                 case CameraDimensionsTypes.ThreeD:
                     neededShipPrefab = shipModel.Specification.Prefab3D;
                     
-                    _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
-                    _environment.FixedUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
+                    _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+                    _environment.LateUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
                     
-                    _view.TopDownCamera.gameObject.SetActive(false);
-                    _view.ThirdPersonCamera.gameObject.SetActive(true);
+                    _view.SwitchCamera(CameraDimensionsTypes.ThreeD);
                     break;
             }
 

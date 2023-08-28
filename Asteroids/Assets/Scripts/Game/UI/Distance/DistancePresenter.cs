@@ -1,5 +1,4 @@
 ﻿using System;
-using Game.CameraUpdater;
 using Global;
 using UnityEngine;
 using Utilities;

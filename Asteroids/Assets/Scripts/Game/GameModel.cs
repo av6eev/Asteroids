@@ -1,5 +1,4 @@
 ﻿using System;
-using Game.CameraUpdater;
 using Specifications.GameDifficulties;
 using UnityEngine;
 using Utilities;
@@ -43,7 +42,7 @@ namespace Game
 
         public int CurrentDistance { get; private set; }
         public CameraDimensionsTypes CurrentDimension { get; private set; } = CameraDimensionsTypes.TwoD;
-        public readonly GameZoneLimits ZoneLimits = new();
+        public GameZoneLimits ZoneLimits { get; } = new();
 
         public void UpdateDistance(int distance) => CurrentDistance = Mathf.Abs(distance);
 
@@ -54,6 +53,10 @@ namespace Game
         public int CalculateGainedMoney() => CurrentDistance / 400 + Convert.ToInt32(Math.Floor(CurrentMoney));
         
         public void UpdateDifficulty(GameDifficultySpecification newDifficultySpecification) => OnDifficultyIncreased?.Invoke(newDifficultySpecification);
+
+        public void Close() => OnClosed?.Invoke();
+
+        public void End() => OnEnded?.Invoke();
 
         public void ChangeDimension(int index)
         {
@@ -66,9 +69,5 @@ namespace Game
 
             OnDimensionChanged?.Invoke();
         }
-
-        public void Close() => OnClosed?.Invoke();
-
-        public void End() => OnEnded?.Invoke();
     }
 }

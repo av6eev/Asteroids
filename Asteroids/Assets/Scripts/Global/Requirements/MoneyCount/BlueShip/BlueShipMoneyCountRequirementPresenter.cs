@@ -1,4 +1,4 @@
-﻿using Game.Ship;
+﻿using Game.Entities.Ship;
 using Global.Dialogs.Shop;
 using Global.Requirements.Base;
 using Utilities;

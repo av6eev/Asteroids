@@ -1,4 +1,4 @@
-﻿using Game.Asteroids.Asteroid;
+﻿using Game.Entities.Asteroids.Asteroid;
 using Global.Pulls.Base;
 
 namespace Global.Pulls.Asteroids._3D

@@ -1,4 +1,4 @@
-﻿using Game.Ship.Bullet;
+﻿using Game.Entities.Bullet;
 using Global.Pulls.Base;
 
 namespace Global.Pulls.Bullets._2D

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Game.Asteroids;
-using Game.Ship;
+using Game.Entities.Asteroids;
+using Game.Entities.Ship;
 using Global.Requirements.Base;
 using Global.Rewards.Base;
 using Specifications.Asteroids;

@@ -1,5 +1,5 @@
-﻿using Game.Asteroids;
-using Game.Asteroids.Asteroid;
+﻿using Game.Entities.Asteroids;
+using Game.Entities.Asteroids.Asteroid;
 using Global;
 using Utilities;
 

@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using Game.Ship;
+using Game.Entities.Ship;
 using Global.Dialogs.History;
-using Global.Requirements.DistancePassed.First;
-using Global.Requirements.DistancePassed.Second;
-using Global.Requirements.DistancePassed.Third;
 using Global.Requirements.MoneyCount.BlueShip;
 using Utilities;
 
