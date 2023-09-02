@@ -1,6 +1,7 @@
 ﻿using Global;
 using Specifications.GameDifficulties;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Game.UI.Difficulty
 {

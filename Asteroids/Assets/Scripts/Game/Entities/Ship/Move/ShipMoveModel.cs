@@ -2,6 +2,8 @@
 using Game.Entities.Base;
 using UnityEngine;
 using Utilities;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Move
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utilities
+namespace Utilities.Interfaces
 {
     public interface IUpdatable
     {

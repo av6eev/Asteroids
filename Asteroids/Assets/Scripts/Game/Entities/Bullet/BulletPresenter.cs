@@ -4,6 +4,8 @@ using Global;
 using Global.Pulls.ParticleSystem.Hit;
 using UnityEngine;
 using Utilities;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Bullet
 {

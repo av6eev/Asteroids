@@ -8,8 +8,9 @@ using Specifications.Asteroids;
 using Specifications.Base;
 using Specifications.GameDifficulties;
 using Specifications.Ships;
+using Utilities.Enums;
 
-namespace Utilities
+namespace Utilities.Game
 {
     public class GameSpecifications
     {

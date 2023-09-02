@@ -5,7 +5,10 @@ using Game.Entities.Ship.Rotate;
 using Game.Entities.Ship.Shoot;
 using Global;
 using UnityEngine;
-using Utilities;
+using Utilities.Engines;
+using Utilities.Enums;
+using Utilities.Game;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Ship
 {

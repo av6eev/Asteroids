@@ -7,7 +7,7 @@ using Global.Pulls.Bullets._2D;
 using Global.Pulls.Bullets._3D;
 using Global.Pulls.ParticleSystem.Hit;
 using UnityEngine;
-using Utilities;
+using Utilities.Enums;
 
 namespace Game
 {

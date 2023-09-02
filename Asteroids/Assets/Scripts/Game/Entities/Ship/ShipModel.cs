@@ -5,7 +5,7 @@ using Game.Entities.Ship.Move;
 using Game.Entities.Ship.Rotate;
 using Game.Entities.Ship.Shoot;
 using Specifications.Ships;
-using Utilities;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Ship
 {

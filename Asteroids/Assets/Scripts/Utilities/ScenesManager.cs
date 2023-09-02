@@ -4,6 +4,9 @@ using Global;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Utilities.BaseClasses;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Utilities
 {

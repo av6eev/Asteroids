@@ -5,6 +5,9 @@ using Game.Entities.Bullet.Base;
 using Global;
 using UnityEngine;
 using Utilities;
+using Utilities.Enums;
+using Utilities.Game;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Shoot
 {

@@ -2,6 +2,7 @@
 using Game.Entities.Base;
 using UnityEngine;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Bullet
 {

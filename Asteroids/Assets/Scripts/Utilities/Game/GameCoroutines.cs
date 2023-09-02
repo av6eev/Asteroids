@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Utilities
+namespace Utilities.Game
 {
     public sealed class GameCoroutines : MonoBehaviour
     {

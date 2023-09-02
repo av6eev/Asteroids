@@ -1,6 +1,7 @@
 ﻿using Global.Rewards.Base;
 using UnityEngine;
 using Utilities;
+using Utilities.Enums;
 
 namespace Global.Rewards.DistancePassed
 {

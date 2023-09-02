@@ -1,6 +1,8 @@
 ﻿using Global.Dialogs.History;
 using Global.Dialogs.Shop;
 using Utilities;
+using Utilities.Engines;
+using Utilities.Interfaces;
 
 namespace Global.Dialogs.Base
 {

@@ -2,6 +2,7 @@
 using Global.Dialogs.Shop;
 using Global.Requirements.Base;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Global.Requirements.MoneyCount.BlueShip
 {

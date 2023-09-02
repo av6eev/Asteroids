@@ -3,6 +3,7 @@ using System.Linq;
 using Global.Dialogs.History;
 using Global.Dialogs.Shop;
 using Utilities;
+using Utilities.Game;
 
 namespace Global.Dialogs.Base
 {

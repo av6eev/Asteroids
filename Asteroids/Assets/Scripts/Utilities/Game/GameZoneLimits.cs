@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 
-namespace Utilities
+namespace Utilities.Game
 {
     public class GameZoneLimits
     {
@@ -14,7 +13,6 @@ namespace Utilities
         {
             TopSide = topSide;
             BottomSide = bottomSide;
-            // Debug.Log($"top: {topSide}, bot: {bottomSide}");
         }
     }
 }

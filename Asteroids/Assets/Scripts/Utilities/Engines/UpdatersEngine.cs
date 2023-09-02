@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Global;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
-namespace Utilities
+namespace Utilities.Engines
 {
     public class UpdatersEngine : IUpdater
     {

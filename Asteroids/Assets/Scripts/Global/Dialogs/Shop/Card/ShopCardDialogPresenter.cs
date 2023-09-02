@@ -1,4 +1,5 @@
 ﻿using Utilities;
+using Utilities.Interfaces;
 
 namespace Global.Dialogs.Shop.Card
 {

@@ -2,6 +2,7 @@
 using Game.Entities.Asteroids.Asteroid;
 using Global;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Game.UI.Money
 {

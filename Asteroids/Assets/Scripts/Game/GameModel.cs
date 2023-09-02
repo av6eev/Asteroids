@@ -1,7 +1,8 @@
 ﻿using System;
 using Specifications.GameDifficulties;
 using UnityEngine;
-using Utilities;
+using Utilities.Enums;
+using Utilities.Game;
 
 namespace Game
 {

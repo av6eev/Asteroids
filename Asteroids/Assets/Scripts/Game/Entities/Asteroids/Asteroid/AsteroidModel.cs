@@ -3,6 +3,7 @@ using Game.Entities.Base;
 using Specifications.Asteroids;
 using UnityEngine;
 using Utilities;
+using Utilities.Interfaces;
 using Random = UnityEngine.Random;
 
 namespace Game.Entities.Asteroids.Asteroid

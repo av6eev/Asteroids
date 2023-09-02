@@ -2,7 +2,7 @@
 using Global.Pulls.Base;
 using UnityEngine;
 
-namespace Utilities
+namespace Utilities.Interfaces
 {
     public interface ITriggerable
     {

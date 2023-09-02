@@ -1,8 +1,8 @@
-using System;
 using Game.Input;
 using Game.UI;
 using UnityEngine;
-using Utilities;
+using Utilities.BaseClasses;
+using Utilities.Enums;
 
 namespace Game.Scene
 {

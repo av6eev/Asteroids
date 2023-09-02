@@ -1,6 +1,8 @@
 ﻿using Global.Dialogs.Shop.Card;
 using UnityEngine;
 using Utilities;
+using Utilities.Engines;
+using Utilities.Interfaces;
 
 namespace Global.Dialogs.Shop
 {

@@ -13,7 +13,9 @@ using Global.Requirements.DistancePassed.First;
 using Global.Requirements.DistancePassed.Second;
 using Global.Requirements.DistancePassed.Third;
 using UnityEngine;
-using Utilities;
+using Utilities.Engines;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Game
 {
@@ -71,7 +73,6 @@ namespace Game
                     _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
                     _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
 
-                    _view.SwitchCamera(CameraDimensionsTypes.TwoD);
                     break;
                 case CameraDimensionsTypes.ThreeD:
                     neededShipPrefab = shipModel.Specification.Prefab3D;
@@ -79,10 +80,11 @@ namespace Game
                     _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
                     _environment.LateUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
                     
-                    _view.SwitchCamera(CameraDimensionsTypes.ThreeD);
                     break;
             }
 
+            _view.SwitchCamera(_model.CurrentDimension);
+            
             _view.GameView.ChangeActivePulls(_model.CurrentDimension);
             
             shipModel.ChangeView(_view.GameView.RedrawShip(neededShipPrefab, shipModel.MoveModel.RecalculatePosition(_model.CurrentDimension)));
@@ -97,8 +99,6 @@ namespace Game
             _environment.ShipModel = new ShipModel(neededSpecification);
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
         }
-
-        private void DestroyShip() => _view.GameView.DestroyShip();
 
         private void Close()
         {
@@ -178,7 +178,7 @@ namespace Game
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
-            DestroyShip();
+            _view.GameView.DestroyShip();
             _view.GameView.DestroyPulls();
         }
     }

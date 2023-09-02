@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utilities
+namespace Utilities.BaseClasses
 {
     public abstract class BaseSceneView : MonoBehaviour
     {

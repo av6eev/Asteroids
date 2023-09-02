@@ -5,6 +5,7 @@ using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
 using Global.Pulls.Base;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Shoot
 {

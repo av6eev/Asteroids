@@ -4,6 +4,9 @@ using Game.Entities.Bullet.Base;
 using Global;
 using Global.Pulls.Base;
 using Utilities;
+using Utilities.Enums;
+using Utilities.Helpers;
+using Utilities.Interfaces;
 
 namespace Game.Entities.Asteroids.Asteroid
 {

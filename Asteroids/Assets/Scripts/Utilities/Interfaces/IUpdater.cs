@@ -1,6 +1,6 @@
 using Global;
 
-namespace Utilities
+namespace Utilities.Interfaces
 {
     public interface IUpdater
     {

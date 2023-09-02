@@ -2,6 +2,7 @@
 using Global.Save;
 using Specifications.Ships;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Global.Player
 {

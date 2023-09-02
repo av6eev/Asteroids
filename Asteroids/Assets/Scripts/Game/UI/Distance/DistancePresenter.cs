@@ -2,6 +2,8 @@
 using Global;
 using UnityEngine;
 using Utilities;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Game.UI.Distance
 {
