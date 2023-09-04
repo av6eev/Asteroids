@@ -3,7 +3,7 @@ using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
 using Global;
 using Global.Pulls.Base;
-using Utilities;
+using Global.Sound;
 using Utilities.Enums;
 using Utilities.Helpers;
 using Utilities.Interfaces;
@@ -73,6 +73,7 @@ namespace Game.Entities.Asteroids.Asteroid
                     {
                         _environment.ShipModel.ApplyDamage(1);
                         _environment.AsteroidsModel.DestroyAsteroid(_model, false, true);    
+                        _environment.SoundManager.PlaySound(SoundsTypes.ShipHit);
                     }
                     break;
             }

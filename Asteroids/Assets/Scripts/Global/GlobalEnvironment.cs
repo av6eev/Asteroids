@@ -7,6 +7,7 @@ using Global.Dialogs.Base;
 using Global.Player;
 using Global.Pulls.Base;
 using Global.Save;
+using Global.Sound;
 using Global.UI;
 using Utilities;
 using Utilities.Engines;
@@ -26,6 +27,7 @@ namespace Global
         public UpdatersEngine LateUpdatersEngine { get; }
         public TimersEngine TimersEngine { get; }
         public PullsData PullsData { get; set; }
+        public SoundManager SoundManager { get; set; }
 
         public GlobalUIModel GlobalUIModel { get; }
         public PlayerModel PlayerModel { get; }
@@ -55,6 +57,7 @@ namespace Global
             TimersEngine = timersEngine;
             GlobalUIModel = globalUIModel;
             PlayerModel = playerModel;
+            SoundManager = globalView.SoundManager.Instance;
         }
     }
 }

@@ -2,8 +2,8 @@
 using Game.Entities.Bullet.Base;
 using Global;
 using Global.Pulls.ParticleSystem.Hit;
+using Global.Sound;
 using UnityEngine;
-using Utilities;
 using Utilities.Enums;
 using Utilities.Interfaces;
 
@@ -34,6 +34,8 @@ namespace Game.Entities.Bullet
                 _ => _spawnOffset
             };
 
+            _environment.SoundManager.PlaySound(SoundsTypes.ShipShooting);
+            
             _view.SetCurrentPosition(_model.Position + _spawnOffset);
             
             _model.OnUpdate += Update;

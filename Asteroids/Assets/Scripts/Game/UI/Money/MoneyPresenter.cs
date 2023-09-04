@@ -1,7 +1,7 @@
 ﻿using Game.Entities.Asteroids;
 using Game.Entities.Asteroids.Asteroid;
 using Global;
-using Utilities;
+using Global.Sound;
 using Utilities.Interfaces;
 
 namespace Game.UI.Money
@@ -36,6 +36,8 @@ namespace Game.UI.Money
             };
 
             _environment.GameModel.UpdateBalance(moneyBonus);
+            _environment.SoundManager.PlaySound(SoundsTypes.CoinGained);
+            
             _view.UpdateMoneyCounter(_environment.GameModel.CurrentMoney);
         }
     }

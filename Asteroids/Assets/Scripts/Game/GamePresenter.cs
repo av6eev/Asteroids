@@ -12,6 +12,7 @@ using Global.Pulls.Base;
 using Global.Requirements.DistancePassed.First;
 using Global.Requirements.DistancePassed.Second;
 using Global.Requirements.DistancePassed.Third;
+using Global.Sound;
 using UnityEngine;
 using Utilities.Engines;
 using Utilities.Enums;
@@ -108,6 +109,7 @@ namespace Game
 
         private void Save()
         {
+            _environment.SoundManager.Reset();
             _view.GameUIView.HideElementsAfterEnd();
             
             _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
@@ -129,7 +131,7 @@ namespace Game
             _presenters.Activate();
 
             _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+            _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
             foreach (var requirement in _environment.Specifications.Requirements)
@@ -149,6 +151,8 @@ namespace Game
             }
             
             _requirementsPresenters.Activate();
+            
+            _environment.SoundManager.PlaySound(SoundsTypes.Theme);
         }
 
         private void DeactivateUnnecessaryData()
@@ -174,8 +178,8 @@ namespace Game
             removedPresenters.Clear();
 
             _environment.UpdatersEngine.Remove(UpdatersTypes.Input);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
+            _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+            _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
             _view.GameView.DestroyShip();

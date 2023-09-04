@@ -6,7 +6,6 @@ using Global;
 using Specifications.Asteroids;
 using Specifications.GameDifficulties;
 using UnityEngine;
-using Utilities;
 using Utilities.Engines;
 using Utilities.Enums;
 using Utilities.Interfaces;
