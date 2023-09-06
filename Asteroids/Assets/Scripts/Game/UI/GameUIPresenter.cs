@@ -17,7 +17,7 @@ namespace Game.UI
         private readonly GameUIView _view;
 
         private readonly PresentersEngine _presenters = new();
-        private int _cameraChangeCounter = 0;
+        private int _cameraChangeCounter;
         
         public GameUIPresenter(GlobalEnvironment environment, GameUIView view)
         {

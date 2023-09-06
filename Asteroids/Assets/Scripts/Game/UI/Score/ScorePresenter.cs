@@ -1,7 +1,7 @@
 ﻿using Game.Entities.Asteroids;
 using Game.Entities.Asteroids.Asteroid;
+using Game.UI.Score.Base;
 using Global;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.UI.Score
@@ -9,9 +9,9 @@ namespace Game.UI.Score
     public class ScorePresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly ScoreView _view;
+        private readonly BaseScoreView _view;
 
-        public ScorePresenter(GlobalEnvironment environment, ScoreView view)
+        public ScorePresenter(GlobalEnvironment environment, BaseScoreView view)
         {
             _environment = environment;
             _view = view;

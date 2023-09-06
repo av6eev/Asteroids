@@ -1,5 +1,6 @@
 ﻿using Game.Entities.Asteroids;
 using Game.Entities.Asteroids.Asteroid;
+using Game.UI.Money.Base;
 using Global;
 using Global.Sound;
 using Utilities.Interfaces;
@@ -9,9 +10,9 @@ namespace Game.UI.Money
     public class MoneyPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly MoneyView _view;
+        private readonly BaseMoneyView _view;
 
-        public MoneyPresenter(GlobalEnvironment environment, MoneyView view)
+        public MoneyPresenter(GlobalEnvironment environment, BaseMoneyView view)
         {
             _environment = environment;
             _view = view;

@@ -1,5 +1,5 @@
-﻿using Global;
-using Utilities;
+﻿using Game.UI.Health.Base;
+using Global;
 using Utilities.Interfaces;
 
 namespace Game.UI.Health
@@ -7,9 +7,9 @@ namespace Game.UI.Health
     public class HealthPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly HealthView _view;
+        private readonly BaseHealthView _view;
 
-        public HealthPresenter(GlobalEnvironment environment, HealthView view)
+        public HealthPresenter(GlobalEnvironment environment, BaseHealthView view)
         {
             _environment = environment;
             _view = view;
@@ -26,6 +26,6 @@ namespace Game.UI.Health
 
         private void SetStartedHealth(int maxHealth) => _view.SetStartedHealth(maxHealth);
 
-        private void UpdateHealthBar() => _view.UpdateElement(.33f);
+        private void UpdateHealthBar() => _view.UpdateHealth(.33f);
     }
 }

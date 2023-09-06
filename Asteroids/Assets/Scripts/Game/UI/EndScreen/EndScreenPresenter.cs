@@ -1,5 +1,5 @@
-﻿using Global;
-using Utilities;
+﻿using Game.UI.EndScreen.Base;
+using Global;
 using Utilities.Interfaces;
 
 namespace Game.UI.EndScreen
@@ -7,9 +7,9 @@ namespace Game.UI.EndScreen
     public class EndScreenPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly EndScreenView _view;
+        private readonly BaseEndScreenView _view;
 
-        public EndScreenPresenter(GlobalEnvironment environment, EndScreenView view)
+        public EndScreenPresenter(GlobalEnvironment environment, BaseEndScreenView view)
         {
             _environment = environment;
             _view = view;

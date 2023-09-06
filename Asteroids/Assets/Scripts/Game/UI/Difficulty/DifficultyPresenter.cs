@@ -1,6 +1,6 @@
-﻿using Global;
+﻿using Game.UI.Difficulty.Base;
+using Global;
 using Specifications.GameDifficulties;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.UI.Difficulty
@@ -8,9 +8,9 @@ namespace Game.UI.Difficulty
     public class DifficultyPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly DifficultyView _view;
+        private readonly BaseDifficultyView _view;
 
-        public DifficultyPresenter(GlobalEnvironment environment, DifficultyView view)
+        public DifficultyPresenter(GlobalEnvironment environment, BaseDifficultyView view)
         {
             _environment = environment;
             _view = view;

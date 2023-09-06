@@ -1,12 +1,13 @@
-﻿using TMPro;
+﻿using Game.UI.Score.Base;
+using TMPro;
 using UnityEngine;
 
 namespace Game.UI.Score
 {
-    public class ScoreView : BaseGameUIView
+    public class ScoreView : BaseScoreView
     {
         [field: SerializeField] public TextMeshProUGUI ScoreText { get; private set; }
 
-        public void UpdateScore(int score) => ScoreText.text = score.ToString();
+        public override void UpdateScore(int score) => ScoreText.text = score.ToString();
     }
 }

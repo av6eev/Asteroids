@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using Game.UI.Health.Base;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI.Health
 {
-    public class HealthView : BaseGameUIView
+    public class HealthView : BaseHealthView
     {
         [field: SerializeField] public Image Mask { get; private set; }
 
-        public void UpdateElement(float value) => Mask.fillAmount -= value;
+        public override void UpdateHealth(float value) => Mask.fillAmount -= value;
 
-        public void SetStartedHealth(int maxHealth) => Mask.fillAmount = maxHealth;
+        public override void SetStartedHealth(int maxHealth) => Mask.fillAmount = maxHealth;
     }
 }

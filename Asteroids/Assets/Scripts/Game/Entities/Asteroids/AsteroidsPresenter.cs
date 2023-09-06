@@ -43,7 +43,7 @@ namespace Game.Entities.Asteroids
             _model.OnAsteroidDestroyed += DestroyAsteroid;
             
             _environment.GameModel.OnDifficultyIncreased += UpdateModifiers;
-            _environment.GameModel.OnDimensionChanged += ChangeActivePulls;
+            _environment.GameModel.OnDimensionChanged += ChangeActiveAsteroidViews;
         }
 
         public void Deactivate()
@@ -62,12 +62,12 @@ namespace Game.Entities.Asteroids
             _model.OnAsteroidDestroyed -= DestroyAsteroid;
             
             _environment.GameModel.OnDifficultyIncreased -= UpdateModifiers;
-            _environment.GameModel.OnDimensionChanged -= ChangeActivePulls;
+            _environment.GameModel.OnDimensionChanged -= ChangeActiveAsteroidViews;
             
             Debug.Log(nameof(AsteroidsPresenter) + " deactivated!");
         }
 
-        private void ChangeActivePulls()
+        private void ChangeActiveAsteroidViews()
         {
             var tempList = new Dictionary<AsteroidModel, BaseAsteroidView>();
             

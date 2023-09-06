@@ -26,8 +26,8 @@ namespace Global
         public UpdatersEngine FixedUpdatersEngine { get; }
         public UpdatersEngine LateUpdatersEngine { get; }
         public TimersEngine TimersEngine { get; }
+        public SoundManager SoundManager { get; }
         public PullsData PullsData { get; set; }
-        public SoundManager SoundManager { get; set; }
 
         public GlobalUIModel GlobalUIModel { get; }
         public PlayerModel PlayerModel { get; }
