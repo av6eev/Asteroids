@@ -5,6 +5,8 @@ using Global.Save;
 using Global.UI;
 using UnityEngine;
 using Utilities;
+using Utilities.Engines;
+using Utilities.Game;
 
 namespace Global
 {
@@ -20,6 +22,7 @@ namespace Global
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
                 new ScenesManager(),
+                new UpdatersEngine(),
                 new UpdatersEngine(),
                 new UpdatersEngine(),
                 new TimersEngine(),
@@ -45,6 +48,8 @@ namespace Global
         }
 
         private void FixedUpdate() => Environment.FixedUpdatersEngine.Update(Environment);
+
+        private void LateUpdate() => Environment.LateUpdatersEngine.Update(Environment);
 
         public void OnApplicationQuit()
         {

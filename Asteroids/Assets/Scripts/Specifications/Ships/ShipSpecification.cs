@@ -1,9 +1,10 @@
 ﻿using System;
-using Game.Ship;
-using Game.Ship.Bullet;
+using Game.Entities.Bullet;
+using Game.Entities.Ship;
 using Specifications.Base;
 using UnityEngine;
 using Utilities;
+using Utilities.Interfaces;
 
 namespace Specifications.Ships
 {

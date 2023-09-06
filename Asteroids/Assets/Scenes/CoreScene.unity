@@ -38,7 +38,8 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0015548202, g: 0.0014571014, b: 0.0013894831, a: 1}
+  m_IndirectSpecularColor: {r: 0.00061560585, g: 0.00056536717, b: 0.00051350833,
+    a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -990,8 +991,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 57ebc2b84a40bda40b552b1949e9c648, type: 2}
-  m_sharedMaterial: {fileID: 48268210848354667, guid: 57ebc2b84a40bda40b552b1949e9c648,
+  m_fontAsset: {fileID: 11400000, guid: 0662551f3d829084cac3c16f7cc8fa1a, type: 2}
+  m_sharedMaterial: {fileID: -8733137309659916193, guid: 0662551f3d829084cac3c16f7cc8fa1a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1022,7 +1023,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 17
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1128,7 +1129,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1403,8 +1404,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0438\u0433\u0440"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 57ebc2b84a40bda40b552b1949e9c648, type: 2}
-  m_sharedMaterial: {fileID: 48268210848354667, guid: 57ebc2b84a40bda40b552b1949e9c648,
+  m_fontAsset: {fileID: 11400000, guid: 0662551f3d829084cac3c16f7cc8fa1a, type: 2}
+  m_sharedMaterial: {fileID: -8733137309659916193, guid: 0662551f3d829084cac3c16f7cc8fa1a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1435,7 +1436,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 17
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1581,7 +1582,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528235172}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &528235174
 Camera:
   m_ObjectHideFlags: 0
@@ -1633,7 +1634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528235172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2225,8 +2226,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u041D\u043E\u0432\u0430\u044F \u0438\u0433\u0440\u0430"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 57ebc2b84a40bda40b552b1949e9c648, type: 2}
-  m_sharedMaterial: {fileID: 48268210848354667, guid: 57ebc2b84a40bda40b552b1949e9c648,
+  m_fontAsset: {fileID: 11400000, guid: 0662551f3d829084cac3c16f7cc8fa1a, type: 2}
+  m_sharedMaterial: {fileID: -8733137309659916193, guid: 0662551f3d829084cac3c16f7cc8fa1a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2257,7 +2258,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 17
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2363,7 +2364,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2942,6 +2943,7 @@ MonoBehaviour:
     type: 2}
   <GlobalUIView>k__BackingField: {fileID: 2079630800}
   <DialogsView>k__BackingField: {fileID: 1514687182}
+  <SoundManager>k__BackingField: {fileID: 1706881904}
   <EventSystem>k__BackingField: {fileID: 479025106}
 --- !u!4 &1531883553
 Transform:
@@ -3091,7 +3093,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -3347,8 +3349,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u0412\u044B\u0445\u043E\u0434"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 57ebc2b84a40bda40b552b1949e9c648, type: 2}
-  m_sharedMaterial: {fileID: 48268210848354667, guid: 57ebc2b84a40bda40b552b1949e9c648,
+  m_fontAsset: {fileID: 11400000, guid: 0662551f3d829084cac3c16f7cc8fa1a, type: 2}
+  m_sharedMaterial: {fileID: -8733137309659916193, guid: 0662551f3d829084cac3c16f7cc8fa1a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3379,7 +3381,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 17
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3423,6 +3425,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677981240}
   m_CullTransparentMesh: 1
+--- !u!1 &1706881902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1706881903}
+  - component: {fileID: 1706881904}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1706881903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706881902}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1706881904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706881902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae6d4867380eb646bccbba6b8e7d318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Sounds>k__BackingField:
+  - <Type>k__BackingField: 5
+    <Clip>k__BackingField: {fileID: 8300000, guid: 7b69beceabbd8f24e8bc62d77ac7ca1c,
+      type: 3}
+    <Volume>k__BackingField: 0.1
+    <Pitch>k__BackingField: 1
+    <IsLooped>k__BackingField: 0
+  - <Type>k__BackingField: 4
+    <Clip>k__BackingField: {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236,
+      type: 3}
+    <Volume>k__BackingField: 0.04
+    <Pitch>k__BackingField: 1
+    <IsLooped>k__BackingField: 0
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: ca6d617c1e43aef43b7b4a91e6432c10,
+      type: 3}
+    <Volume>k__BackingField: 0.6
+    <Pitch>k__BackingField: 1
+    <IsLooped>k__BackingField: 0
+  - <Type>k__BackingField: 0
+    <Clip>k__BackingField: {fileID: 8300000, guid: 2be19f571f78a6d4b81966a604321080,
+      type: 3}
+    <Volume>k__BackingField: 0.05
+    <Pitch>k__BackingField: 1
+    <IsLooped>k__BackingField: 1
 --- !u!1 &1771680178
 GameObject:
   m_ObjectHideFlags: 0

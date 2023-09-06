@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.CameraUpdater;
-using Game.Ship.Base;
+using Game.Entities.Ship.Base;
 using Global.Pulls.Asteroids._2D;
 using Global.Pulls.Asteroids._3D;
 using Global.Pulls.Bullets._2D;
 using Global.Pulls.Bullets._3D;
 using Global.Pulls.ParticleSystem.Hit;
 using UnityEngine;
+using Utilities.Enums;
 
 namespace Game
 {

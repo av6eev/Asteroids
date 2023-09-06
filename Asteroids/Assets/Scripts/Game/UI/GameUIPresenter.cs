@@ -6,7 +6,8 @@ using Game.UI.Money;
 using Game.UI.Score;
 using Global;
 using UnityEngine;
-using Utilities;
+using Utilities.Engines;
+using Utilities.Interfaces;
 
 namespace Game.UI
 {
@@ -16,7 +17,7 @@ namespace Game.UI
         private readonly GameUIView _view;
 
         private readonly PresentersEngine _presenters = new();
-        private int _cameraChangeCounter = 0;
+        private int _cameraChangeCounter;
         
         public GameUIPresenter(GlobalEnvironment environment, GameUIView view)
         {
@@ -33,13 +34,6 @@ namespace Game.UI
             _view.ChangeCameraButton.onClick.AddListener(ChangeCameraView);
         }
 
-        private void ChangeCameraView()
-        {
-            _cameraChangeCounter++;
-            
-            _environment.GameModel.ChangeDimension(_cameraChangeCounter % 2);
-        }
-
         public void Deactivate()
         {
             _presenters.Deactivate();
@@ -48,6 +42,13 @@ namespace Game.UI
             _view.ChangeCameraButton.onClick.RemoveListener(ChangeCameraView);
             
             Debug.Log(nameof(GameUIPresenter) + " deactivated!");
+        }
+
+        private void ChangeCameraView()
+        {
+            _cameraChangeCounter++;
+            
+            _environment.GameModel.ChangeDimension(_cameraChangeCounter % 2);
         }
 
         private void CreateNecessaryData()

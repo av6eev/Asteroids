@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.Ship;
+using Game.Entities.Ship;
 using Global.Dialogs.Base;
 using Global.Dialogs.Shop.Card;
 using Specifications.Ships;

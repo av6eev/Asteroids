@@ -1,14 +1,17 @@
 using Game;
-using Game.Asteroids;
+using Game.Entities.Asteroids;
+using Game.Entities.Ship;
 using Game.Input;
 using Game.Scene;
-using Game.Ship;
 using Global.Dialogs.Base;
 using Global.Player;
 using Global.Pulls.Base;
 using Global.Save;
+using Global.Sound;
 using Global.UI;
 using Utilities;
+using Utilities.Engines;
+using Utilities.Game;
 
 namespace Global
 {
@@ -21,7 +24,9 @@ namespace Global
         public ScenesManager ScenesManager { get; }
         public UpdatersEngine UpdatersEngine { get; }
         public UpdatersEngine FixedUpdatersEngine { get; }
+        public UpdatersEngine LateUpdatersEngine { get; }
         public TimersEngine TimersEngine { get; }
+        public SoundManager SoundManager { get; }
         public PullsData PullsData { get; set; }
 
         public GlobalUIModel GlobalUIModel { get; }
@@ -38,6 +43,7 @@ namespace Global
             ScenesManager scenesManager,
             UpdatersEngine updatersEngine,
             UpdatersEngine fixedUpdatersEngine,
+            UpdatersEngine lateUpdatersEngine,
             TimersEngine timersEngine,
             GlobalUIModel globalUIModel,
             PlayerModel playerModel)
@@ -47,9 +53,11 @@ namespace Global
             ScenesManager = scenesManager;
             UpdatersEngine = updatersEngine;
             FixedUpdatersEngine = fixedUpdatersEngine;
+            LateUpdatersEngine = lateUpdatersEngine;
             TimersEngine = timersEngine;
             GlobalUIModel = globalUIModel;
             PlayerModel = playerModel;
+            SoundManager = globalView.SoundManager.Instance;
         }
     }
 }

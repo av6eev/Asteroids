@@ -1,7 +1,8 @@
 using Global.Dialogs.History;
 using Global.Dialogs.Shop;
 using UnityEngine;
-using Utilities;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Global.UI
 {

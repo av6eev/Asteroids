@@ -1,5 +1,5 @@
 ﻿using Global.Requirements.Base;
-using Utilities;
+using Utilities.Interfaces;
 
 namespace Global.Requirements.DistancePassed.Base
 {

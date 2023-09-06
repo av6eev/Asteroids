@@ -1,4 +1,4 @@
-﻿using Utilities;
+﻿using Utilities.Interfaces;
 
 namespace Global.Dialogs.History
 {

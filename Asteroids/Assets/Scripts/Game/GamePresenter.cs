@@ -1,10 +1,10 @@
 using System.Linq;
-using Game.Asteroids;
-using Game.CameraUpdater;
+using Game.CamerasUpdaters;
+using Game.Entities.Asteroids;
+using Game.Entities.Ship;
+using Game.Entities.Ship.Base;
 using Game.Input;
 using Game.Scene;
-using Game.Ship;
-using Game.Ship.Base;
 using Game.UI;
 using Global;
 using Global.Dialogs.History;
@@ -12,8 +12,11 @@ using Global.Pulls.Base;
 using Global.Requirements.DistancePassed.First;
 using Global.Requirements.DistancePassed.Second;
 using Global.Requirements.DistancePassed.Third;
+using Global.Sound;
 using UnityEngine;
-using Utilities;
+using Utilities.Engines;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Game
 {
@@ -67,24 +70,22 @@ namespace Game
             {
                 case CameraDimensionsTypes.TwoD:
                     neededShipPrefab = shipModel.Specification.Prefab2D;
-                    
-                    _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
-                    _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
-                    
-                    _view.TopDownCamera.gameObject.SetActive(true);
-                    _view.ThirdPersonCamera.gameObject.SetActive(false);
+
+                    _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
+                    _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+
                     break;
                 case CameraDimensionsTypes.ThreeD:
                     neededShipPrefab = shipModel.Specification.Prefab3D;
                     
-                    _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
-                    _environment.FixedUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
+                    _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+                    _environment.LateUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
                     
-                    _view.TopDownCamera.gameObject.SetActive(false);
-                    _view.ThirdPersonCamera.gameObject.SetActive(true);
                     break;
             }
 
+            _view.SwitchCamera(_model.CurrentDimension);
+            
             _view.GameView.ChangeActivePulls(_model.CurrentDimension);
             
             shipModel.ChangeView(_view.GameView.RedrawShip(neededShipPrefab, shipModel.MoveModel.RecalculatePosition(_model.CurrentDimension)));
@@ -100,8 +101,6 @@ namespace Game
             _presenters.Add(new ShipPresenter(_environment, _environment.ShipModel, shipView));
         }
 
-        private void DestroyShip() => _view.GameView.DestroyShip();
-
         private void Close()
         {
             _environment.ScenesManager.UnloadScene(ScenesNames.GameScene);            
@@ -110,6 +109,7 @@ namespace Game
 
         private void Save()
         {
+            _environment.SoundManager.Reset();
             _view.GameUIView.HideElementsAfterEnd();
             
             _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
@@ -131,7 +131,7 @@ namespace Game
             _presenters.Activate();
 
             _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
-            _environment.FixedUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+            _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
             foreach (var requirement in _environment.Specifications.Requirements)
@@ -151,6 +151,8 @@ namespace Game
             }
             
             _requirementsPresenters.Activate();
+            
+            _environment.SoundManager.PlaySound(SoundsTypes.Theme);
         }
 
         private void DeactivateUnnecessaryData()
@@ -176,11 +178,11 @@ namespace Game
             removedPresenters.Clear();
 
             _environment.UpdatersEngine.Remove(UpdatersTypes.Input);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
-            _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
+            _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
+            _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
-            DestroyShip();
+            _view.GameView.DestroyShip();
             _view.GameView.DestroyPulls();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using Global;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utilities;
+using Utilities.Interfaces;
 
 namespace Game.Input
 {

@@ -4,6 +4,9 @@ using Global;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Utilities.BaseClasses;
+using Utilities.Enums;
+using Utilities.Interfaces;
 
 namespace Utilities
 {
@@ -37,7 +40,7 @@ namespace Utilities
 
                     _environment.GameModel = model;
                     _environment.GameSceneView = view;
-                    _environment.GlobalView.MainCamera.enabled = false;
+                    _environment.GlobalView.MainCamera.gameObject.SetActive(false);
                     
                     _presenter = new GamePresenter(_environment, model, view);
                     break;
@@ -61,7 +64,7 @@ namespace Utilities
             
             _environment.GlobalView.GlobalUIView.ChangeVisibility(true);
             _environment.GlobalView.EventSystem.enabled = true;
-            _environment.GlobalView.MainCamera.enabled = true;
+            _environment.GlobalView.MainCamera.gameObject.SetActive(true);
             
             _presenter = null;
         }
