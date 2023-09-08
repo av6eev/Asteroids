@@ -4,13 +4,14 @@ using System.Linq;
 using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
 using Global.Pulls.Base;
-using Utilities;
+using Specifications.Ships;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Shoot
 {
     public class ShipShootModel : IUpdatable
     {
+        public event Action OnShoot; 
         public event Action<float> OnUpdate;
         public event Action<BulletModel> OnBulletDestroyed;
 
@@ -41,19 +42,21 @@ namespace Game.Entities.Ship.Shoot
         public bool IsAutomatic { get; }
         public int BulletDamage { get; }
 
-        private Dictionary<BulletModel, BaseBulletView> ActiveBullets { get; set; } = new();
+        private Dictionary<BulletModel, BaseBulletView> ActiveBullets { get; } = new();
 
-        public ShipShootModel(int bulletCount, float reloadTime, float shootRate, bool isAutomatic, int bulletHealth, int bulletDamage)
+        public ShipShootModel(ShipSpecification specification)
         {
-            StartBulletCount = bulletCount;
-            BulletsLeft = bulletCount;
-            ReloadTime = reloadTime;
-            ShootRate = shootRate;
-            IsAutomatic = isAutomatic;
-            BulletHealth = bulletHealth;
-            BulletDamage = bulletDamage;
+            StartBulletCount = specification.Count;
+            BulletsLeft = specification.Count;
+            ReloadTime = specification.ReloadTime;
+            ShootRate = specification.ShootRate;
+            IsAutomatic = specification.IsAutomatic;
+            BulletHealth = specification.BulletPrefab2D.Health;
+            BulletDamage = specification.BulletPrefab2D.Damage;
         }
 
+        public void Shoot() => OnShoot?.Invoke();
+        
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 
         public void DestroyBullet(BulletModel model) => OnBulletDestroyed?.Invoke(model);

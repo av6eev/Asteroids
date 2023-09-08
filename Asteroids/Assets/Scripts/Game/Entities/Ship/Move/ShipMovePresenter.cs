@@ -1,6 +1,5 @@
 ﻿using Global;
 using UnityEngine;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Move
@@ -9,7 +8,6 @@ namespace Game.Entities.Ship.Move
     {
         private readonly GlobalEnvironment _environment;
         private readonly ShipMoveModel _model;
-        private bool _isPaused;
 
         private const float MOVE_FORWARD_VALUE = 7f;
         private const float TURN_SIDE_VALUE = 20f;
@@ -20,33 +18,15 @@ namespace Game.Entities.Ship.Move
             _model = model;
         }
         
-        public void Activate()
-        {
-            _model.OnUpdate += Update;
-            
-            _environment.ShipModel.OnActionsPaused += PauseActions;
-            _environment.ShipModel.OnActionsContinued += ContinueActions;
-        }
+        public void Activate() => _model.OnUpdate += Update;
 
-        public void Deactivate()
-        {
-            _model.OnUpdate -= Update;
-            
-            _environment.ShipModel.OnActionsPaused -= PauseActions;
-            _environment.ShipModel.OnActionsContinued -= ContinueActions;
-        }
+        public void Deactivate() => _model.OnUpdate -= Update;
 
-        private void Update(float deltaTime)
-        {
-            if (_isPaused) return;
-            
-            Move(deltaTime);
-        }
+        private void Update(float deltaTime) => Move(deltaTime);
 
         private void Move(float deltaTime)
         {
             var shipView = _environment.GameSceneView.GameView.CurrentShip;
-            var zoneLimits = _environment.GameModel.ZoneLimits;
             var direction = new Vector3(0,0,MOVE_FORWARD_VALUE)
             {
                 x = _environment.InputModel.ShipTurnDirection switch
@@ -59,6 +39,15 @@ namespace Game.Entities.Ship.Move
             
             _model.UpdatePosition(shipView.Move(direction * _model.ShipSpeed));
 
+            var shipPosition = CheckLimitsOverlap();
+
+            shipView.ResetPosition(shipPosition);
+            _model.UpdatePosition(shipPosition);
+        }
+
+        private Vector3 CheckLimitsOverlap()
+        {
+            var zoneLimits = _environment.GameModel.ZoneLimits;
             var shipPosition = _model.Position;
             var x = shipPosition.x;
 
@@ -73,12 +62,7 @@ namespace Game.Entities.Ship.Move
 
             shipPosition.x = x;
             
-            shipView.ResetPosition(shipPosition);
-            _model.UpdatePosition(shipPosition);
+            return shipPosition;
         }
-        
-        private void ContinueActions() => _isPaused = false;
-
-        private void PauseActions() => _isPaused = true;
     }
 }

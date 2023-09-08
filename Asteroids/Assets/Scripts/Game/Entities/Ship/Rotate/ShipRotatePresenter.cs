@@ -1,6 +1,5 @@
 ﻿using Global;
 using UnityEngine;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Rotate
@@ -9,7 +8,6 @@ namespace Game.Entities.Ship.Rotate
     {
         private readonly GlobalEnvironment _environment;
         private readonly ShipRotateModel _model;
-        private bool _isPaused;
 
         private const float ROTATE_MULTIPLIER = 4f;
         
@@ -19,28 +17,11 @@ namespace Game.Entities.Ship.Rotate
             _model = model;
         }
         
-        public void Activate()
-        {
-            _model.OnUpdate += Update;
-            
-            _environment.ShipModel.OnActionsPaused += PauseActions;
-            _environment.ShipModel.OnActionsContinued += ContinueActions;
-        }
+        public void Activate() => _model.OnUpdate += Update;
 
-        public void Deactivate()
-        {
-            _model.OnUpdate -= Update;
-            
-            _environment.ShipModel.OnActionsPaused -= PauseActions;
-            _environment.ShipModel.OnActionsContinued -= ContinueActions;
-        }
+        public void Deactivate() => _model.OnUpdate -= Update;
 
-        private void Update(float deltaTime)
-        {
-            if (_isPaused) return;
-            
-            Rotate(deltaTime);
-        }
+        private void Update(float deltaTime) => Rotate(deltaTime);
 
         private void Rotate(float deltaTime)
         {
@@ -58,9 +39,5 @@ namespace Game.Entities.Ship.Rotate
                 _model.ResetRotation(shipView.ResetRotation());
             }
         }
-        
-        private void ContinueActions() => _isPaused = false;
-
-        private void PauseActions() => _isPaused = true;
     }
 }

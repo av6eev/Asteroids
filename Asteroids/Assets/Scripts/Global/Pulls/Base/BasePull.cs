@@ -38,5 +38,11 @@ namespace Global.Pulls.Base
             element.ChangeVisibility(false);
             _elements.Enqueue(element);
         }
+        
+        public virtual void Dispose()
+        {
+            _pullView.DestroyObjects();
+            _elements.Clear();
+        }
     }
 }

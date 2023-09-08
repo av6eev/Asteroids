@@ -8,7 +8,7 @@ namespace Game.UI.Health
     {
         [field: SerializeField] public Image Mask { get; private set; }
 
-        public override void UpdateHealth(float value) => Mask.fillAmount -= value;
+        public override void UpdateHealth(float value) => Mask.fillAmount = value;
 
         public override void SetStartedHealth(int maxHealth) => Mask.fillAmount = maxHealth;
     }

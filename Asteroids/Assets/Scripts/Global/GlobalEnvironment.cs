@@ -1,6 +1,7 @@
 using Game;
 using Game.Entities.Asteroids;
 using Game.Entities.Ship;
+using Game.Entities.Ship.Base;
 using Game.Input;
 using Game.Scene;
 using Global.Dialogs.Base;
@@ -31,7 +32,7 @@ namespace Global
 
         public GlobalUIModel GlobalUIModel { get; }
         public PlayerModel PlayerModel { get; }
-        public ShipModel ShipModel { get; set; }
+        public IShipModel ShipModel { get; set; }
         public GameModel GameModel { get; set; }
         public DialogsModel DialogsModel { get; set; }
         public InputModel InputModel { get; set; }

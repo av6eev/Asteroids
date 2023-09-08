@@ -37,8 +37,8 @@ namespace Game.Entities.Ship.Shoot
 
             _model.OnUpdate += Update;
             _model.OnBulletDestroyed += DestroyBullet;
+            _model.OnShoot += CreateBullet;
             
-            _environment.ShipModel.OnShoot += CreateBullet;
             _environment.GameModel.OnDimensionChanged += ChangeActivePulls;
         }
 
@@ -46,8 +46,8 @@ namespace Game.Entities.Ship.Shoot
         {
             _model.OnUpdate -= Update;
             _model.OnBulletDestroyed -= DestroyBullet;
+            _model.OnShoot -= CreateBullet;
             
-            _environment.ShipModel.OnShoot -= CreateBullet;
             _environment.GameModel.OnDimensionChanged -= ChangeActivePulls;
         }
 

@@ -10,6 +10,7 @@ namespace Game
     {
         public event Action<GameDifficultySpecification> OnDifficultyIncreased;
         public event Action OnClosed, OnEnded, OnDimensionChanged;
+        public event Action<int> OnLivesChanged;
 
         private float _currentMoney;
         public float CurrentMoney
@@ -17,11 +18,7 @@ namespace Game
             get => _currentMoney;
             private set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException($"Try to set negative value: {value} to CurrentMoney");
-                }
-                
+                if (value < 0) throw new ArgumentOutOfRangeException($"Try to set negative value: {value} to CurrentMoney");
                 _currentMoney = value;
             }
         }
@@ -32,12 +29,21 @@ namespace Game
             get => _currentScore;
             private set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException($"Try to set negative value: {value} to CurrentScore");
-                }
-                
+                if (value < 0) throw new ArgumentOutOfRangeException($"Try to set negative value: {value} to CurrentScore");
                 _currentScore = value;
+            }
+        }
+        
+        private int _currentLives;
+        public int CurrentLives
+        {
+            get => _currentLives;
+            private set
+            {
+                if (value <= 0) OnEnded?.Invoke();
+                
+                _currentLives = value;
+                OnLivesChanged?.Invoke(_currentLives);
             }
         }
 
@@ -51,13 +57,13 @@ namespace Game
 
         public void UpdateBalance(float bonus) => CurrentMoney += bonus;
 
-        public int CalculateGainedMoney() => CurrentDistance / 400 + Convert.ToInt32(Math.Floor(CurrentMoney));
-        
         public void UpdateDifficulty(GameDifficultySpecification newDifficultySpecification) => OnDifficultyIncreased?.Invoke(newDifficultySpecification);
 
-        public void Close() => OnClosed?.Invoke();
+        public void UpdateLives(int currentHealth) => CurrentLives = currentHealth;
+        
+        public int CalculateGainedMoney() => CurrentDistance / 400 + Convert.ToInt32(Math.Floor(CurrentMoney));
 
-        public void End() => OnEnded?.Invoke();
+        public void Close() => OnClosed?.Invoke();
 
         public void ChangeDimension(int index)
         {

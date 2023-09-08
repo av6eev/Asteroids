@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Rotate

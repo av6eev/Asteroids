@@ -56,7 +56,7 @@ namespace Game.Entities.Bullet
         {
             CreateHitEffect();
 
-            _model.ApplyDamage(asteroidModel.Health);
+            _model.ApplyDamage(asteroidModel.CurrentHealth);
         }
 
         private void Destroy() => _environment.ShipModel.ShootModel.DestroyBullet(_model);

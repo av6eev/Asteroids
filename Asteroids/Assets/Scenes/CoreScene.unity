@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00061560585, g: 0.00056536717, b: 0.00051350833,
-    a: 1}
+  m_IndirectSpecularColor: {r: 0.0007075338, g: 0.00067903264, b: 0.0006923193, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3491,7 +3490,7 @@ MonoBehaviour:
   - <Type>k__BackingField: 0
     <Clip>k__BackingField: {fileID: 8300000, guid: 2be19f571f78a6d4b81966a604321080,
       type: 3}
-    <Volume>k__BackingField: 0.05
+    <Volume>k__BackingField: 0.018
     <Pitch>k__BackingField: 1
     <IsLooped>k__BackingField: 1
 --- !u!1 &1771680178
