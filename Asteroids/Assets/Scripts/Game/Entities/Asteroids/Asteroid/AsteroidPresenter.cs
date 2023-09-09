@@ -11,12 +11,12 @@ namespace Game.Entities.Asteroids.Asteroid
     public class AsteroidPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly AsteroidModel _model;
+        private readonly IAsteroidModel _model;
         private readonly BaseAsteroidView _view;
         
         private const float MOVE_FORWARD_MULTIPLIER = 30f;
 
-        public AsteroidPresenter(GlobalEnvironment environment, AsteroidModel model, BaseAsteroidView view)
+        public AsteroidPresenter(GlobalEnvironment environment, IAsteroidModel model, BaseAsteroidView view)
         {
             _environment = environment;
             _model = model;

@@ -18,8 +18,8 @@ namespace Game.Entities.Asteroids
         private readonly GlobalEnvironment _environment;
         private readonly AsteroidsModel _model;
 
-        private readonly Dictionary<AsteroidModel, AsteroidPresenter> _asteroidsPresenters = new();
-        private readonly List<AsteroidModel> _inActiveAsteroids = new();
+        private readonly Dictionary<IAsteroidModel, AsteroidPresenter> _asteroidsPresenters = new();
+        private readonly List<IAsteroidModel> _inActiveAsteroids = new();
         
         private Timer _spawnTimer;
         private bool _isPaused;
@@ -69,7 +69,7 @@ namespace Game.Entities.Asteroids
 
         private void ChangeActiveAsteroidViews()
         {
-            var tempList = new Dictionary<AsteroidModel, BaseAsteroidView>();
+            var tempList = new Dictionary<IAsteroidModel, BaseAsteroidView>();
             
             _isPaused = true;
 
@@ -129,7 +129,7 @@ namespace Game.Entities.Asteroids
 
             foreach (var model in _model.GetActiveAsteroids().Keys)
             {
-                if (CheckIntersects(model))
+                if (model.CheckIntersects(_environment.GameModel.ZoneLimits))
                 {
                     model.Update(deltaTime);
                     continue;
@@ -142,44 +142,40 @@ namespace Game.Entities.Asteroids
             }
         }
 
-        private void CreateAsteroid(AsteroidSpecification specification, Vector3 position)
+        private void CreateAsteroid(AsteroidSpecification specification, float horizontalPosition, float forwardPosition)
         {
-            var model = new AsteroidModel(specification, _model.SpeedShift, position);
-
-            BaseAsteroidView view = _environment.GameModel.CurrentDimension switch
+            IAsteroidModel model = null;
+            BaseAsteroidView view = null;
+            
+            switch (_environment.GameModel.CurrentDimension)
             {
-                CameraDimensionsTypes.TwoD => _environment.PullsData.AsteroidsPulls2D[specification.Type].TryGetElement(),
-                CameraDimensionsTypes.ThreeD => _environment.PullsData.AsteroidsPulls3D[specification.Type].TryGetElement(),
-                _ => null
-            };
+                case CameraDimensionsTypes.TwoD:
+                    model = new AsteroidModel2D(specification, _model.SpeedShift);
+                    view = _environment.PullsData.AsteroidsPulls2D[specification.Type].TryGetElement();
+                    break;
+                case CameraDimensionsTypes.ThreeD:
+                    model = new AsteroidModel3D(specification, _model.SpeedShift);
+                    view = _environment.PullsData.AsteroidsPulls3D[specification.Type].TryGetElement();
+                    break;
+            }
+
+            if (model == null) return;
+            
+            model.SetPosition(horizontalPosition, forwardPosition);
 
             var presenter = new AsteroidPresenter(_environment, model, view);
             presenter.Activate();
-            
+
             _asteroidsPresenters.Add(model, presenter);
             _model.AddActiveAsteroid(model, view);
         }
 
-        private void DestroyAsteroid(AsteroidModel model, bool byBorder, bool byShip)
+        private void DestroyAsteroid(IAsteroidModel model, bool byBorder, bool byShip)
         {
             _asteroidsPresenters[model].Deactivate();
             _asteroidsPresenters.Remove(model);
 
-            if (!byBorder && !byShip && model.Specification.SubAsteroidsOnDestroy.Count != 0)
-            {
-                foreach (var specification in model.Specification.SubAsteroidsOnDestroy.Select(item => item.Specification))
-                {
-                    var horizontal = model.Position.x + Random.Range(-7f, 7f);
-                    var newPosition = _environment.GameModel.CurrentDimension switch
-                    {
-                        CameraDimensionsTypes.TwoD => new Vector3(horizontal, model.Position.y + Random.Range(-7f, 7f), 0f),
-                        CameraDimensionsTypes.ThreeD => new Vector3(horizontal, 0f, model.Position.z + Random.Range(-7f, 7f)),
-                        _ => Vector3.zero
-                    };
-
-                    CreateAsteroid(specification, newPosition);
-                }
-            }
+            TryCreateChildrenOnDestroyParent(model, byBorder, byShip);
 
             switch (_environment.GameModel.CurrentDimension)
             {
@@ -194,22 +190,26 @@ namespace Game.Entities.Asteroids
             _model.RemoveActiveAsteroid(model);
         }
 
+        private void TryCreateChildrenOnDestroyParent(IAsteroidModel model, bool byBorder, bool byShip)
+        {
+            if (byBorder || byShip || model.Specification.SubAsteroidsOnDestroy.Count == 0) return;
+            
+            foreach (var specification in model.Specification.SubAsteroidsOnDestroy.Select(item => item.Specification))
+            {
+                var offset = Random.Range(-7f, 7f);
+                var newPosition = model.GetPositionWithOffset(offset, offset);
+                
+                CreateAsteroid(specification, newPosition.Item1, newPosition.Item2);
+            }
+        }
+
         private void DefineNewAsteroid()
         {
             var randomChance = Random.Range(0f, 1f);
             var randomType = AsteroidsTypes.Default;
-            
             var zoneLimits = _environment.GameModel.ZoneLimits;
-            var leftSide = zoneLimits.LeftSide + 2;
-            var rightSide = zoneLimits.RightSide - 2;
-            var topSide = zoneLimits.TopSide - 3f;
-            
-            var position = _environment.GameModel.CurrentDimension switch
-            {
-                CameraDimensionsTypes.TwoD => new Vector3(Random.Range(leftSide, rightSide), topSide, 0),
-                CameraDimensionsTypes.ThreeD => new Vector3(Random.Range(leftSide, rightSide), 0, topSide),
-                _ => Vector3.zero
-            };
+            var horizontalOffset = Random.Range(zoneLimits.LeftSide + 2, zoneLimits.RightSide - 2);
+            var forwardOffset = zoneLimits.TopSide - 3f;
 
             if (randomChance < _model.Specifications[AsteroidsTypes.Fire].ChanceToSpawn)
             {
@@ -231,7 +231,7 @@ namespace Game.Entities.Asteroids
                 randomType = AsteroidsTypes.Small;
             }
             
-            CreateAsteroid(_model.Specifications[randomType], position);
+            CreateAsteroid(_model.Specifications[randomType], horizontalOffset, forwardOffset);
         }
 
         private void CreateAsteroidsPulls()
@@ -255,22 +255,6 @@ namespace Game.Entities.Asteroids
                 
                 pull.Value.CreatePull(pullView);
             }
-        }
-
-        private bool CheckIntersects(AsteroidModel model)
-        {
-            var zoneLimits = _environment.GameModel.ZoneLimits;
-            
-            return _environment.GameModel.CurrentDimension switch
-            {
-                CameraDimensionsTypes.TwoD => !(model.Position.x < zoneLimits.LeftSide - 3) &&
-                                              !(model.Position.x > zoneLimits.RightSide + 3) &&
-                                              !(model.Position.y < zoneLimits.BottomSide),
-                CameraDimensionsTypes.ThreeD => !(model.Position.x < zoneLimits.LeftSide - 3) &&
-                                                !(model.Position.x > zoneLimits.RightSide + 3) &&
-                                                !(model.Position.z < zoneLimits.BottomSide),
-                _ => default
-            };
         }
     }
 }

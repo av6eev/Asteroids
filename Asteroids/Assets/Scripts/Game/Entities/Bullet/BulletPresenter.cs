@@ -1,4 +1,4 @@
-﻿using Game.Entities.Asteroids.Asteroid;
+﻿using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global;
 using Global.Pulls.ParticleSystem.Hit;
@@ -52,7 +52,7 @@ namespace Game.Entities.Bullet
             _view.OnBumped -= HandleBump;
         }
 
-        private void HandleBump(AsteroidModel asteroidModel)
+        private void HandleBump(IAsteroidModel asteroidModel)
         {
             CreateHitEffect();
 
