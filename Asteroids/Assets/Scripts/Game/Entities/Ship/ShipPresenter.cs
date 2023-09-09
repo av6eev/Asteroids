@@ -33,8 +33,6 @@ namespace Game.Entities.Ship
             CreateNecessaryData();
             
             _model.OnDamageApplied += ApplyDamage;
-            
-            Debug.Log(_model.CurrentHealth);
         }
 
         public void Deactivate()

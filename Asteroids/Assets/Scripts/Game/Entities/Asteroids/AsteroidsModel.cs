@@ -25,7 +25,7 @@ namespace Game.Entities.Asteroids
 
         public void RemoveActiveAsteroid(IAsteroidModel model) => ActiveAsteroids.Remove(model);
 
-        public void ResetActiveAsteroids(Dictionary<IAsteroidModel, BaseAsteroidView> newList) => ActiveAsteroids = newList;
+        public void ResetActiveAsteroids() => ActiveAsteroids.Clear();
 
         public void DestroyAsteroid(IAsteroidModel model, bool byBorder, bool byShip) => OnAsteroidDestroyed?.Invoke(model, byBorder, byShip);
         
