@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Game.Entities.Asteroids.Asteroid;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Specifications.Asteroids;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Asteroids

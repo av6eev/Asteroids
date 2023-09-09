@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
-using Global.Pulls.Base;
 using Specifications.Ships;
 using Utilities.Interfaces;
 
@@ -71,6 +70,6 @@ namespace Game.Entities.Ship.Shoot
 
         public BaseBulletView GetByKey(BulletModel model) => ActiveBullets[model];
 
-        public BulletModel GetByValue(BasePullElementView view) => !ActiveBullets.ContainsValue(view as BaseBulletView) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
+        public BulletModel GetByValue(BaseBulletView view) => !ActiveBullets.ContainsValue(view) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
     }
 }
