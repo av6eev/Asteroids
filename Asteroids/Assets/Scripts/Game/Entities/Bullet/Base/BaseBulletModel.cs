@@ -1,21 +1,20 @@
 ﻿using System;
-using Game.Entities.Base;
 using UnityEngine;
-using Utilities.Interfaces;
+using Utilities.Game;
 
-namespace Game.Entities.Bullet
+namespace Game.Entities.Bullet.Base
 {
-    public class BulletModel : IEntity, IMovable, IUpdatable
+    public abstract class BaseBulletModel : IBulletModel
     {
         public event Action<float> OnUpdate;
         public event Action OnDestroy;
         
         public Vector3 Position { get; private set; }
-        public int Damage { get; }
         public int CurrentHealth { get; private set; }
         public int MaxHealth { get; }
+        public int Damage { get; }
 
-        public BulletModel(Vector3 position, int health, int damage)
+        protected BaseBulletModel(Vector3 position, int health, int damage)
         {
             Position = position;
             CurrentHealth = health;
@@ -23,13 +22,15 @@ namespace Game.Entities.Bullet
             Damage = damage;
         }
 
-        public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
+        public virtual Vector3 GetPosition() => Position;
 
-        public void UpdatePosition(Vector3 newPosition) => Position = newPosition;
-        
-        public Vector3 GetPosition() => Position;
+        public virtual void UpdatePosition(Vector3 newPosition) => Position = newPosition;
 
-        public void ApplyDamage(int damage)
+        public virtual void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
+
+        public abstract bool CheckIntersects(GameZoneLimits zoneLimits);
+
+        public virtual void ApplyDamage(int damage)
         {
             CurrentHealth -= damage;
             

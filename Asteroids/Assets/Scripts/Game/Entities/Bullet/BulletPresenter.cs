@@ -3,8 +3,6 @@ using Game.Entities.Bullet.Base;
 using Global;
 using Global.Pulls.ParticleSystem.Hit;
 using Global.Sound;
-using UnityEngine;
-using Utilities.Enums;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Bullet
@@ -12,13 +10,12 @@ namespace Game.Entities.Bullet
     public class BulletPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly BulletModel _model;
+        private readonly IBulletModel _model;
         private readonly BaseBulletView _view;
 
         private HitPullView _hit;
-        private Vector3 _spawnOffset;
 
-        public BulletPresenter(GlobalEnvironment environment, BulletModel model, BaseBulletView view)
+        public BulletPresenter(GlobalEnvironment environment, IBulletModel model, BaseBulletView view)
         {
             _environment = environment;
             _model = model;
@@ -27,16 +24,9 @@ namespace Game.Entities.Bullet
         
         public void Activate()
         {
-            _spawnOffset = _environment.GameModel.CurrentDimension switch
-            {
-                CameraDimensionsTypes.TwoD => new Vector3(0f, 6.5f, 0f),
-                CameraDimensionsTypes.ThreeD => new Vector3(0f, 0f, 6.5f),
-                _ => _spawnOffset
-            };
-
             _environment.SoundManager.PlaySound(SoundsTypes.ShipShooting);
             
-            _view.SetCurrentPosition(_model.Position + _spawnOffset);
+            _view.SetCurrentPosition(_model.Position);
             
             _model.OnUpdate += Update;
             _model.OnDestroy += Destroy;

@@ -8,6 +8,7 @@ namespace Game.Entities.Ship
     public class ShipView2D : BaseShipView
     {
         [field: SerializeField] public Rigidbody2D Rigidbody { get; set; }
+        [field: SerializeField] public override Transform BulletSpawnPoint { get; protected set; }
 
         public override Vector3 Move(Vector3 direction)
         {

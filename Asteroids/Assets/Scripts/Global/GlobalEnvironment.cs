@@ -1,6 +1,5 @@
 using Game;
 using Game.Entities.Asteroids;
-using Game.Entities.Ship;
 using Game.Entities.Ship.Base;
 using Game.Input;
 using Game.Scene;
