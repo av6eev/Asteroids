@@ -4,7 +4,6 @@ using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
 using Global;
 using UnityEngine;
-using Utilities;
 using Utilities.Enums;
 using Utilities.Game;
 using Utilities.Interfaces;
@@ -16,8 +15,8 @@ namespace Game.Entities.Ship.Shoot
         private readonly GlobalEnvironment _environment;
         private readonly ShipShootModel _model;
 
-        private readonly List<BulletModel> _inActiveBullets = new();
-        private readonly Dictionary<BulletModel, BulletPresenter> _bulletsPresenters = new();
+        private readonly List<IBulletModel> _inActiveBullets = new();
+        private readonly Dictionary<IBulletModel, BulletPresenter> _bulletsPresenters = new();
         
         private Coroutine _reloadCoroutine;
         private Coroutine _shotRateCoroutine;
@@ -37,21 +36,21 @@ namespace Game.Entities.Ship.Shoot
 
             _model.OnUpdate += Update;
             _model.OnBulletDestroyed += DestroyBullet;
+            _model.OnShoot += CreateBullet;
             
-            _environment.ShipModel.OnShoot += CreateBullet;
-            _environment.GameModel.OnDimensionChanged += ChangeActivePulls;
+            _environment.GameModel.OnDimensionChanged += ClearActiveBullets;
         }
 
         public void Deactivate()
         {
             _model.OnUpdate -= Update;
             _model.OnBulletDestroyed -= DestroyBullet;
+            _model.OnShoot -= CreateBullet;
             
-            _environment.ShipModel.OnShoot -= CreateBullet;
-            _environment.GameModel.OnDimensionChanged -= ChangeActivePulls;
+            _environment.GameModel.OnDimensionChanged -= ClearActiveBullets;
         }
 
-        private void ChangeActivePulls()
+        private void ClearActiveBullets()
         {
             _isPaused = true;
 
@@ -91,21 +90,18 @@ namespace Game.Entities.Ship.Shoot
             
             _inActiveBullets.Clear();
 
-            var activeBullets = _model.GetActiveBullets();
-            
-            foreach (var model in activeBullets.Keys)
+            foreach (var model in _model.GetActiveBullets().Keys)
             {
-                if (CheckIntersects(model)) continue;
+                if (model.CheckIntersects(_environment.GameModel.ZoneLimits))
+                {
+                    model.Update(deltaTime);
+                    continue;
+                }
                 
                 if (!_inActiveBullets.Contains(model))
                 {
                     _inActiveBullets.Add(model);
                 }
-            }
-            
-            foreach (var model in activeBullets.Keys)
-            {
-                model.Update(deltaTime);
             }
         }
         
@@ -114,19 +110,27 @@ namespace Game.Entities.Ship.Shoot
             if (!_environment.InputModel.IsShipShooting || _model.IsReloading || _model.BulletsLeft == 0 || !_model.IsReadyToShoot) return;
 
             _model.IsReadyToShoot = false;
+
+            IBulletModel model = null;
+            BaseBulletView view = null;
+            var bulletSpawnPoint = _environment.GameSceneView.GameView.CurrentShip.BulletSpawnPoint.position;
             
-            var model = new BulletModel(_environment.ShipModel.MoveModel.Position, _model.BulletHealth, _model.BulletDamage);
-            
-            BaseBulletView view = _environment.GameModel.CurrentDimension switch
+            switch (_environment.GameModel.CurrentDimension)
             {
-                CameraDimensionsTypes.TwoD => _environment.PullsData.BulletsPull2D.TryGetElement(),
-                CameraDimensionsTypes.ThreeD => _environment.PullsData.BulletsPull3D.TryGetElement(),
-                _ => null
-            };
+                case CameraDimensionsTypes.TwoD:
+                    model = new BulletModel2D(bulletSpawnPoint, _model.BulletHealth, _model.BulletDamage);
+                    view = _environment.PullsData.BulletsPull2D.TryGetElement();
+                    break;
+                case CameraDimensionsTypes.ThreeD:
+                    model = new BulletModel3D(bulletSpawnPoint, _model.BulletHealth, _model.BulletDamage);
+                    view = _environment.PullsData.BulletsPull3D.TryGetElement();
+                    break;
+            }
             
             var presenter = new BulletPresenter(_environment, model, view);
-            
             presenter.Activate();
+
+            if (model == null) return;
             
             _bulletsPresenters.Add(model, presenter);
             _model.AddActiveBullet(model, view);
@@ -147,7 +151,7 @@ namespace Game.Entities.Ship.Shoot
             }
         }
 
-        private void DestroyBullet(BulletModel model)
+        private void DestroyBullet(IBulletModel model)
         {
             _bulletsPresenters[model].Deactivate();
             _bulletsPresenters.Remove(model);
@@ -200,22 +204,6 @@ namespace Game.Entities.Ship.Shoot
             
             _environment.PullsData.BulletsPull3D.CreatePull(bulletsPull3D);             
             _environment.PullsData.BulletsPull2D.CreatePull(bulletsPull2D);   
-        }
-        
-        private bool CheckIntersects(BulletModel model)
-        {
-            var zoneLimits = _environment.GameModel.ZoneLimits;
-            
-            return _environment.GameModel.CurrentDimension switch
-            {
-                CameraDimensionsTypes.TwoD => !(model.Position.x <= zoneLimits.LeftSide) &&
-                                              !(model.Position.x >= zoneLimits.RightSide) &&
-                                              !(model.Position.y >= zoneLimits.TopSide),
-                CameraDimensionsTypes.ThreeD => !(model.Position.x < zoneLimits.LeftSide) &&
-                                                !(model.Position.x > zoneLimits.RightSide) &&
-                                                !(model.Position.z >= zoneLimits.TopSide),
-                _ => default
-            };
         }
     }
 }

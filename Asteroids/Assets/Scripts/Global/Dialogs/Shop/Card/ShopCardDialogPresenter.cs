@@ -1,5 +1,4 @@
-﻿using Utilities;
-using Utilities.Interfaces;
+﻿using Utilities.Interfaces;
 
 namespace Global.Dialogs.Shop.Card
 {
@@ -52,7 +51,7 @@ namespace Global.Dialogs.Shop.Card
             _environment.DialogsModel.GetByType<ShopDialogModel>().Hide();
         }
 
-        private void BuyShip() => _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification.Type, _model.ShipSpecification.Price);
+        private void BuyShip() => _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification);
 
         private void ShowPreviousCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
 

@@ -1,5 +1,5 @@
 ﻿using Game.Entities.Asteroids;
-using Game.Entities.Asteroids.Asteroid;
+using Game.Entities.Asteroids.Asteroid.Base;
 using Game.UI.Money.Base;
 using Global;
 using Global.Sound;
@@ -22,7 +22,7 @@ namespace Game.UI.Money
 
         public void Deactivate() => _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateMoneyCounter;
 
-        private void UpdateMoneyCounter(AsteroidModel asteroidModel, bool byBorder, bool byShip)
+        private void UpdateMoneyCounter(IAsteroidModel asteroidModel, bool byBorder, bool byShip)
         {
             if (byBorder || byShip) return;
 

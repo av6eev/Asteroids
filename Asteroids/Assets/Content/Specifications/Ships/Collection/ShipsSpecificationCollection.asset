@@ -15,4 +15,7 @@ MonoBehaviour:
   Specification:
     Ships:
     - {fileID: 11400000, guid: 6f8cffe039c5e5a4c950f28089bbb43b, type: 2}
-    - {fileID: 11400000, guid: f2f4914847254b5488f509b437eb591a, type: 2}
+    - {fileID: 11400000, guid: 2d1afbc494e3af8449dfd7b841c57f8b, type: 2}
+    - {fileID: 11400000, guid: d07dd95e030421448b57b4ed2dc8f7be, type: 2}
+    - {fileID: 11400000, guid: 059c4967db7a39b4199c9e038b12c69b, type: 2}
+    - {fileID: 11400000, guid: 2ef0a54c72a0658409123cd4fd2819fe, type: 2}

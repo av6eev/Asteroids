@@ -2,7 +2,6 @@
 using Game.Entities.Bullet.Base;
 using Global.Pulls.Base;
 using UnityEngine;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Asteroids.Asteroid.Base

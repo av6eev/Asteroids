@@ -15,13 +15,13 @@ namespace Game.Entities.Ship
     public class ShipPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly ShipModel _model;
-        private BaseShipView _view;
+        private readonly IShipModel _model;
+        private readonly BaseShipView _view;
 
         private readonly PresentersEngine _presenters = new();
         private Coroutine _immunityCoroutine;
 
-        public ShipPresenter(GlobalEnvironment environment, ShipModel model, BaseShipView view)
+        public ShipPresenter(GlobalEnvironment environment, IShipModel model, BaseShipView view)
         {
             _environment = environment;
             _model = model;
@@ -33,12 +33,12 @@ namespace Game.Entities.Ship
             CreateNecessaryData();
             
             _model.OnDamageApplied += ApplyDamage;
-            _model.OnViewChanged += RedrawShip;
-            _model.OnDestroy += EndGame;
         }
 
         public void Deactivate()
         {
+            _environment.PullsData.HitsPull.Dispose();
+                
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMove);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipShoot);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipRotate);
@@ -47,22 +47,17 @@ namespace Game.Entities.Ship
             _presenters.Clear();
 
             _model.OnDamageApplied -= ApplyDamage;
-            _model.OnViewChanged -= RedrawShip;
-            _model.OnDestroy -= EndGame;
             
             Debug.Log(nameof(ShipPresenter) + " deactivated!");
         }
 
         private void ApplyDamage()
         {
+            _environment.GameModel.UpdateLives(_model.CurrentHealth);
             _model.UpdateImmuneState(true);
             _immunityCoroutine = GameCoroutines.RunCoroutine(EnableImmunity());
             _view.EnableImmunity();
         }
-
-        private void EndGame() => _environment.GameModel.End();
-
-        private void RedrawShip(BaseShipView newShipView) => _view = newShipView;
 
         private IEnumerator EnableImmunity()
         {
@@ -81,16 +76,12 @@ namespace Game.Entities.Ship
 
         private void CreateNecessaryData()
         {
-            var specification = _model.Specification;
             var hitsPull = _environment.GameSceneView.GameView.HitsPullView;
-            
-            _model.ShootModel = new ShipShootModel(specification.Count, specification.ReloadTime, specification.ShootRate, specification.IsAutomatic, specification.BulletPrefab2D.Health, specification.BulletPrefab2D.Damage);
-            _model.MoveModel = new ShipMoveModel(specification.Speed);
-            _model.RotateModel = new ShipRotateModel();
             
             _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));
             _presenters.Add(new ShipShootPresenter(_environment, _model.ShootModel));
             _presenters.Add(new ShipRotatePresenter(_environment, _model.RotateModel));
+            
             _presenters.Activate();
             
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());

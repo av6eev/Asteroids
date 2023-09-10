@@ -17,15 +17,16 @@ namespace Game.UI.Health
         
         public void Activate()
         {
-            SetStartedHealth(_environment.ShipModel.Health);
+            _view.SetStartedHealth(_environment.ShipModel.MaxHealth);
 
-            _environment.ShipModel.OnDamageApplied += UpdateHealthBar;
+            _environment.GameModel.OnLivesChanged += UpdateHealthBar;
         }
 
-        public void Deactivate() => _environment.ShipModel.OnDamageApplied -= UpdateHealthBar;
+        public void Deactivate()
+        {
+            _environment.GameModel.OnLivesChanged -= UpdateHealthBar;
+        }
 
-        private void SetStartedHealth(int maxHealth) => _view.SetStartedHealth(maxHealth);
-
-        private void UpdateHealthBar() => _view.UpdateHealth(.33f);
+        private void UpdateHealthBar(int currentLives) => _view.UpdateHealth((float)currentLives / (float)_environment.ShipModel.MaxHealth);
     }
 }

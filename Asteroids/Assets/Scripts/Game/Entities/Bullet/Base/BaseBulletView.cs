@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.Entities.Asteroids.Asteroid;
+using Game.Entities.Asteroids.Asteroid.Base;
 using Global.Pulls.Base;
 using Global.Pulls.ParticleSystem.Hit;
 using UnityEngine;
@@ -8,7 +8,7 @@ namespace Game.Entities.Bullet.Base
 {
     public abstract class BaseBulletView : BasePullElementView
     {
-        public event Action<AsteroidModel> OnBumped; 
+        public event Action<IAsteroidModel> OnBumped; 
         
         public abstract float Speed { get; set; }
         public abstract int Health { get; set; }
@@ -19,6 +19,6 @@ namespace Game.Entities.Bullet.Base
         
         public virtual void SetCurrentPosition(Vector3 position) => transform.position = position;
         
-        public void Bump(AsteroidModel model) => OnBumped?.Invoke(model);
+        public void Bump(IAsteroidModel model) => OnBumped?.Invoke(model);
     }
 }

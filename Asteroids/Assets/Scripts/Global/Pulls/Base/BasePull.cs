@@ -2,7 +2,7 @@
 
 namespace Global.Pulls.Base
 {
-    public abstract class BasePull<TElementView> where TElementView : BasePullElementView
+    public abstract class BasePull<TElementView> : IEntityPull<TElementView> where TElementView : BasePullElementView
     {
         private readonly Queue<TElementView> _elements = new();
         private BasePullView<TElementView> _pullView;
@@ -38,5 +38,19 @@ namespace Global.Pulls.Base
             element.ChangeVisibility(false);
             _elements.Enqueue(element);
         }
+        
+        public virtual void Dispose()
+        {
+            _pullView.DestroyObjects();
+            _elements.Clear();
+        }
+    }
+
+    public interface IEntityPull<TElementView> where TElementView : BasePullElementView
+    {
+        void Dispose();
+        void PutBack(TElementView elementView);
+        TElementView TryGetElement();
+        void CreatePull(BasePullView<TElementView> view);
     }
 }

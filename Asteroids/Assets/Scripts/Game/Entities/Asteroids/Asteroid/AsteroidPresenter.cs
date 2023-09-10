@@ -1,10 +1,8 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
-using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
 using Global;
 using Global.Pulls.Base;
 using Global.Sound;
-using Utilities.Enums;
 using Utilities.Helpers;
 using Utilities.Interfaces;
 
@@ -13,12 +11,12 @@ namespace Game.Entities.Asteroids.Asteroid
     public class AsteroidPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly AsteroidModel _model;
+        private readonly IAsteroidModel _model;
         private readonly BaseAsteroidView _view;
         
         private const float MOVE_FORWARD_MULTIPLIER = 30f;
 
-        public AsteroidPresenter(GlobalEnvironment environment, AsteroidModel model, BaseAsteroidView view)
+        public AsteroidPresenter(GlobalEnvironment environment, IAsteroidModel model, BaseAsteroidView view)
         {
             _environment = environment;
             _model = model;
@@ -52,18 +50,11 @@ namespace Game.Entities.Asteroids.Asteroid
                 case TagsHelper.AsteroidTag:
                     break;
                 case TagsHelper.BulletTag:
-                    BaseBulletView concreteBullet = _environment.GameModel.CurrentDimension switch
-                    {
-                        CameraDimensionsTypes.TwoD => (BulletView2D)bulletView,
-                        CameraDimensionsTypes.ThreeD => (BulletView3D)bulletView,
-                        _ => null
-                    };
-                    
-                    var bulletDamage = _environment.ShipModel.ShootModel.GetByValue(concreteBullet).Damage;
+                    var bulletDamage = _environment.ShipModel.ShootModel.GetByValue((BaseBulletView)bulletView).Damage;
 
-                    if (concreteBullet != null)
+                    if (bulletView != null)
                     {
-                        concreteBullet.Bump(_model);
+                        ((BaseBulletView)bulletView).Bump(_model);
                     }
 
                     _model.ApplyDamage(bulletDamage);

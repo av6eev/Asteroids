@@ -1,5 +1,5 @@
 ﻿using Game.Entities.Asteroids;
-using Game.Entities.Asteroids.Asteroid;
+using Game.Entities.Asteroids.Asteroid.Base;
 using Game.UI.Score.Base;
 using Global;
 using Utilities.Interfaces;
@@ -21,7 +21,7 @@ namespace Game.UI.Score
 
         public void Deactivate() => _environment.AsteroidsModel.OnAsteroidDestroyed -= UpdateScore;
 
-        private void UpdateScore(AsteroidModel asteroidModel, bool byBorder, bool byShip)
+        private void UpdateScore(IAsteroidModel asteroidModel, bool byBorder, bool byShip)
         {
             if (byBorder || byShip) return;
 

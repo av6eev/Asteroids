@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: RequirementsDataSpecification
   m_EditorClassIdentifier: 
   Requirements:
-  - {fileID: 11400000, guid: 8f8f300c374b2fc43b316083314b8753, type: 2}
   - {fileID: 11400000, guid: 69ad8656617ac334ca21734def5c3d87, type: 2}
   - {fileID: 11400000, guid: b4f4be15f17e3084c82ab7e583b84b3b, type: 2}
   - {fileID: 11400000, guid: 19fd32882652f114498c5e037a4120e5, type: 2}
+  - {fileID: 11400000, guid: 8f8f300c374b2fc43b316083314b8753, type: 2}
+  - {fileID: 11400000, guid: 9cfd33ee6097b5c4dabeef6affb0c6f5, type: 2}
+  - {fileID: 11400000, guid: 05b8c004bc5246c4d8b395637b30b2cc, type: 2}
+  - {fileID: 11400000, guid: 6de33f3c3993aa74ea8c69e7d4b025a1, type: 2}

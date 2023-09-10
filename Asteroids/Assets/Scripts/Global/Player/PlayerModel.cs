@@ -1,12 +1,11 @@
 ﻿using System;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Global.Player
 {
     public class PlayerModel
     {
-        public event Action<int> OnMoneySet;
+        public event Action<int> OnMoneyUpdated;
         public event Action<IPurchaseable> OnPurchaseConfirmed; 
 
         private int _money;
@@ -21,14 +20,11 @@ namespace Global.Player
                 }
                 
                 _money = value;
+                OnMoneyUpdated?.Invoke(_money);
             }
         }
 
-        public void SetMoneyFromSave(int money)
-        {
-            Money = money;
-            OnMoneySet?.Invoke(Money);
-        }
+        public void SetMoneyFromSave(int money) => Money = money;
 
         public void DecreaseMoney(int price) => Money -= price;
 

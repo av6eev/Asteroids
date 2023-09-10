@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330e06c088b49a89ce98de7692891a1, type: 3}
+  m_Name: PolruanShipSpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    Id: 4
+    Type: 2
+    Name: Polruan
+    <Price>k__BackingField: 250
+    Health: 4
+    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+      type: 3}
+    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
+      type: 3}
+    Count: 15
+    ReloadTime: 2
+    ShootRate: 0.15
+    IsAutomatic: 0
+    Speed: 5
+    Prefab3D: {fileID: 4344518214726048285, guid: 40564fa23ef1ae04f95a4271f30c3bc2,
+      type: 3}
+    Prefab2D: {fileID: 3286225224937282470, guid: d69829d3af3f0bb4b8bcb4c727585efb,
+      type: 3}
+    PreviewImage: {fileID: 21300000, guid: 69cdc5ecf2f8b0141b5e5d608f24b998, type: 3}

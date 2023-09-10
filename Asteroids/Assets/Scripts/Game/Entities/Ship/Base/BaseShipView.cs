@@ -4,6 +4,7 @@ namespace Game.Entities.Ship.Base
 {
     public abstract class BaseShipView : MonoBehaviour
     {
+        public abstract Transform BulletSpawnPoint { get; protected set; }
         public abstract Vector3 Move(Vector3 direction);
         
         public abstract void EnableImmunity();

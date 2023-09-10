@@ -28,7 +28,7 @@ namespace Utilities.Engines
         public void Clear() => _presenters.Clear();
 
         public List<IPresenter> GetAll() => _presenters;
-
+    
         public void Remove(IPresenter presenter)
         {
             if (!_presenters.Contains(presenter)) return;

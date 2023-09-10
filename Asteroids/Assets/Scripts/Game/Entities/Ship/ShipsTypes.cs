@@ -3,7 +3,10 @@
     public enum ShipsTypes
     {
         Default,
-        Brown,
-        Blue
+        Agasiz,
+        Polruan,
+        Sartine,
+        Arlingham,
+        Basilisk
     }
 }

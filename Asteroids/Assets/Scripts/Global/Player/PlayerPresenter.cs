@@ -1,7 +1,4 @@
-﻿using Global.Dialogs.Shop;
-using Global.Save;
-using Specifications.Ships;
-using Utilities;
+﻿using Global.Save;
 using Utilities.Interfaces;
 
 namespace Global.Player
@@ -24,10 +21,6 @@ namespace Global.Player
         private void HandlePurchase(IPurchaseable data)
         {
             _model.DecreaseMoney(data.Price);
-
-            if (data is not ShipSpecification shipSpecification) return;
-            
-            _environment.DialogsModel.GetByType<ShopDialogModel>().Redraw(shipSpecification.Id);
             _environment.SaveModel.SaveElement(SavingElementsKeys.PlayerMoney, _model.Money);
         }
     }
