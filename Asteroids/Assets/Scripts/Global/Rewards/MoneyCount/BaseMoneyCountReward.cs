@@ -1,16 +1,21 @@
-﻿using System.Linq;
-using Global.Dialogs.Shop;
+﻿using Global.Dialogs.Shop;
 using Global.Rewards.Base;
 
 namespace Global.Rewards.MoneyCount
 {
-    public class BaseMoneyCountReward : IReward
+    public abstract class BaseMoneyCountReward : IReward
     {
+        public bool IsCompleted { get; private set; }
+
         public void Give(GlobalEnvironment environment)
         {
-            var activeShipCard = environment.DialogsModel.GetByType<ShopDialogModel>().Cards.First(card => card.IsActive);
+            IsCompleted = true;
             
-            environment.PlayerModel.ConfirmPurchase(activeShipCard.ShipSpecification);
+            var activeShipCard = environment.DialogsModel.GetByType<ShopDialogModel>().ActiveCard;
+            
+            environment.GlobalUIModel.SetSelectedShip(activeShipCard.Id);
+            environment.GlobalUIModel.UpdateAvailableShips(activeShipCard.ShipSpecification.Type, true);
+            environment.DialogsModel.GetByType<ShopDialogModel>().Redraw(activeShipCard.Id);
         }
     }
 }

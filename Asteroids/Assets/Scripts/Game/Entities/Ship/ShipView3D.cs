@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Game.Entities.Ship
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(MeshCollider))]
     public class ShipView3D : BaseShipView
     {
         [field: SerializeField] public Rigidbody Rigidbody { get; set; }

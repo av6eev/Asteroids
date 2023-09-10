@@ -3,7 +3,7 @@ using Utilities.Interfaces;
 
 namespace Global.Requirements.DistancePassed.Base
 {
-    public class BaseDistancePassedRequirementPresenter<T> : IPresenter where T : BaseDistancePassedRequirement
+    public abstract class BaseDistancePassedRequirementPresenter<T> : IPresenter where T : BaseDistancePassedRequirement
     {
         private readonly GlobalEnvironment _environment;
         private readonly T _model;

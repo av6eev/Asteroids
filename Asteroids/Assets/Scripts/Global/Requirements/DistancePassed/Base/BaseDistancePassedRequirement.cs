@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace Global.Requirements.DistancePassed.Base
 {
-    public class BaseDistancePassedRequirement : IRequirement
+    public abstract class BaseDistancePassedRequirement : IRequirement
     {
+        public bool IsCompleted { get; private set; }
         public SubRequirementType SubType { get; } = SubRequirementType.DistancePassed;
         [field: SerializeField] public string RewardName { get; set; }
         [field: SerializeField] public int DistanceToPass { get; set; }

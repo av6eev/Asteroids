@@ -18,6 +18,8 @@ namespace Global
 
         private void Start()
         {
+            PlayerPrefs.DeleteAll();
+            
             Environment = new GlobalEnvironment(
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
@@ -37,7 +39,8 @@ namespace Global
             GlobalPresenters.Add(new PlayerPresenter(Environment, Environment.PlayerModel));
             GlobalPresenters.Add(new SavePresenter(Environment, Environment.SaveModel));
             GlobalPresenters.Activate();
-
+            
+            Environment.SaveModel.SaveElement(SavingElementsKeys.PlayerMoney, 10000);
             Environment.SaveModel.Deserialize();
         }
 

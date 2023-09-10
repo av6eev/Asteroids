@@ -1,6 +1,5 @@
 ﻿using Global.Dialogs.Shop.Card;
 using UnityEngine;
-using Utilities;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -31,7 +30,7 @@ namespace Global.Dialogs.Shop
             _model.OnCardChange += ChangeActiveCard;
             _model.OnRedraw += RedrawCard;
 
-            _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
+            _environment.PlayerModel.OnMoneyUpdated += UpdatePlayerBalance;
         }
 
         public void Deactivate()
@@ -46,7 +45,7 @@ namespace Global.Dialogs.Shop
             _model.OnCardChange -= ChangeActiveCard;
             _model.OnRedraw -= RedrawCard;
             
-            _environment.PlayerModel.OnMoneySet += UpdatePlayerBalance;
+            _environment.PlayerModel.OnMoneyUpdated -= UpdatePlayerBalance;
         }
 
         private void RedrawCard(int shipId)
@@ -59,7 +58,7 @@ namespace Global.Dialogs.Shop
 
         private void ChangeActiveCard(int changeDirection)
         {
-            var activeCard = _model.Cards.Find(card => card.IsActive);
+            var activeCard = _model.ActiveCard;
             var nextCard = _model.Cards.Find(card => card.Id == activeCard.Id + changeDirection);
             
             if (nextCard != null)

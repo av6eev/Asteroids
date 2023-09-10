@@ -28,6 +28,14 @@ namespace Global.UI
 
         public void SetAvailableShips(Dictionary<ShipsTypes, bool> ships) => AvailableShips = ships;
 
+        public void UpdateAvailableShips(ShipsTypes type, bool state)
+        {
+            if (AvailableShips.ContainsKey(type))
+            {
+                AvailableShips[type] = state;
+            }
+        }
+
         public void SetSelectedShip(int id)
         {
             SelectedShipId = id;

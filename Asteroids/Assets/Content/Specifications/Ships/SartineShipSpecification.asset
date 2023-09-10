@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330e06c088b49a89ce98de7692891a1, type: 3}
+  m_Name: SartineShipSpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    Id: 5
+    Type: 3
+    Name: Sartine
+    <Price>k__BackingField: 300
+    Health: 3
+    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+      type: 3}
+    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
+      type: 3}
+    Count: 10
+    ReloadTime: 0
+    ShootRate: 0.15
+    IsAutomatic: 1
+    Speed: 4.5
+    Prefab3D: {fileID: 4307264583170498310, guid: 765a53ebeffac7e43a982e1bb749f3d5,
+      type: 3}
+    Prefab2D: {fileID: 207092490752759698, guid: 77b96ba247efbf945bbdb20bca45bf42,
+      type: 3}
+    PreviewImage: {fileID: 21300000, guid: 3234afa3226e885428b79ce54ffae1c0, type: 3}
