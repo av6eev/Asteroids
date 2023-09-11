@@ -64,6 +64,8 @@ namespace Global.Save
             {
                 _model.SaveElement(reward.Key, "true");
             }
+                
+            DeserializePlayerData();
         }
 
         private void SaveCurrentShip(int shipId) => _model.SaveElement(SavingElementsKeys.SelectedShip, shipId);
