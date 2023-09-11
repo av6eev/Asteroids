@@ -8,10 +8,10 @@ namespace Game.Input
     public class InputPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly InputModel _model;
+        private readonly IInputModel _model;
         private readonly InputView _view;
 
-        public InputPresenter(GlobalEnvironment environment, InputModel model, InputView view)
+        public InputPresenter(GlobalEnvironment environment, IInputModel model, InputView view)
         {
             _environment = environment;
             _model = model;

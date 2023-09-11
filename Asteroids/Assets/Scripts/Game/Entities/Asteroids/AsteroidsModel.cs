@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Specifications.Asteroids;
-using Utilities.Interfaces;
 
 namespace Game.Entities.Asteroids
 {
-    public class AsteroidsModel : IUpdatable
+    public class AsteroidsModel : IAsteroidsModel
     {
         public event Action<float> OnUpdate;
         public event Action<IAsteroidModel, bool, bool> OnAsteroidDestroyed;
         public Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
-        private Dictionary<IAsteroidModel, BaseAsteroidView> ActiveAsteroids { get; set; } = new();
+        public Dictionary<IAsteroidModel, BaseAsteroidView> ActiveAsteroids { get; } = new();
         public float SpawnRate { get; private set; } = .5f;
         public float SpeedShift { get; private set; }
 

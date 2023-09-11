@@ -30,7 +30,7 @@ namespace Global.Sound
             }
         }
         
-        public void PlaySound(SoundsTypes type)
+        public void Play(SoundsTypes type)
         {
             var sound = Sounds.Find(item => item.Type == type);
 
@@ -51,7 +51,7 @@ namespace Global.Sound
             }
         }
 
-        public void AddSound(BaseSound sound)
+        public void Add(BaseSound sound)
         {
             if (Sounds.Contains(sound))
             {

@@ -2,7 +2,7 @@
 using Global.Dialogs.Shop;
 using UnityEngine;
 
-namespace Global.Dialogs.Base
+namespace Global.Dialogs
 {
     public class DialogsView : MonoBehaviour
     {

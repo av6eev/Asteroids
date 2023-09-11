@@ -6,7 +6,7 @@ using Utilities.Game;
 
 namespace Game
 {
-    public class GameModel
+    public class GameModel : IGameModel
     {
         public event Action<GameDifficultySpecification> OnDifficultyIncreased;
         public event Action OnClosed, OnEnded, OnDimensionChanged;

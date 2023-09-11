@@ -16,7 +16,7 @@ namespace Game.Entities.Asteroids
     public class AsteroidsPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly AsteroidsModel _model;
+        private readonly IAsteroidsModel _model;
 
         private readonly Dictionary<IAsteroidModel, AsteroidPresenter> _asteroidsPresenters = new();
         private readonly List<IAsteroidModel> _inActiveAsteroids = new();
@@ -24,7 +24,7 @@ namespace Game.Entities.Asteroids
         private Timer _spawnTimer;
         private bool _isPaused;
 
-        public AsteroidsPresenter(GlobalEnvironment environment, AsteroidsModel model)
+        public AsteroidsPresenter(GlobalEnvironment environment, IAsteroidsModel model)
         {
             _environment = environment;
             _model = model;

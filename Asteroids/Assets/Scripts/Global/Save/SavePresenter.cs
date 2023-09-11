@@ -6,7 +6,6 @@ using Global.Requirements.MoneyCount.Arlingham;
 using Global.Requirements.MoneyCount.Basilisk;
 using Global.Requirements.MoneyCount.Polruan;
 using Global.Requirements.MoneyCount.Sartine;
-using UnityEngine;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -15,11 +14,11 @@ namespace Global.Save
     public class SavePresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly SaveModel _model;
+        private readonly ISaveModel _model;
 
         private readonly PresentersEngine _requirementsPresenters = new();
 
-        public SavePresenter(GlobalEnvironment environment, SaveModel model)
+        public SavePresenter(GlobalEnvironment environment, ISaveModel model)
         {
             _environment = environment;
             _model = model;
@@ -94,8 +93,6 @@ namespace Global.Save
             {
                 var isCompleted = false;
 
-                Debug.Log($"{requirement.Key} - {requirement.Value.IsCompleted}");
-                
                 switch (requirement.Value)
                 {
                     case ArlinghamMoneyCountRequirement:

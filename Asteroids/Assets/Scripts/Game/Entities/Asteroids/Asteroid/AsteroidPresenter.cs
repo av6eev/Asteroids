@@ -64,7 +64,7 @@ namespace Game.Entities.Asteroids.Asteroid
                     {
                         _environment.ShipModel.ApplyDamage(1);
                         _environment.AsteroidsModel.DestroyAsteroid(_model, false, true);    
-                        _environment.SoundManager.PlaySound(SoundsTypes.ShipHit);
+                        _environment.SoundManager.Play(SoundsTypes.ShipHit);
                     }
                     break;
             }

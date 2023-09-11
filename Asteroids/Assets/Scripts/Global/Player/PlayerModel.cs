@@ -3,7 +3,7 @@ using Utilities.Interfaces;
 
 namespace Global.Player
 {
-    public class PlayerModel
+    public class PlayerModel : IPlayerModel
     {
         public event Action<int> OnMoneyUpdated;
         public event Action<IPurchaseable> OnPurchaseConfirmed; 

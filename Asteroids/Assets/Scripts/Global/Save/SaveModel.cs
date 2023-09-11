@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Global.Save
 {
-    public class SaveModel
+    public class SaveModel : ISaveModel
     {
         public event Action OnSave, OnDeserialize;
 

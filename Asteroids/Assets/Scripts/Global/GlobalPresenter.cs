@@ -1,4 +1,5 @@
 using System;
+using Global.Dialogs;
 using Global.Dialogs.Base;
 using Global.Player;
 using Global.Save;
@@ -32,7 +33,7 @@ namespace Global
             Environment.DialogsModel = new DialogsModel(Environment.Specifications);
             Environment.SaveModel = new SaveModel();
             
-            GlobalPresenters.Add(new GlobalUIPresenter(Environment, Environment.GlobalUIModel, GlobalView.GlobalUIView));
+            GlobalPresenters.Add(new GlobalUIPresenter(Environment, GlobalView.GlobalUIView));
             GlobalPresenters.Add(new DialogsPresenter(Environment, Environment.DialogsModel, GlobalView.DialogsView));
             GlobalPresenters.Add(new PlayerPresenter(Environment, Environment.PlayerModel));
             GlobalPresenters.Add(new SavePresenter(Environment, Environment.SaveModel));
