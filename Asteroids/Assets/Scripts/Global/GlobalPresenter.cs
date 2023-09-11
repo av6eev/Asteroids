@@ -1,4 +1,5 @@
 using System;
+using Global.Dialogs;
 using Global.Dialogs.Base;
 using Global.Player;
 using Global.Save;
@@ -18,8 +19,6 @@ namespace Global
 
         private void Start()
         {
-            PlayerPrefs.DeleteAll();
-            
             Environment = new GlobalEnvironment(
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
@@ -34,13 +33,12 @@ namespace Global
             Environment.DialogsModel = new DialogsModel(Environment.Specifications);
             Environment.SaveModel = new SaveModel();
             
-            GlobalPresenters.Add(new GlobalUIPresenter(Environment, Environment.GlobalUIModel, GlobalView.GlobalUIView));
+            GlobalPresenters.Add(new GlobalUIPresenter(Environment, GlobalView.GlobalUIView));
             GlobalPresenters.Add(new DialogsPresenter(Environment, Environment.DialogsModel, GlobalView.DialogsView));
             GlobalPresenters.Add(new PlayerPresenter(Environment, Environment.PlayerModel));
             GlobalPresenters.Add(new SavePresenter(Environment, Environment.SaveModel));
             GlobalPresenters.Activate();
             
-            Environment.SaveModel.SaveElement(SavingElementsKeys.PlayerMoney, 10000);
             Environment.SaveModel.Deserialize();
         }
 

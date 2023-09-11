@@ -4,7 +4,7 @@ using Game.Entities.Ship;
 
 namespace Global.UI
 {
-    public class GlobalUIModel
+    public class GlobalUIModel : IGlobalUIModel
     {
         public event Action<int> OnShipChanged;
         

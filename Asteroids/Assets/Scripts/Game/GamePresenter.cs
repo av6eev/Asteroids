@@ -22,14 +22,14 @@ namespace Game
     public class GamePresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly GameModel _model;
+        private readonly IGameModel _model;
         private readonly GameSceneView _view;
         
         private readonly PresentersEngine _presenters = new();
         private readonly PresentersEngine _requirementsPresenters = new();
         private ShipPresenter _currentShipPresenter;
         
-        public GamePresenter(GlobalEnvironment environment, GameModel model, GameSceneView view)
+        public GamePresenter(GlobalEnvironment environment, IGameModel model, GameSceneView view)
         {
             _environment = environment;
             _model = model;
@@ -156,7 +156,7 @@ namespace Game
             
             _requirementsPresenters.Activate();
             
-            _environment.SoundManager.PlaySound(SoundsTypes.Theme);
+            _environment.SoundManager.Play(SoundsTypes.Theme);
         }
 
         private void DeactivateUnnecessaryData()

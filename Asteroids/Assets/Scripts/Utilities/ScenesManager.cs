@@ -10,7 +10,7 @@ using Utilities.Interfaces;
 
 namespace Utilities
 {
-    public class ScenesManager
+    public class ScenesManager : IScenesManager
     {
         private GlobalEnvironment _environment;
         private AsyncOperation _asyncOperation;

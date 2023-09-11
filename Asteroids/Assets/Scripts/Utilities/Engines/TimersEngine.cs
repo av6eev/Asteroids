@@ -3,7 +3,7 @@ using Utilities.Interfaces;
 
 namespace Utilities.Engines
 {
-    public class TimersEngine : ITimer
+    public class TimersEngine : ITimersEngine
     {
         private readonly List<ITimer> _timers = new();
 

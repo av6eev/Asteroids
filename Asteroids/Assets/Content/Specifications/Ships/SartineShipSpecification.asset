@@ -26,7 +26,7 @@ MonoBehaviour:
     ReloadTime: 0
     ShootRate: 0.15
     IsAutomatic: 1
-    Speed: 4.5
+    Speed: 4
     Prefab3D: {fileID: 4307264583170498310, guid: 765a53ebeffac7e43a982e1bb749f3d5,
       type: 3}
     Prefab2D: {fileID: 207092490752759698, guid: 77b96ba247efbf945bbdb20bca45bf42,

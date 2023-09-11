@@ -5,7 +5,7 @@ using Utilities.Interfaces;
 
 namespace Utilities.Engines
 {
-    public class UpdatersEngine : IUpdater
+    public class UpdatersEngine : IUpdatersEngine
     {
         private readonly Dictionary<UpdatersTypes, IUpdater> _updaters = new();
 

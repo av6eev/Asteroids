@@ -1,4 +1,4 @@
-using Global.Dialogs.Base;
+using Global.Dialogs;
 using Global.Sound;
 using Global.UI;
 using Specifications.Base;

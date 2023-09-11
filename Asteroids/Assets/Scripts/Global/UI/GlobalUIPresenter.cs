@@ -11,7 +11,7 @@ namespace Global.UI
         private readonly GlobalEnvironment _environment;
         private readonly GlobalUIView _view;
 
-        public GlobalUIPresenter(GlobalEnvironment environment, GlobalUIModel model, GlobalUIView view)
+        public GlobalUIPresenter(GlobalEnvironment environment, GlobalUIView view)
         {
             _environment = environment;
             _view = view;

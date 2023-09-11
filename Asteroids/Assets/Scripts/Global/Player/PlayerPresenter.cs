@@ -6,9 +6,9 @@ namespace Global.Player
     public class PlayerPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly PlayerModel _model;
+        private readonly IPlayerModel _model;
 
-        public PlayerPresenter(GlobalEnvironment environment, PlayerModel model)
+        public PlayerPresenter(GlobalEnvironment environment, IPlayerModel model)
         {
             _environment = environment;
             _model = model;

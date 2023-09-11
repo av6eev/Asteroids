@@ -37,7 +37,7 @@ namespace Game.UI.Money
             };
 
             _environment.GameModel.UpdateBalance(moneyBonus);
-            _environment.SoundManager.PlaySound(SoundsTypes.CoinGained);
+            _environment.SoundManager.Play(SoundsTypes.CoinGained);
             
             _view.UpdateMoneyCounter(_environment.GameModel.CurrentMoney);
         }

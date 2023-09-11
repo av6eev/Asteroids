@@ -24,7 +24,7 @@ namespace Game.Entities.Bullet
         
         public void Activate()
         {
-            _environment.SoundManager.PlaySound(SoundsTypes.ShipShooting);
+            _environment.SoundManager.Play(SoundsTypes.ShipShooting);
             
             _view.SetCurrentPosition(_model.Position);
             

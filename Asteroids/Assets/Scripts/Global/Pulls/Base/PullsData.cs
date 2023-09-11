@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Game.Entities.Asteroids;
-using Game.Entities.Bullet;
-using Game.Entities.Bullet.Base;
 using Global.Pulls.Asteroids._2D;
 using Global.Pulls.Asteroids._3D;
 using Global.Pulls.Bullets._2D;
@@ -10,13 +8,13 @@ using Global.Pulls.ParticleSystem.Hit;
 
 namespace Global.Pulls.Base
 {
-    public class PullsData
+    public class PullsData : IPullsData
     {
-        public BulletsPull3D BulletsPull3D { get; private set; } = new();
-        public BulletsPull2D BulletsPull2D { get; private set; } = new();
-        public HitsPull HitsPull { get; private set; } = new();
+        public BulletsPull3D BulletsPull3D { get; } = new();
+        public BulletsPull2D BulletsPull2D { get; } = new();
+        public HitsPull HitsPull { get; } = new();
 
-        public Dictionary<AsteroidsTypes, AsteroidsPull3D> AsteroidsPulls3D { get; private set; } = new()
+        public Dictionary<AsteroidsTypes, AsteroidsPull3D> AsteroidsPulls3D { get; } = new()
         {
             { AsteroidsTypes.Small, new AsteroidsPull3D() },
             { AsteroidsTypes.Medium, new AsteroidsPull3D() },
@@ -24,7 +22,7 @@ namespace Global.Pulls.Base
             { AsteroidsTypes.Fire, new AsteroidsPull3D() }
         };
 
-        public Dictionary<AsteroidsTypes, AsteroidsPull2D> AsteroidsPulls2D { get; private set; } = new()
+        public Dictionary<AsteroidsTypes, AsteroidsPull2D> AsteroidsPulls2D { get; } = new()
         {
             { AsteroidsTypes.Small, new AsteroidsPull2D() },
             { AsteroidsTypes.Medium, new AsteroidsPull2D() },

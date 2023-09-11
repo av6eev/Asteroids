@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Global.Dialogs.Base;
 using Global.Dialogs.History;
 using Global.Dialogs.Shop;
 using Utilities.Game;
 
-namespace Global.Dialogs.Base
+namespace Global.Dialogs
 {
-    public class DialogsModel
+    public class DialogsModel : IDialogsModel
     {
         private readonly List<IGlobalDialogModel> _dialogs = new();
         

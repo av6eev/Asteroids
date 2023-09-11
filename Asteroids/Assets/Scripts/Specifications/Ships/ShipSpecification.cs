@@ -3,7 +3,6 @@ using Game.Entities.Bullet;
 using Game.Entities.Ship;
 using Specifications.Base;
 using UnityEngine;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Specifications.Ships
@@ -27,7 +26,7 @@ namespace Specifications.Ships
         public bool IsAutomatic;
 
         [Header("Movement")]
-        [Range(0f, 10f)] public float Speed;
+        [Range(0f, 4f)] public float Speed;
 
         [Header("Others")]
         public ShipView3D Prefab3D;

@@ -9,44 +9,43 @@ using Global.Pulls.Base;
 using Global.Save;
 using Global.Sound;
 using Global.UI;
-using Utilities;
-using Utilities.Engines;
 using Utilities.Game;
+using Utilities.Interfaces;
 
 namespace Global
 {
     public class GlobalEnvironment
     {
         public GlobalView GlobalView { get; }
-        public GameSceneView GameSceneView { get; set; }
-        
-        public GameSpecifications Specifications { get; }
-        public ScenesManager ScenesManager { get; }
-        public UpdatersEngine UpdatersEngine { get; }
-        public UpdatersEngine FixedUpdatersEngine { get; }
-        public UpdatersEngine LateUpdatersEngine { get; }
-        public TimersEngine TimersEngine { get; }
         public SoundManager SoundManager { get; }
-        public PullsData PullsData { get; set; }
+        public GameSceneView GameSceneView { get; set; }
 
-        public GlobalUIModel GlobalUIModel { get; }
-        public PlayerModel PlayerModel { get; }
+        public GameSpecifications Specifications { get; }
+        public IScenesManager ScenesManager { get; }
+        public IUpdatersEngine UpdatersEngine { get; }
+        public IUpdatersEngine FixedUpdatersEngine { get; }
+        public IUpdatersEngine LateUpdatersEngine { get; }
+        public ITimersEngine TimersEngine { get; }
+        public IPullsData PullsData { get; set; }
+
+        public IGlobalUIModel GlobalUIModel { get; }
+        public IPlayerModel PlayerModel { get; }
         public IShipModel ShipModel { get; set; }
-        public GameModel GameModel { get; set; }
-        public DialogsModel DialogsModel { get; set; }
-        public InputModel InputModel { get; set; }
-        public SaveModel SaveModel { get; set; }
-        public AsteroidsModel AsteroidsModel { get; set; }
+        public IGameModel GameModel { get; set; }
+        public IDialogsModel DialogsModel { get; set; }
+        public IInputModel InputModel { get; set; }
+        public ISaveModel SaveModel { get; set; }
+        public IAsteroidsModel AsteroidsModel { get; set; }
 
         public GlobalEnvironment(GameSpecifications specifications,
             GlobalView globalView,
-            ScenesManager scenesManager,
-            UpdatersEngine updatersEngine,
-            UpdatersEngine fixedUpdatersEngine,
-            UpdatersEngine lateUpdatersEngine,
-            TimersEngine timersEngine,
-            GlobalUIModel globalUIModel,
-            PlayerModel playerModel)
+            IScenesManager scenesManager,
+            IUpdatersEngine updatersEngine,
+            IUpdatersEngine fixedUpdatersEngine,
+            IUpdatersEngine lateUpdatersEngine,
+            ITimersEngine timersEngine,
+            IGlobalUIModel globalUIModel,
+            IPlayerModel playerModel)
         {
             Specifications = specifications;
             GlobalView = globalView;

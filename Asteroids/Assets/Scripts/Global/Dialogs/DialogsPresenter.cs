@@ -1,20 +1,20 @@
-﻿using Global.Dialogs.History;
+﻿using Global.Dialogs.Base;
+using Global.Dialogs.History;
 using Global.Dialogs.Shop;
-using Utilities;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
-namespace Global.Dialogs.Base
+namespace Global.Dialogs
 {
     public class DialogsPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly DialogsModel _model;
+        private readonly IDialogsModel _model;
         private readonly DialogsView _view;
 
         private readonly PresentersEngine _presenters = new();
 
-        public DialogsPresenter(GlobalEnvironment environment, DialogsModel model, DialogsView view)
+        public DialogsPresenter(GlobalEnvironment environment, IDialogsModel model, DialogsView view)
         {
             _environment = environment;
             _model = model;
