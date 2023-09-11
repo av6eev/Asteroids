@@ -6,6 +6,7 @@ namespace Utilities.Interfaces
     {
         void Add(UpdatersTypes type, IUpdater updater);
         void Remove(UpdatersTypes type);
+        void Set(UpdatersTypes type, IUpdater updater);
         void Clear();
     }
 }

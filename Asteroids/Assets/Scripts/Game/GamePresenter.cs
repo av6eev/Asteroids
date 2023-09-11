@@ -1,7 +1,10 @@
 using System.Linq;
 using Game.CamerasUpdaters;
+using Game.CamerasUpdaters.Base;
 using Game.Entities.Asteroids;
 using Game.Entities.Ship;
+using Game.Factories.Ship;
+using Game.Factories.Ship.Base;
 using Game.Input;
 using Game.Scene;
 using Game.UI;
@@ -28,6 +31,8 @@ namespace Game
         private readonly PresentersEngine _presenters = new();
         private readonly PresentersEngine _requirementsPresenters = new();
         private ShipPresenter _currentShipPresenter;
+
+        private BaseShipModelFactory _shipModelFactory = new BaseShipModel2DFactory();
         
         public GamePresenter(GlobalEnvironment environment, IGameModel model, GameSceneView view)
         {
@@ -61,24 +66,23 @@ namespace Game
 
         private void ChangeSetup()
         {
-            var shipModel = _environment.ShipModel;
-
+            BaseCameraFollowUpdater cameraFollowUpdater = null;
+            
             switch (_model.CurrentDimension)
             {
                 case CameraDimensionsTypes.TwoD:
-                    shipModel = new ShipModel2D(shipModel);
-
-                    _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
-                    _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+                    _shipModelFactory = new BaseShipModel2DFactory();
+                    cameraFollowUpdater = new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera);
                     break;
                 case CameraDimensionsTypes.ThreeD:
-                    shipModel = new ShipModel3D(shipModel);
-                    
-                    _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
-                    _environment.LateUpdatersEngine.Add(UpdatersTypes.ThirdPersonCameraFollow, new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera));
+                    _shipModelFactory = new BaseShipModel3DFactory();
+                    cameraFollowUpdater = new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera);
                     break;
             }
             
+            _environment.LateUpdatersEngine.Set(UpdatersTypes.CameraFollow, cameraFollowUpdater);
+
+            var shipModel = _shipModelFactory.TryCreate(_environment.ShipModel);
             var newPosition = shipModel.GetPosition();
             
             shipModel.MoveModel.UpdatePosition(newPosition);
@@ -98,7 +102,7 @@ namespace Game
             var neededSpecification = _environment.Specifications.Ships.Values.First(ship => ship.Id == _environment.GlobalUIModel.SelectedShipId);
             var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab2D);
             
-            _environment.ShipModel = new ShipModel2D(neededSpecification);
+            _environment.ShipModel = _shipModelFactory.TryCreate(neededSpecification);
             _currentShipPresenter = new ShipPresenter(_environment, _environment.ShipModel, shipView); 
             
             _presenters.Add(_currentShipPresenter);
@@ -135,7 +139,7 @@ namespace Game
             _presenters.Activate();
 
             _environment.UpdatersEngine.Add(UpdatersTypes.Input, new InputUpdater());
-            _environment.LateUpdatersEngine.Add(UpdatersTypes.TopDownCameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
+            _environment.LateUpdatersEngine.Add(UpdatersTypes.CameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
             foreach (var requirement in _environment.Specifications.Requirements)
@@ -182,8 +186,7 @@ namespace Game
             removedPresenters.Clear();
 
             _environment.UpdatersEngine.Remove(UpdatersTypes.Input);
-            _environment.LateUpdatersEngine.Remove(UpdatersTypes.TopDownCameraFollow);
-            _environment.LateUpdatersEngine.Remove(UpdatersTypes.ThirdPersonCameraFollow);
+            _environment.LateUpdatersEngine.Remove(UpdatersTypes.CameraFollow);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.Asteroids);
 
             _view.GameView.DestroyShip();
