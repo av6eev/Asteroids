@@ -18,8 +18,6 @@ namespace Global
 
         private void Start()
         {
-            PlayerPrefs.DeleteAll();
-            
             Environment = new GlobalEnvironment(
                 new GameSpecifications(GlobalView.SpecificationsCollection), 
                 GlobalView,
