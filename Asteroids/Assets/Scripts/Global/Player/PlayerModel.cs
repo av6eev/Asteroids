@@ -28,6 +28,8 @@ namespace Global.Player
 
         public void DecreaseMoney(int price) => Money -= price;
 
+        public void IncreaseMoney(int gainedMoney) => Money += gainedMoney;
+        
         public void ConfirmPurchase(IPurchaseable data) => OnPurchaseConfirmed?.Invoke(data);
     }
 }

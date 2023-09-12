@@ -9,6 +9,8 @@ namespace Utilities.Engines
 
         public void Add(IPresenter presenter) => _presenters.Add(presenter);
 
+        public void AddRange(List<IPresenter> presenters) => _presenters.AddRange(presenters);
+
         public void Activate()
         {
             foreach (var presenter in _presenters)

@@ -13,7 +13,6 @@ namespace Global.Pulls.Base
         public BulletsPull3D BulletsPull3D { get; } = new();
         public BulletsPull2D BulletsPull2D { get; } = new();
         public HitsPull HitsPull { get; } = new();
-
         public Dictionary<AsteroidsTypes, AsteroidsPull3D> AsteroidsPulls3D { get; } = new()
         {
             { AsteroidsTypes.Small, new AsteroidsPull3D() },
@@ -21,7 +20,6 @@ namespace Global.Pulls.Base
             { AsteroidsTypes.Big, new AsteroidsPull3D() },
             { AsteroidsTypes.Fire, new AsteroidsPull3D() }
         };
-
         public Dictionary<AsteroidsTypes, AsteroidsPull2D> AsteroidsPulls2D { get; } = new()
         {
             { AsteroidsTypes.Small, new AsteroidsPull2D() },

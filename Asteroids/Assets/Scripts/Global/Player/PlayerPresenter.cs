@@ -14,9 +14,21 @@ namespace Global.Player
             _model = model;
         }
         
-        public void Activate() => _model.OnPurchaseConfirmed += HandlePurchase;
+        public void Activate()
+        {
+            _model.OnPurchaseConfirmed += HandlePurchase;
+            
+            _environment.SaveModel.OnDeserialize += DeserializeData;
+        }
 
-        public void Deactivate() => _model.OnPurchaseConfirmed -= HandlePurchase;
+        public void Deactivate()
+        {
+            _model.OnPurchaseConfirmed -= HandlePurchase;
+            
+            _environment.SaveModel.OnDeserialize -= DeserializeData;
+        }
+
+        private void DeserializeData() => _model.SetMoneyFromSave(_environment.SaveModel.GetElement<int>(SavingElementsKeys.PlayerMoney));
 
         private void HandlePurchase(IPurchaseable data)
         {

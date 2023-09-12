@@ -2,7 +2,7 @@
 {
     public interface IRequirement
     {
-        bool IsCompleted { get; }
+        bool IsCompleted { get; set; }
         SubRequirementType SubType { get; }
         string RewardName { get; set; }
         bool Check(GlobalEnvironment environment);

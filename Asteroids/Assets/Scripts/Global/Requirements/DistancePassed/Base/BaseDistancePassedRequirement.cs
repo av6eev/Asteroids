@@ -5,7 +5,7 @@ namespace Global.Requirements.DistancePassed.Base
 {
     public abstract class BaseDistancePassedRequirement : IRequirement
     {
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted { get; set; }
         public SubRequirementType SubType { get; } = SubRequirementType.DistancePassed;
         [field: SerializeField] public string RewardName { get; set; }
         [field: SerializeField] public int DistanceToPass { get; set; }

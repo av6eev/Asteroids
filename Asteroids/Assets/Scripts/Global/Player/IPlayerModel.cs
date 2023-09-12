@@ -12,5 +12,6 @@ namespace Global.Player
         void SetMoneyFromSave(int money);
         void DecreaseMoney(int price);
         void ConfirmPurchase(IPurchaseable data);
+        void IncreaseMoney(int gainedMoney);
     }
 }

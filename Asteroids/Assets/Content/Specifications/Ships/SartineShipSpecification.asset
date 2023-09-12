@@ -16,7 +16,7 @@ MonoBehaviour:
     Id: 5
     Type: 3
     Name: Sartine
-    <Price>k__BackingField: 300
+    <Price>k__BackingField: 40
     Health: 3
     BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
       type: 3}

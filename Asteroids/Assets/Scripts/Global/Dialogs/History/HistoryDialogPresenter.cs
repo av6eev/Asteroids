@@ -1,4 +1,6 @@
-﻿using Utilities.Interfaces;
+﻿using System.Collections.Generic;
+using Global.Save;
+using Utilities.Interfaces;
 
 namespace Global.Dialogs.History
 {
@@ -23,6 +25,8 @@ namespace Global.Dialogs.History
             _model.OnShow += Show;
             _model.OnHide += Hide;
             _model.OnScoreAdded += ResetView;
+            
+            _environment.SaveModel.OnDeserialize += DeserializeData;
         }
 
         public void Deactivate()
@@ -32,7 +36,11 @@ namespace Global.Dialogs.History
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
             _model.OnScoreAdded -= ResetView;
+            
+            _environment.SaveModel.OnDeserialize -= DeserializeData;
         }
+
+        private void DeserializeData() => _model.SetScoresFromSave(_environment.SaveModel.GetElement<List<int>>(SavingElementsKeys.ScoresHistory));
 
         private void ResetView() => _view.SetScores(_model.GetScores());
 

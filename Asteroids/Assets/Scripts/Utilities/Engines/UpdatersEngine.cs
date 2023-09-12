@@ -20,6 +20,14 @@ namespace Utilities.Engines
         public void Add(UpdatersTypes type, IUpdater updater) => _updaters.Add(type, updater);
 
         public void Remove(UpdatersTypes type) => _updaters.Remove(type);
+        
+        public void Set(UpdatersTypes type, IUpdater updater)
+        {
+            if (_updaters.ContainsKey(type))
+            {
+                _updaters[type] = updater;
+            }
+        }
 
         public void Clear() => _updaters.Clear();
     }
