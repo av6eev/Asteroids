@@ -5,7 +5,7 @@ namespace Game.Factories.Ship.Base
 {
     public abstract class BaseShipModelFactory
     {
-        public abstract IShipModel TryCreate(IShipModel baseModel);
-        public abstract IShipModel TryCreate(ShipSpecification specification);
+        public abstract IShipModel Create(IShipModel baseModel);
+        public abstract IShipModel Create(ShipSpecification specification);
     }
 }

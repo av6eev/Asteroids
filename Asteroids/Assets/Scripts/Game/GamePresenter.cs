@@ -32,7 +32,7 @@ namespace Game
         private readonly PresentersEngine _requirementsPresenters = new();
         private ShipPresenter _currentShipPresenter;
 
-        private BaseShipModelFactory _shipModelFactory = new BaseShipModel2DFactory();
+        private BaseShipModelFactory _shipModelFactory = new ShipModel2DFactory();
         
         public GamePresenter(GlobalEnvironment environment, IGameModel model, GameSceneView view)
         {
@@ -71,18 +71,18 @@ namespace Game
             switch (_model.CurrentDimension)
             {
                 case CameraDimensionsTypes.TwoD:
-                    _shipModelFactory = new BaseShipModel2DFactory();
+                    _shipModelFactory = new ShipModel2DFactory();
                     cameraFollowUpdater = new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera);
                     break;
                 case CameraDimensionsTypes.ThreeD:
-                    _shipModelFactory = new BaseShipModel3DFactory();
+                    _shipModelFactory = new ShipModel3DFactory();
                     cameraFollowUpdater = new ThirdPersonCameraFollowUpdater(new Vector3(0f, 42f, -55f), _view.ThirdPersonCamera);
                     break;
             }
             
             _environment.LateUpdatersEngine.Set(UpdatersTypes.CameraFollow, cameraFollowUpdater);
 
-            var shipModel = _shipModelFactory.TryCreate(_environment.ShipModel);
+            var shipModel = _shipModelFactory.Create(_environment.ShipModel);
             var newPosition = shipModel.GetPosition();
             
             shipModel.MoveModel.UpdatePosition(newPosition);
@@ -102,7 +102,7 @@ namespace Game
             var neededSpecification = _environment.Specifications.Ships.Values.First(ship => ship.Id == _environment.GlobalUIModel.SelectedShipId);
             var shipView = _view.GameView.InstantiateShip(neededSpecification.Prefab2D);
             
-            _environment.ShipModel = _shipModelFactory.TryCreate(neededSpecification);
+            _environment.ShipModel = _shipModelFactory.Create(neededSpecification);
             _currentShipPresenter = new ShipPresenter(_environment, _environment.ShipModel, shipView); 
             
             _presenters.Add(_currentShipPresenter);

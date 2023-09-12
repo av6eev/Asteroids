@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Game.Entities.Bullet;
 using Game.Entities.Bullet.Base;
+using Game.Factories.Bullet;
+using Game.Factories.Bullet.Base;
 using Global;
 using UnityEngine;
 using Utilities.Enums;
@@ -17,6 +19,8 @@ namespace Game.Entities.Ship.Shoot
 
         private readonly List<IBulletModel> _inActiveBullets = new();
         private readonly Dictionary<IBulletModel, BulletPresenter> _bulletsPresenters = new();
+
+        private BaseBulletModelFactory _bulletModelFactory = new BulletModel2DFactory();
         
         private Coroutine _reloadCoroutine;
         private Coroutine _shotRateCoroutine;
@@ -111,22 +115,21 @@ namespace Game.Entities.Ship.Shoot
 
             _model.IsReadyToShoot = false;
 
-            IBulletModel model = null;
             BaseBulletView view = null;
-            var bulletSpawnPoint = _environment.GameSceneView.GameView.CurrentShip.BulletSpawnPoint.position;
             
             switch (_environment.GameModel.CurrentDimension)
             {
                 case CameraDimensionsTypes.TwoD:
-                    model = new BulletModel2D(bulletSpawnPoint, _model.BulletHealth, _model.BulletDamage);
+                    _bulletModelFactory = new BulletModel2DFactory();
                     view = _environment.PullsData.BulletsPull2D.TryGetElement();
                     break;
                 case CameraDimensionsTypes.ThreeD:
-                    model = new BulletModel3D(bulletSpawnPoint, _model.BulletHealth, _model.BulletDamage);
+                    _bulletModelFactory = new BulletModel3DFactory();
                     view = _environment.PullsData.BulletsPull3D.TryGetElement();
                     break;
             }
-            
+
+            var model = _bulletModelFactory.Create(_environment.GameSceneView.GameView.CurrentShip.BulletSpawnPoint.position, _model.BulletHealth, _model.BulletDamage);
             var presenter = new BulletPresenter(_environment, model, view);
             presenter.Activate();
 
@@ -137,18 +140,16 @@ namespace Game.Entities.Ship.Shoot
             
             _shotRateCoroutine = GameCoroutines.RunCoroutine(WaitForFireRate(_model.ShootRate));
 
-            if (!_model.IsAutomatic)
-            {
-                _model.BulletsLeft--;
+            if (_model.IsAutomatic) return;
+            
+            _model.BulletsLeft--;
 
-                if (_model.BulletsLeft <= 0)
-                {
-                    _model.IsReadyToShoot = false;
-                    _model.IsReloading = true;
+            if (_model.BulletsLeft > 0) return;
+            
+            _model.IsReadyToShoot = false;
+            _model.IsReloading = true;
                     
-                    _reloadCoroutine = GameCoroutines.RunCoroutine(WaitForReload(_model.ReloadTime));
-                }    
-            }
+            _reloadCoroutine = GameCoroutines.RunCoroutine(WaitForReload(_model.ReloadTime));
         }
 
         private void DestroyBullet(IBulletModel model)
