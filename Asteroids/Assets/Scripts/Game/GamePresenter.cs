@@ -10,10 +10,10 @@ using Game.Scene;
 using Game.UI;
 using Global;
 using Global.Dialogs.History;
+using Global.Factories.Requirement;
+using Global.Factories.Requirement.Base;
 using Global.Pulls.Base;
-using Global.Requirements.DistancePassed.First;
-using Global.Requirements.DistancePassed.Second;
-using Global.Requirements.DistancePassed.Third;
+using Global.Requirements.Base;
 using Global.Sound;
 using UnityEngine;
 using Utilities.Engines;
@@ -33,6 +33,7 @@ namespace Game
         private ShipPresenter _currentShipPresenter;
 
         private BaseShipModelFactory _shipModelFactory = new ShipModel2DFactory();
+        private readonly BaseRequirementPresenterFactory _requirementPresenterFactory = new DistancePassedRequirementPresenterFactory();
         
         public GamePresenter(GlobalEnvironment environment, IGameModel model, GameSceneView view)
         {
@@ -118,10 +119,9 @@ namespace Game
         private void Save()
         {
             _environment.SoundManager.Reset();
-            _view.GameUIView.HideElementsAfterEnd();
             
             _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
-            _environment.SaveModel.Save();
+            _environment.PlayerModel.IncreaseMoney(_model.CalculateGainedMoney());
             
             DeactivateUnnecessaryData();
         }
@@ -142,22 +142,7 @@ namespace Game
             _environment.LateUpdatersEngine.Add(UpdatersTypes.CameraFollow, new TopDownCameraFollowUpdater(new Vector3(0f, 30f, -1f), _view.TopDownCamera));
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.Asteroids, new AsteroidsUpdater());
 
-            foreach (var requirement in _environment.Specifications.Requirements)
-            {
-                switch (requirement.Value)
-                {
-                    case FirstDistancePassedRequirement:
-                        _requirementsPresenters.Add(new FirstDistancePassedRequirementPresenter(_environment, requirement.Value));
-                        break;
-                    case SecondDistancePassedRequirement:
-                        _requirementsPresenters.Add(new SecondDistancePassedRequirementPresenter(_environment, requirement.Value));
-                        break;
-                    case ThirdDistancePassedRequirement:
-                        _requirementsPresenters.Add(new ThirdDistancePassedRequirementPresenter(_environment, requirement.Value));
-                        break;
-                }
-            }
-            
+            _requirementsPresenters.AddRange(_requirementPresenterFactory.CreateList(_environment,_environment.Specifications.Requirements.Values.Where(item => item.SubType == SubRequirementType.DistancePassed).ToList()));
             _requirementsPresenters.Activate();
             
             _environment.SoundManager.Play(SoundsTypes.Theme);

@@ -16,7 +16,7 @@ MonoBehaviour:
     Id: 4
     Type: 2
     Name: Polruan
-    <Price>k__BackingField: 250
+    <Price>k__BackingField: 30
     Health: 4
     BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
       type: 3}

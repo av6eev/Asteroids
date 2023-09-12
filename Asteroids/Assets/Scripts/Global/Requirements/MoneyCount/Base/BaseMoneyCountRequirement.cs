@@ -6,7 +6,7 @@ namespace Global.Requirements.MoneyCount.Base
 {
     public abstract class BaseMoneyCountRequirement : IRequirement
     {
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted { get; set; }
         public SubRequirementType SubType => SubRequirementType.MoneyCount;
         [field: SerializeField] public string RewardName { get; set; }
         [field: SerializeField] public ShipsTypes ShipType { get; private set; }
