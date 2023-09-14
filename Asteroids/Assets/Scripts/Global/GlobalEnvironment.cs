@@ -1,7 +1,7 @@
 using Game;
 using Game.Entities.Asteroids;
 using Game.Entities.Ship.Base;
-using Game.Input;
+using Game.Input.Base;
 using Game.Scene;
 using Global.Dialogs.Base;
 using Global.Player;

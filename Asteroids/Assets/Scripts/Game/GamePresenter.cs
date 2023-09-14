@@ -3,6 +3,7 @@ using Game.CamerasUpdaters;
 using Game.CamerasUpdaters.Base;
 using Game.Entities.Asteroids;
 using Game.Entities.Ship;
+using Game.Factories.Input;
 using Game.Factories.Ship;
 using Game.Factories.Ship.Base;
 using Game.Input;
@@ -34,6 +35,7 @@ namespace Game
 
         private BaseShipModelFactory _shipModelFactory = new ShipModel2DFactory();
         private readonly BaseRequirementPresenterFactory _requirementPresenterFactory = new DistancePassedRequirementPresenterFactory();
+        private readonly InputPresenterFactory _inputPresenterFactory = new();
         
         public GamePresenter(GlobalEnvironment environment, IGameModel model, GameSceneView view)
         {
@@ -128,11 +130,11 @@ namespace Game
 
         private void CreateNecessaryData()
         {
-            _environment.InputModel = new InputModel();
             _environment.AsteroidsModel = new AsteroidsModel(_environment.Specifications.Asteroids);
             _environment.PullsData = new PullsData();
 
-            _presenters.Add(new InputPresenter(_environment, _environment.InputModel, _view.InputView));
+            _presenters.Add(_inputPresenterFactory.Create(_environment, Application.platform));
+            // _presenters.Add(_inputPresenterFactory.Create(_environment, RuntimePlatform.Android));
             _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
             _presenters.Add(new GameUIPresenter(_environment, _view.GameUIView));
 
