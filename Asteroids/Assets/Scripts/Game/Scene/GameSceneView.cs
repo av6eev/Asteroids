@@ -1,6 +1,9 @@
-using Game.Input;
+using System;
+using Game.Input.Base;
 using Game.UI;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utilities.BaseClasses;
 using Utilities.Enums;
 
@@ -10,9 +13,10 @@ namespace Game.Scene
     {
         [field: SerializeField] public Camera TopDownCamera { get; private set; }
         [field: SerializeField] public Camera ThirdPersonCamera { get; private set; }
-        [field: SerializeField] public InputView InputView { get; private set; }
         [field: SerializeField] public GameView GameView { get; private set; }
         [field: SerializeField] public GameUIView GameUIView { get; private set; }
+        [field: SerializeField] public InputActionAsset PlayerInputAsset { get; private set; }
+        [field: NonSerialized] public BaseInputView InputView { get; private set; }
 
         public void SwitchCamera(CameraDimensionsTypes type)
         {
@@ -27,6 +31,22 @@ namespace Game.Scene
                     ThirdPersonCamera.gameObject.SetActive(true);
                     break;
             }
+        }
+
+        public BaseInputView CreateInputView<T>() where T : BaseInputView
+        {
+            var newInputView = new GameObject("InputView").AddComponent<T>();
+            var playerInput = newInputView.AddComponent<PlayerInput>();
+
+            playerInput.actions = PlayerInputAsset;
+            playerInput.defaultActionMap = PlayerInputAsset.actionMaps[0].name;
+            
+            newInputView.PlayerInput = playerInput;
+            newInputView.transform.SetParent(GameObject.Find("Views").transform);
+            
+            InputView = newInputView;
+            
+            return InputView;
         }
     }
 }

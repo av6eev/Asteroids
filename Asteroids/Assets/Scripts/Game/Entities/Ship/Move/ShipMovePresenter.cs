@@ -31,8 +31,8 @@ namespace Game.Entities.Ship.Move
             {
                 x = _environment.InputModel.ShipTurnDirection switch
                 {
-                    1.0f => TURN_SIDE_VALUE,
-                    -1.0f => -TURN_SIDE_VALUE,
+                    >0 => TURN_SIDE_VALUE,
+                    <0 => -TURN_SIDE_VALUE,
                     _ => 0f
                 }
             };

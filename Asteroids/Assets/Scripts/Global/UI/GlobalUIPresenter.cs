@@ -32,8 +32,8 @@ namespace Global.UI
         public void Activate()
         {
             DeserializeRequirements();
+            ChangeMenuAndTitleState(true);
             
-            _view.MainMenuRoot.SetActive(true);
             _view.PlayButton.onClick.AddListener(StartGame);
             _view.ShopButton.onClick.AddListener(OpenShopMenu);
             _view.HistoryButton.onClick.AddListener(OpenHistoryMenu);
@@ -57,14 +57,14 @@ namespace Global.UI
 
         private void OpenShopMenu()
         {
-            HideMenuAndTitle();
+            ChangeMenuAndTitleState(false);
             
             _environment.DialogsModel.GetByType<ShopDialogModel>().Show();
         }
 
         private void OpenHistoryMenu()
         {
-            HideMenuAndTitle();
+            ChangeMenuAndTitleState(false);
             
             _environment.DialogsModel.GetByType<HistoryDialogModel>().Show();
         }
@@ -75,10 +75,10 @@ namespace Global.UI
             _environment.ScenesManager.LoadScene(ScenesNames.GameScene, _environment);
         }
 
-        private void HideMenuAndTitle()
+        private void ChangeMenuAndTitleState(bool state)
         {
-            _view.MainMenuRoot.SetActive(false);
-            _view.Title.SetActive(false);
+            _view.MainMenuRoot.SetActive(state);
+            _view.Title.SetActive(state);
         }
 
         private void DeserializeData() => _model.SetSelectedShip(_environment.SaveModel.GetElement<int>(SavingElementsKeys.SelectedShip));
