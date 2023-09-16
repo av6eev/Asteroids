@@ -67,8 +67,6 @@ namespace Game.Entities.Asteroids
             
             _environment.GameModel.OnDifficultyIncreased -= UpdateModifiers;
             _environment.GameModel.OnDimensionChanged -= RecreateActiveAsteroids;
-            
-            Debug.Log(nameof(AsteroidsPresenter) + " deactivated!");
         }
 
         private void RecreateActiveAsteroids()

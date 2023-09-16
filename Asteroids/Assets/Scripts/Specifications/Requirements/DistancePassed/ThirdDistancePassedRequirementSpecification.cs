@@ -1,5 +1,4 @@
-﻿using Global.Requirements.DistancePassed;
-using Global.Requirements.DistancePassed.Third;
+﻿using Global.Requirements.DistancePassed.Third;
 using UnityEngine;
 
 namespace Specifications.Requirements.DistancePassed

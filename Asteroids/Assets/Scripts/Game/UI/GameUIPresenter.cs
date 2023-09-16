@@ -44,8 +44,6 @@ namespace Game.UI
             _view.ChangeCameraButton.onClick.RemoveListener(ChangeCameraView);
             
             _environment.GameModel.OnEnded -= HideElements;
-            
-            Debug.Log(nameof(GameUIPresenter) + " deactivated!");
         }
 
         private void HideElements() => _view.HideElementsAfterEnd();

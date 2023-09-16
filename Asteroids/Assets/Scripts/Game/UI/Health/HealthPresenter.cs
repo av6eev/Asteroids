@@ -22,10 +22,7 @@ namespace Game.UI.Health
             _environment.GameModel.OnLivesChanged += UpdateHealthBar;
         }
 
-        public void Deactivate()
-        {
-            _environment.GameModel.OnLivesChanged -= UpdateHealthBar;
-        }
+        public void Deactivate() => _environment.GameModel.OnLivesChanged -= UpdateHealthBar;
 
         private void UpdateHealthBar(int currentLives) => _view.UpdateHealth((float)currentLives / (float)_environment.ShipModel.MaxHealth);
     }

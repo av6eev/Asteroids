@@ -134,7 +134,6 @@ namespace Game
             _environment.PullsData = new PullsData();
 
             _presenters.Add(_inputPresenterFactory.Create(_environment, Application.platform));
-            // _presenters.Add(_inputPresenterFactory.Create(_environment, RuntimePlatform.Android));
             _presenters.Add(new AsteroidsPresenter(_environment, _environment.AsteroidsModel));
             _presenters.Add(new GameUIPresenter(_environment, _view.GameUIView));
 

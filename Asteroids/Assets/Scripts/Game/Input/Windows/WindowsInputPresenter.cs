@@ -50,11 +50,6 @@ namespace Game.Input.Windows
             {
                 _model.IsShipShooting = false;
             }
-            //
-            // if (!_view.MoveAction.IsPressed())
-            // {
-            //     _model.ShipTurnDirection = 0f;
-            // }
         }
         
         private void StopMove(InputAction.CallbackContext context) => _model.ShipTurnDirection = 0f;

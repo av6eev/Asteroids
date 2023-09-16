@@ -47,13 +47,12 @@ namespace Game.Entities.Ship
             _presenters.Clear();
 
             _model.OnDamageApplied -= ApplyDamage;
-            
-            Debug.Log(nameof(ShipPresenter) + " deactivated!");
         }
 
         private void ApplyDamage()
         {
             _environment.GameModel.UpdateLives(_model.CurrentHealth);
+            
             _model.UpdateImmuneState(true);
             _immunityCoroutine = GameCoroutines.RunCoroutine(EnableImmunity());
             _view.EnableImmunity();

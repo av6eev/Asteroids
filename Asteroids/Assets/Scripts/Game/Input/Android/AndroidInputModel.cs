@@ -4,6 +4,5 @@ namespace Game.Input.Android
 {
     public class AndroidInputModel : BaseInputModel
     {
-        
     }
 }

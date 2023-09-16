@@ -1,6 +1,5 @@
 ﻿using System;
 using Specifications.Base;
-using Utilities;
 using Utilities.Enums;
 
 namespace Specifications.GameDifficulties
