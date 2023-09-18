@@ -1,4 +1,5 @@
 ﻿using Global;
+using UnityEngine.EventSystems;
 using Utilities.Interfaces;
 
 namespace Game.Input.Base
@@ -14,5 +15,7 @@ namespace Game.Input.Base
         public virtual void Deactivate() => _model.OnUpdate += Update;
 
         protected abstract void Update(float deltaTime);
+        
+        protected bool CheckPointerOverUI() => EventSystem.current.IsPointerOverGameObject();
     }
 }

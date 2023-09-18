@@ -1,6 +1,7 @@
 ﻿using Game.Input.Base;
 using Global;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
@@ -53,11 +54,16 @@ namespace Game.Input.Android
             EnhancedTouchSupport.Disable();
         }
 
-        private void StartFire() => _model.IsShipShooting = true;
+        private void StartFire()
+        {
+            if (!CheckPointerOverUI()) return;
+            
+            _model.IsShipShooting = true;
+        }
 
         private void StopFire() => _model.IsShipShooting = false;
 
-        protected override void  Update(float deltaTime)
+        protected override void Update(float deltaTime)
         {
             if (_model.IsShipShooting)
             {
@@ -72,7 +78,7 @@ namespace Game.Input.Android
 
         private void HandleFingerDown(Finger finger)
         {
-            if (_movementFinger != null || !(finger.screenPosition.x <= Screen.width / 2f)) return;
+            if (_movementFinger != null || !(finger.screenPosition.x <= Screen.width / 2f) || CheckPointerOverUI()) return;
 
             _movementAmount = Vector2.zero;
             _movementFinger = finger;

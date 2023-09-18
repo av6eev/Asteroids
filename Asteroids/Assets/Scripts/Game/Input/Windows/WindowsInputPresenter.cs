@@ -41,7 +41,7 @@ namespace Game.Input.Windows
         
         protected override void Update(float deltaTime)
         {
-            if (_view.FireAction.IsPressed())
+            if (_view.FireAction.IsPressed() && !CheckPointerOverUI())
             {
                 _model.IsShipShooting = true;
                 _environment.ShipModel.Shoot();
