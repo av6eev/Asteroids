@@ -2,8 +2,8 @@
 
 namespace Global.Pulls.ParticleSystem.Hit
 {
-    public class HitsPull : BasePull<HitPullView>
+    public class HitsPull : BasePull<HitView>
     {
-        public HitPullView LastActiveHit { get; set; }
+        public HitView LastActiveHit { get; set; }
     }
 }

@@ -5,8 +5,33 @@ using UnityEngine;
 
 namespace Global.Pulls.Asteroids._3D
 {
-    public class AsteroidsPullView3D : BasePullView<AsteroidView3D>
+    public class AsteroidsPullView3D : MonoBehaviour, IPullView<AsteroidView3D>
     {
+        [field: SerializeField] public Transform PullRoot { get; private set; }
         [field: SerializeField] public AsteroidsTypes Type { get; private set; }
+        public AsteroidView3D ElementPrefab { get; set; }
+        public int Count { get; set; }
+        
+        public AsteroidView3D CreateObject() => Instantiate(ElementPrefab, PullRoot);
+
+        public void DestroyObjects()
+        {
+            for (var i = 0; i < PullRoot.childCount; i++)
+            {
+                Destroy(PullRoot.GetChild(i).gameObject);
+            }
+        }
+
+        public void HideAll()
+        {
+            for (var i = 0; i < PullRoot.childCount; i++)
+            {
+                var child = PullRoot.GetChild(i).gameObject;
+                
+                if (!child.activeInHierarchy) continue;
+                
+                child.SetActive(false);
+            }
+        }
     }
 }

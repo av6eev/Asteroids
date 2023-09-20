@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace Game.UI.Distance
 {
-    public class DistanceView : BaseDistanceView
+    public class DistanceView : MonoBehaviour, IDistanceView
     {
         [field: SerializeField] public TextMeshProUGUI DistanceText { get; private set; }
 
-        public override void UpdateDistance(int value) => DistanceText.text = value.ToString();
+        public void UpdateDistance(int value) => DistanceText.text = value.ToString();
+        
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
     }
 }

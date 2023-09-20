@@ -16,12 +16,12 @@ namespace Game.Entities.Ship
     {
         private readonly GlobalEnvironment _environment;
         private readonly IShipModel _model;
-        private readonly BaseShipView _view;
+        private readonly IShipView _view;
 
         private readonly PresentersEngine _presenters = new();
         private Coroutine _immunityCoroutine;
 
-        public ShipPresenter(GlobalEnvironment environment, IShipModel model, BaseShipView view)
+        public ShipPresenter(GlobalEnvironment environment, IShipModel model, IShipView view)
         {
             _environment = environment;
             _model = model;

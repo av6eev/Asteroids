@@ -1,12 +1,13 @@
 using Game;
-using Game.Entities.Asteroids;
+using Game.Entities.Asteroids.Base;
 using Game.Entities.Ship.Base;
 using Game.Input.Base;
 using Game.Scene;
 using Global.Dialogs.Base;
 using Global.Player;
-using Global.Pulls.Base;
+using Global.Pulls.Base.PullData;
 using Global.Save;
+using Global.Scene;
 using Global.Sound;
 using Global.UI;
 using Utilities.Game;
@@ -16,7 +17,7 @@ namespace Global
 {
     public class GlobalEnvironment
     {
-        public GlobalView GlobalView { get; }
+        public GlobalSceneView GlobalView { get; }
         public SoundManager SoundManager { get; }
         public GameSceneView GameSceneView { get; set; }
 
@@ -38,7 +39,7 @@ namespace Global
         public IAsteroidsModel AsteroidsModel { get; set; }
 
         public GlobalEnvironment(GameSpecifications specifications,
-            GlobalView globalView,
+            GlobalSceneView globalView,
             IScenesManager scenesManager,
             IUpdatersEngine updatersEngine,
             IUpdatersEngine fixedUpdatersEngine,

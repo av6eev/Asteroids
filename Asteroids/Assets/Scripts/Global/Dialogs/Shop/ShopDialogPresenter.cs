@@ -1,4 +1,5 @@
-﻿using Global.Dialogs.Shop.Card;
+﻿using Global.Dialogs.Shop.Base;
+using Global.Dialogs.Shop.Card;
 using UnityEngine;
 using Utilities.Engines;
 using Utilities.Interfaces;
@@ -9,11 +10,11 @@ namespace Global.Dialogs.Shop
     {
         private readonly GlobalEnvironment _environment;
         private readonly ShopDialogModel _model;
-        private readonly ShopDialogView _view;
+        private readonly IShopDialogView _view;
 
         private readonly PresentersEngine _cardsPresenters = new();
 
-        public ShopDialogPresenter(GlobalEnvironment environment, ShopDialogModel model, ShopDialogView view)
+        public ShopDialogPresenter(GlobalEnvironment environment, ShopDialogModel model, IShopDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -22,8 +23,10 @@ namespace Global.Dialogs.Shop
         
         public void Activate()
         {
-            _view.ChangeVisibility(false);
-            _view.ExitButton.onClick.AddListener(Hide);
+            _view.Hide();
+            _view.InitializeButtonsSubscriptions();
+            
+            _view.OnExitClicked += Hide;
             
             _model.OnShow += Show;
             _model.OnHide += Hide;
@@ -38,7 +41,8 @@ namespace Global.Dialogs.Shop
             _cardsPresenters.Deactivate();
             _cardsPresenters.Clear();
             
-            _view.ExitButton.onClick.RemoveListener(Hide);
+            _view.OnExitClicked -= Hide;
+            _view.DisposeButtonsSubscriptions();
             
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
@@ -87,7 +91,7 @@ namespace Global.Dialogs.Shop
             
             _cardsPresenters.Activate();
             _model.Cards.Find(card => card.Id == _environment.GlobalUIModel.SelectedShipId).Show();
-            _view.ChangeVisibility(true);
+            _view.Show();
         }
 
         private void Hide()
@@ -98,10 +102,9 @@ namespace Global.Dialogs.Shop
             _model.Cards.Clear();
             
             _view.DestroyCards();
-            _view.ChangeVisibility(false);
+            _view.Hide();
             
-            _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
-            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
+            _environment.GlobalView.GlobalUIView.ShowDecorationElements();
         }
     }
 }

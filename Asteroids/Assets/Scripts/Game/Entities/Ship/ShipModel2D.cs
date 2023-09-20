@@ -10,7 +10,7 @@ namespace Game.Entities.Ship
 
         public ShipModel2D(IShipModel shipModel) : base(shipModel) {}
 
-        public override BaseShipView GetViewInSpecification() => Specification.Prefab2D;
+        public override IShipView GetViewInSpecification() => Specification.Prefab2D;
 
         public override float GetMainCoordinate() => MoveModel.Position.y;
 

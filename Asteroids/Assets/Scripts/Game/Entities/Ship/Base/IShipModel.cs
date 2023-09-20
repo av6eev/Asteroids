@@ -19,7 +19,7 @@ namespace Game.Entities.Ship.Base
 
         void Shoot();
         void UpdateImmuneState(bool state);
-        BaseShipView GetViewInSpecification();
+        IShipView GetViewInSpecification();
         float GetMainCoordinate();
     }
 }

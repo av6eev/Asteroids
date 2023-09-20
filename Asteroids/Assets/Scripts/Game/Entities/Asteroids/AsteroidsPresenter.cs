@@ -2,12 +2,12 @@
 using System.Linq;
 using Game.Entities.Asteroids.Asteroid;
 using Game.Entities.Asteroids.Asteroid.Base;
+using Game.Entities.Asteroids.Base;
 using Game.Factories.Asteroid;
 using Game.Factories.Asteroid.Base;
 using Global;
 using Specifications.Asteroids;
 using Specifications.GameDifficulties;
-using UnityEngine;
 using Utilities.Engines;
 using Utilities.Enums;
 using Utilities.Interfaces;
@@ -71,7 +71,7 @@ namespace Game.Entities.Asteroids
 
         private void RecreateActiveAsteroids()
         {
-            var tempAsteroidsList = new Dictionary<IAsteroidModel, BaseAsteroidView>();
+            var tempAsteroidsList = new Dictionary<IAsteroidModel, IAsteroidView>();
             
             _isPaused = true;
 
@@ -79,7 +79,7 @@ namespace Game.Entities.Asteroids
             {
                 var asteroidsPull3D = _environment.PullsData.AsteroidsPulls3D[asteroid.Key.Specification.Type];
                 var asteroidsPull2D = _environment.PullsData.AsteroidsPulls2D[asteroid.Key.Specification.Type];
-                BaseAsteroidView newView = null;
+                IAsteroidView newView = null;
                 
                 _asteroidsPresenters[asteroid.Key].Deactivate();
                 
@@ -157,7 +157,7 @@ namespace Game.Entities.Asteroids
 
         private void CreateAsteroid(AsteroidSpecification specification, float horizontalPosition, float forwardPosition)
         {
-            BaseAsteroidView view = null;
+            IAsteroidView view = null;
             
             switch (_environment.GameModel.CurrentDimension)
             {

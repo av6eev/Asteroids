@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Global.Dialogs.History.Base;
 using Global.Save;
 using Utilities.Interfaces;
 
@@ -8,9 +9,9 @@ namespace Global.Dialogs.History
     {
         private readonly GlobalEnvironment _environment;
         private readonly HistoryDialogModel _model;
-        private readonly HistoryDialogView _view;
+        private readonly IHistoryDialogView _view;
 
-        public HistoryDialogPresenter(GlobalEnvironment environment, HistoryDialogModel model, HistoryDialogView view)
+        public HistoryDialogPresenter(GlobalEnvironment environment, HistoryDialogModel model, IHistoryDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -19,8 +20,10 @@ namespace Global.Dialogs.History
         
         public void Activate()
         {
-            _view.ChangeVisibility(false);
-            _view.ExitButton.onClick.AddListener(Hide);
+            _view.Hide();
+            _view.InitializeButtonsSubscriptions();
+            
+            _view.OnExitClicked += Hide;
 
             _model.OnShow += Show;
             _model.OnHide += Hide;
@@ -31,7 +34,8 @@ namespace Global.Dialogs.History
 
         public void Deactivate()
         {
-            _view.ExitButton.onClick.RemoveListener(Hide);
+            _view.OnExitClicked -= Hide;
+            _view.DisposeButtonsSubscriptions();
 
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
@@ -47,15 +51,13 @@ namespace Global.Dialogs.History
         private void Show()
         {
             _view.SetScores(_model.GetScores());
-            _view.ChangeVisibility(true);
+            _view.Show();
         }
 
         private void Hide()
         {
-            _view.ChangeVisibility(false);
-            
-            _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
-            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
+            _view.Hide();
+            _environment.GlobalView.GlobalUIView.ShowDecorationElements();
         }
     }
 }

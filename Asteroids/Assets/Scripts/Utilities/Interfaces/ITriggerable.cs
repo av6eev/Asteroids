@@ -1,12 +1,10 @@
 ﻿using System;
-using Global.Pulls.Base;
-using UnityEngine;
+using Global.Pulls.Base.PullElement;
 
 namespace Utilities.Interfaces
 {
     public interface ITriggerable
     {
-        event Action<string, BasePullElementView> OnTriggered;
-        void OnTriggerEnter(Collider other);
+        event Action<string, IPullElementView> OnTriggered;
     }
 }

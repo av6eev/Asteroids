@@ -1,4 +1,6 @@
-﻿using Game.Entities.Bullet.Base;
+﻿using System;
+using Game.Entities.Asteroids.Asteroid.Base;
+using Game.Entities.Bullet.Base;
 using Global.Pulls.ParticleSystem.Hit;
 using UnityEngine;
 
@@ -6,19 +8,27 @@ namespace Game.Entities.Bullet
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(BoxCollider2D))]
-    public class BulletView2D : BaseBulletView
+    public class BulletView2D : MonoBehaviour, IBulletView
     {
-        [field: SerializeField] public Rigidbody2D Rigidbody { get; private set; }
-        [field: SerializeField] public override float Speed { get; set; }
-        [field: SerializeField] public override int Health { get; set; }
-        [field: SerializeField] public override int Damage { get; set; }
-        [field: SerializeField] public override HitPullView HitEffect { get; set; }
+        public event Action<IAsteroidModel> OnBumped;
         
-        public override Vector3 Move(float deltaTime)
+        [field: SerializeField] public Rigidbody2D Rigidbody { get; private set; }
+        [field: SerializeField] public float Speed { get; private set; }
+        [field: SerializeField] public int Health { get; private set; }
+        [field: SerializeField] public int Damage { get; private set; }
+        [field: SerializeField] public HitView HitEffect { get; private set; }
+        
+        public Vector3 Move(float deltaTime)
         {
             Rigidbody.velocity = new Vector2(0, Speed);
             
             return transform.position;
         }
+
+        public void SetCurrentPosition(Vector3 position) => transform.position = position;
+
+        public void Bump(IAsteroidModel model) => OnBumped?.Invoke(model);
+
+        public void ChangeVisibility(bool state) => gameObject.SetActive(state);
     }
 }

@@ -46,7 +46,7 @@ namespace Game.Entities.Ship.Base
 
         public virtual void UpdateImmuneState(bool state) => IsImmune = state;
 
-        public abstract BaseShipView GetViewInSpecification();
+        public abstract IShipView GetViewInSpecification();
 
         public virtual void ApplyDamage(int damage)
         {

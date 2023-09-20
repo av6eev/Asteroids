@@ -115,7 +115,7 @@ namespace Game.Entities.Ship.Shoot
 
             _model.IsReadyToShoot = false;
 
-            BaseBulletView view = null;
+            IBulletView view = null;
             
             switch (_environment.GameModel.CurrentDimension)
             {

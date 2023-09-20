@@ -3,6 +3,7 @@ using Game.Input.Base;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities.FireButton;
+using Utilities.Joystick;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 using Utilities.Joystick.Base;
 
@@ -11,25 +12,27 @@ namespace Game.Input.Android
     public class AndroidInputView : BaseInputView
     {
         [field: SerializeField] public override PlayerInput PlayerInput { get; set; }
-        [field: NonSerialized] public BaseJoystickView Joystick { get; private set; }
-        [field: NonSerialized] public BaseFireButtonView FireButton { get; private set; }
+        [field: NonSerialized] public IJoystickView Joystick { get; private set; }
+        [field: NonSerialized] public IFireButtonView FireButton { get; private set; }
 
         public void Initialize(Transform joystickParent)
         {
-            Joystick = Instantiate(Resources.Load<BaseJoystickView>("UI/Joystick/Floating Joystick"), joystickParent);
-            FireButton = Instantiate(Resources.Load<BaseFireButtonView>("UI/FireButton/FireBtn"), joystickParent);
+            Joystick = Instantiate(Resources.Load<FloatingJoystickView>("UI/Joystick/Floating Joystick"), joystickParent);
+            FireButton = Instantiate(Resources.Load<FireButtonView>("UI/FireButton/FireBtn"), joystickParent);
             
-            ChangeJoystickVisibility(false);
+            Joystick.Hide();
         }
-
-        public void ChangeJoystickVisibility(bool state) => Joystick.ChangeVisibility(state);
-
-        public void SetupJoystickPosition(Vector2 newPosition) => Joystick.RectTransform.position = newPosition;
 
         public void Dispose()
         {
-            Destroy(Joystick.gameObject);
-            Destroy(FireButton.gameObject);
+            Destroy(((MonoBehaviour)Joystick).gameObject);
+            Destroy(((MonoBehaviour)FireButton).gameObject);
         }
+
+        public void SetupJoystickPosition(Vector2 newPosition) => Joystick.RectTransform.position = newPosition;
+
+        public override void Show() => gameObject.SetActive(true);
+
+        public override void Hide() => gameObject.SetActive(false);
     }
 }

@@ -40,7 +40,7 @@ namespace Game.Entities.Ship.Shoot
         public bool IsAutomatic { get; }
         public int BulletDamage { get; }
 
-        private Dictionary<IBulletModel, BaseBulletView> ActiveBullets { get; } = new();
+        private Dictionary<IBulletModel, IBulletView> ActiveBullets { get; } = new();
 
         public ShipShootModel(ShipSpecification specification)
         {
@@ -59,16 +59,16 @@ namespace Game.Entities.Ship.Shoot
 
         public void DestroyBullet(IBulletModel model) => OnBulletDestroyed?.Invoke(model);
 
-        public Dictionary<IBulletModel, BaseBulletView> GetActiveBullets() => ActiveBullets;
+        public Dictionary<IBulletModel, IBulletView> GetActiveBullets() => ActiveBullets;
 
         public void ResetActiveBullets() => ActiveBullets.Clear();
         
-        public void AddActiveBullet(IBulletModel model, BaseBulletView view3D) => ActiveBullets.Add(model, view3D);
+        public void AddActiveBullet(IBulletModel model, IBulletView view3D) => ActiveBullets.Add(model, view3D);
 
         public void RemoveActiveBullet(IBulletModel model) => ActiveBullets.Remove(model);
 
-        public BaseBulletView GetByKey(IBulletModel model) => ActiveBullets[model];
+        public IBulletView GetByKey(IBulletModel model) => ActiveBullets[model];
 
-        public IBulletModel GetByValue(BaseBulletView view) => !ActiveBullets.ContainsValue(view) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
+        public IBulletModel GetByValue(IBulletView view) => !ActiveBullets.ContainsValue(view) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
     }
 }

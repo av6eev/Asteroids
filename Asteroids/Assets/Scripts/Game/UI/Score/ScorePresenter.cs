@@ -9,9 +9,9 @@ namespace Game.UI.Score
     public class ScorePresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly BaseScoreView _view;
+        private readonly IScoreView _view;
 
-        public ScorePresenter(GlobalEnvironment environment, BaseScoreView view)
+        public ScorePresenter(GlobalEnvironment environment, IScoreView view)
         {
             _environment = environment;
             _view = view;

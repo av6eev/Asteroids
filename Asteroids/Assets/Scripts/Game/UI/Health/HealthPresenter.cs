@@ -7,9 +7,9 @@ namespace Game.UI.Health
     public class HealthPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly BaseHealthView _view;
+        private readonly IHealthView _view;
 
-        public HealthPresenter(GlobalEnvironment environment, BaseHealthView view)
+        public HealthPresenter(GlobalEnvironment environment, IHealthView view)
         {
             _environment = environment;
             _view = view;

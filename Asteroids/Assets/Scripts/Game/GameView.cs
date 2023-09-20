@@ -20,23 +20,21 @@ namespace Game
         [field: SerializeField] public HitsPullView HitsPullView { get; private set; }
         [field: SerializeField] public List<AsteroidsPullView3D> AsteroidsPullView3D { get; private set; }
         [field: SerializeField] public List<AsteroidsPullView2D> AsteroidsPullView2D { get; private set; }
-        [field: NonSerialized] public BaseShipView CurrentShip { get; private set; }
+        [field: NonSerialized] public IShipView CurrentShip { get; private set; }
         
-        public BaseShipView InstantiateShip(BaseShipView shipPrefab)
+        public IShipView InstantiateShip(IShipView shipPrefab)
         {
-            var go = Instantiate(shipPrefab, ShipSpawnPoint.position, shipPrefab.transform.rotation);
-            go.transform.SetParent(ShipSpawnPoint);
+            var go = (IShipView)Instantiate((UnityEngine.Object)shipPrefab, ShipSpawnPoint);
             CurrentShip = go;
             
             return go;
         }
 
-        public BaseShipView RedrawShip(BaseShipView shipPrefab, Vector3 newPosition)
+        public IShipView RedrawShip(IShipView shipPrefab, Vector3 newPosition)
         {
             DestroyShip();
 
-            var go = Instantiate(shipPrefab, newPosition, shipPrefab.transform.rotation);
-            go.transform.SetParent(ShipSpawnPoint);
+            var go = (IShipView)Instantiate((UnityEngine.Object)shipPrefab, newPosition, Quaternion.identity, ShipSpawnPoint);
             CurrentShip = go;
             
             return go;
@@ -82,6 +80,6 @@ namespace Game
             }
         }
 
-        public void DestroyShip() => Destroy(CurrentShip.gameObject);
+        public void DestroyShip() => Destroy(((MonoBehaviour)CurrentShip).gameObject);
     }
 }

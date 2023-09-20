@@ -1,7 +1,6 @@
 ﻿using Game.Input.Base;
 using Global;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
@@ -83,7 +82,7 @@ namespace Game.Input.Android
             _movementAmount = Vector2.zero;
             _movementFinger = finger;
             
-            _view.ChangeJoystickVisibility(true);
+            _view.Joystick.Show();
             _view.SetupJoystickPosition(ClampJoystickPosition(finger.screenPosition));
         }
 
@@ -97,7 +96,7 @@ namespace Game.Input.Android
             _movementAmount = Vector2.zero;
             
             _view.Joystick.Knob.anchoredPosition = Vector2.zero;
-            _view.ChangeJoystickVisibility(false);
+            _view.Joystick.Hide();
         }
 
         private void HandleFingerMove(Finger finger)

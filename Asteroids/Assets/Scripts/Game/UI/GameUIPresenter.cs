@@ -1,11 +1,11 @@
-﻿using Game.UI.Difficulty;
+﻿using Game.UI.Base;
+using Game.UI.Difficulty;
 using Game.UI.Distance;
 using Game.UI.EndScreen;
 using Game.UI.Health;
 using Game.UI.Money;
 using Game.UI.Score;
 using Global;
-using UnityEngine;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -14,12 +14,12 @@ namespace Game.UI
     public class GameUIPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly GameUIView _view;
+        private readonly IGameUIView _view;
 
         private readonly PresentersEngine _presenters = new();
         private int _cameraChangeCounter;
         
-        public GameUIPresenter(GlobalEnvironment environment, GameUIView view)
+        public GameUIPresenter(GlobalEnvironment environment, IGameUIView view)
         {
             _environment = environment;
             _view = view;
@@ -27,11 +27,10 @@ namespace Game.UI
         
         public void Activate()
         {
-            _view.EndScreenView.ChangeVisibility(false);
-            
             CreateNecessaryData();
             
-            _view.ChangeCameraButton.onClick.AddListener(ChangeCameraView);
+            _view.InitializeButtonsSubscriptions();
+            _view.OnCameraChanged += ChangeCameraView;
 
             _environment.GameModel.OnEnded += HideElements;
         }
@@ -41,7 +40,8 @@ namespace Game.UI
             _presenters.Deactivate();
             _presenters.Clear();
             
-            _view.ChangeCameraButton.onClick.RemoveListener(ChangeCameraView);
+            _view.OnCameraChanged -= ChangeCameraView;
+            _view.DisposeButtonsSubscriptions();
             
             _environment.GameModel.OnEnded -= HideElements;
         }

@@ -13,7 +13,7 @@ using Global;
 using Global.Dialogs.History;
 using Global.Factories.Requirement;
 using Global.Factories.Requirement.Base;
-using Global.Pulls.Base;
+using Global.Pulls;
 using Global.Requirements.Base;
 using Global.Sound;
 using UnityEngine;
@@ -115,7 +115,7 @@ namespace Game
         private void Close()
         {
             _environment.ScenesManager.UnloadScene(ScenesNames.GameScene);            
-            _view.GameUIView.ChangeVisibility(false);
+            _view.GameUIView.Hide();
         }
 
         private void Save()

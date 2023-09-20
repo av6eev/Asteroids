@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using Global.Pulls.Base.PullElement;
 
 namespace Global.Pulls.Base
 {
-    public abstract class BasePull<TElementView> : IEntityPull<TElementView> where TElementView : BasePullElementView
+    public abstract class BasePull<TElementView> : IEntityPull<TElementView> where TElementView : IPullElementView
     {
         private readonly Queue<TElementView> _elements = new();
-        private BasePullView<TElementView> _pullView;
+        private IPullView<TElementView> _pullView;
 
-        public virtual void CreatePull(BasePullView<TElementView> view)
+        public virtual void CreatePull(IPullView<TElementView> view)
         {
             _pullView = view;
             
@@ -46,11 +47,11 @@ namespace Global.Pulls.Base
         }
     }
 
-    public interface IEntityPull<TElementView> where TElementView : BasePullElementView
+    public interface IEntityPull<TElementView> where TElementView : IPullElementView
     {
         void Dispose();
         void PutBack(TElementView elementView);
         TElementView TryGetElement();
-        void CreatePull(BasePullView<TElementView> view);
+        void CreatePull(IPullView<TElementView> view);
     }
 }

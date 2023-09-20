@@ -1,7 +1,6 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global;
-using Global.Pulls.ParticleSystem.Hit;
 using Global.Sound;
 using Utilities.Interfaces;
 
@@ -11,11 +10,9 @@ namespace Game.Entities.Bullet
     {
         private readonly GlobalEnvironment _environment;
         private readonly IBulletModel _model;
-        private readonly BaseBulletView _view;
+        private readonly IBulletView _view;
 
-        private HitPullView _hit;
-
-        public BulletPresenter(GlobalEnvironment environment, IBulletModel model, BaseBulletView view)
+        public BulletPresenter(GlobalEnvironment environment, IBulletModel model, IBulletView view)
         {
             _environment = environment;
             _model = model;
@@ -66,10 +63,10 @@ namespace Game.Entities.Bullet
                 hitsPull.LastActiveHit = null;
             }
 
-            _hit = hitsPull.TryGetElement();
-            _hit.transform.position = _view.transform.position;
-
-            hitsPull.LastActiveHit = _hit;
+            var hit = hitsPull.TryGetElement();
+            hit.transform.position = _model.Position;
+            
+            hitsPull.LastActiveHit = hit;
         }
     }
 }

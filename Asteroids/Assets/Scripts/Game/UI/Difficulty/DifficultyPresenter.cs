@@ -8,9 +8,9 @@ namespace Game.UI.Difficulty
     public class DifficultyPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly BaseDifficultyView _view;
+        private readonly IDifficultyView _view;
 
-        public DifficultyPresenter(GlobalEnvironment environment, BaseDifficultyView view)
+        public DifficultyPresenter(GlobalEnvironment environment, IDifficultyView view)
         {
             _environment = environment;
             _view = view;
