@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Global.Save
+namespace Global.Save.Base
 {
     public interface ISaveModel
     {

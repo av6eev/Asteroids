@@ -1,7 +1,7 @@
 ﻿using System;
 using Utilities.Interfaces;
 
-namespace Global.Player
+namespace Global.Player.Base
 {
     public interface IPlayerModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Utilities.Interfaces;
 
-namespace Global.UI
+namespace Global.UI.Base
 {
     public interface IGlobalUIView : IUIView, ISubscriptionableUI
     {

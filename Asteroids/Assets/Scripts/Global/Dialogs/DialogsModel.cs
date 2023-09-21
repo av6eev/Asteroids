@@ -3,7 +3,6 @@ using System.Linq;
 using Global.Dialogs.Base;
 using Global.Dialogs.History;
 using Global.Dialogs.Shop;
-using Utilities.Game;
 
 namespace Global.Dialogs
 {
@@ -11,9 +10,9 @@ namespace Global.Dialogs
     {
         private readonly List<IGlobalDialogModel> _dialogs = new();
         
-        public DialogsModel(GameSpecifications specifications)
+        public DialogsModel()
         {
-            Add(new ShopDialogModel(specifications.Ships));
+            Add(new ShopDialogModel());
             Add(new HistoryDialogModel());
         }
 

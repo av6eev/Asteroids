@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Entities.Ship;
+using Global.UI.Base;
 
 namespace Global.UI
 {

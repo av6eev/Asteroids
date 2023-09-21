@@ -1,4 +1,5 @@
 using System;
+using Global.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,11 @@ namespace Global.UI
             PlayButton.onClick.AddListener(() => { OnPlayClicked?.Invoke(); });
             ShopButton.onClick.AddListener(() => { OnShopClicked?.Invoke(); });
             HistoryButton.onClick.AddListener(() => { OnHistoryClicked?.Invoke(); });
-            ExitButton.onClick.AddListener(() => { OnExitClicked?.Invoke(); });
+            ExitButton.onClick.AddListener(() =>
+            {
+                OnExitClicked?.Invoke();
+                Application.Quit();
+            });
         }
 
         public void DisposeButtonsSubscriptions()
@@ -28,7 +33,11 @@ namespace Global.UI
             PlayButton.onClick.RemoveListener(() => { OnPlayClicked?.Invoke(); });
             ShopButton.onClick.RemoveListener(() => { OnShopClicked?.Invoke(); });
             HistoryButton.onClick.RemoveListener(() => { OnHistoryClicked?.Invoke(); });
-            ExitButton.onClick.RemoveListener(() => { OnExitClicked?.Invoke(); });
+            ExitButton.onClick.RemoveListener(() =>
+            {
+                OnExitClicked?.Invoke();
+                Application.Quit();
+            });
         }
 
         public void HideDecorationElements()

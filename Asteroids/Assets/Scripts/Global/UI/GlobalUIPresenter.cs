@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Ship;
-using Global.Dialogs.History;
-using Global.Dialogs.Shop;
+using Global.Dialogs.History.Base;
+using Global.Dialogs.Shop.Base;
 using Global.Factories.Requirement;
 using Global.Requirements.Base;
 using Global.Save;
-using UnityEngine;
+using Global.UI.Base;
 using Utilities.Engines;
 using Utilities.Enums;
 using Utilities.Interfaces;
@@ -61,14 +61,14 @@ namespace Global.UI
         {
             _view.HideDecorationElements();
             
-            _environment.DialogsModel.GetByType<ShopDialogModel>().Show();
+            _environment.DialogsModel.GetByType<IShopDialogModel>().Show();
         }
 
         private void OpenHistoryMenu()
         {
             _view.HideDecorationElements();
             
-            _environment.DialogsModel.GetByType<HistoryDialogModel>().Show();
+            _environment.DialogsModel.GetByType<IHistoryDialogModel>().Show();
         }
 
         private void StartGame()
@@ -99,10 +99,6 @@ namespace Global.UI
             _requirementsPresenters.Activate();
         }
         
-        private void CloseGame()
-        {
-            _environment.SaveModel.Save();
-            Application.Quit();
-        }
+        private void CloseGame() => _environment.SaveModel.Save();
     }
 }

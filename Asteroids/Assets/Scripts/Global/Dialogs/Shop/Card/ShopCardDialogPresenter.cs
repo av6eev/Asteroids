@@ -1,4 +1,5 @@
-﻿using Global.Dialogs.Shop.Card.Base;
+﻿using Global.Dialogs.Shop.Base;
+using Global.Dialogs.Shop.Card.Base;
 using Utilities.Interfaces;
 
 namespace Global.Dialogs.Shop.Card
@@ -6,10 +7,10 @@ namespace Global.Dialogs.Shop.Card
     public class ShopCardDialogPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly ShopCardDialogModel _model;
+        private readonly IShopCardDialogModel _model;
         private readonly IShopCardDialogView _view;
 
-        public ShopCardDialogPresenter(GlobalEnvironment environment, ShopCardDialogModel model, IShopCardDialogView view)
+        public ShopCardDialogPresenter(GlobalEnvironment environment, IShopCardDialogModel model, IShopCardDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -53,14 +54,14 @@ namespace Global.Dialogs.Shop.Card
         private void SelectShip()
         {
             _environment.GlobalUIModel.SetSelectedShip(_model.Id);
-            _environment.DialogsModel.GetByType<ShopDialogModel>().Hide();
+            _environment.DialogsModel.GetByType<IShopDialogModel>().Hide();
         }
 
-        private void BuyShip() => _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification);
+        private void BuyShip() => _environment.DialogsModel.GetByType<IShopDialogModel>().BuyShip(_model.ShipType);
 
-        private void ShowPreviousCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
+        private void ShowPreviousCard() => _environment.DialogsModel.GetByType<IShopDialogModel>().ChangeActiveCard(-1);
 
-        private void ShowNextCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(1);
+        private void ShowNextCard() => _environment.DialogsModel.GetByType<IShopDialogModel>().ChangeActiveCard(1);
 
         private void Show()
         {

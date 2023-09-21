@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Game.Entities.Ship;
 
-namespace Global.UI
+namespace Global.UI.Base
 {
     public interface IGlobalUIModel
     {

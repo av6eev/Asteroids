@@ -10,7 +10,7 @@ using Game.Input;
 using Game.Scene;
 using Game.UI;
 using Global;
-using Global.Dialogs.History;
+using Global.Dialogs.History.Base;
 using Global.Factories.Requirement;
 using Global.Factories.Requirement.Base;
 using Global.Pulls;
@@ -122,7 +122,7 @@ namespace Game
         {
             _environment.SoundManager.Reset();
             
-            _environment.DialogsModel.GetByType<HistoryDialogModel>().AddScore(_model.CurrentScore);
+            _environment.DialogsModel.GetByType<IHistoryDialogModel>().AddScore(_model.CurrentScore);
             _environment.PlayerModel.IncreaseMoney(_model.CalculateGainedMoney());
             
             DeactivateUnnecessaryData();

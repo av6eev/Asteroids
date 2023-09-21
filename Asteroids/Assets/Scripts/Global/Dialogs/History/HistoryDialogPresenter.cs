@@ -8,10 +8,10 @@ namespace Global.Dialogs.History
     public class HistoryDialogPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly HistoryDialogModel _model;
+        private readonly IHistoryDialogModel _model;
         private readonly IHistoryDialogView _view;
 
-        public HistoryDialogPresenter(GlobalEnvironment environment, HistoryDialogModel model, IHistoryDialogView view)
+        public HistoryDialogPresenter(GlobalEnvironment environment, IHistoryDialogModel model, IHistoryDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -57,7 +57,7 @@ namespace Global.Dialogs.History
         private void Hide()
         {
             _view.Hide();
-            _environment.GlobalView.GlobalUIView.ShowDecorationElements();
+            _environment.GlobalSceneView.GlobalUIView.ShowDecorationElements();
         }
     }
 }

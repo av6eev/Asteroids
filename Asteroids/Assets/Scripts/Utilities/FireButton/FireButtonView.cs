@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Utilities.FireButton
 {
-    public class FireButtonView : MonoBehaviour, IFireButtonView
+    public class FireButtonView : MonoBehaviour, IFireButtonView, IPointerDownHandler, IPointerUpHandler
     {
         public event Action OnDown;
         public event Action OnUp;

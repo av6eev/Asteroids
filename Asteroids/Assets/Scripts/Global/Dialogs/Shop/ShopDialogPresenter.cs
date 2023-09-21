@@ -1,6 +1,5 @@
 ﻿using Global.Dialogs.Shop.Base;
 using Global.Dialogs.Shop.Card;
-using UnityEngine;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -9,12 +8,12 @@ namespace Global.Dialogs.Shop
     public class ShopDialogPresenter : IPresenter
     {
         private readonly GlobalEnvironment _environment;
-        private readonly ShopDialogModel _model;
+        private readonly IShopDialogModel _model;
         private readonly IShopDialogView _view;
 
         private readonly PresentersEngine _cardsPresenters = new();
 
-        public ShopDialogPresenter(GlobalEnvironment environment, ShopDialogModel model, IShopDialogView view)
+        public ShopDialogPresenter(GlobalEnvironment environment, IShopDialogModel model, IShopDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -70,19 +69,15 @@ namespace Global.Dialogs.Shop
                 activeCard.Hide();
                 nextCard.Show();    
             }
-            else
-            {
-                Debug.Log("Next/previous card isn't exist");
-            }
         }
 
         private void Show()
         {
-            foreach (var specification in _model.ShipSpecifications)
+            foreach (var specification in _environment.Specifications.Ships)
             {
                 if (!_environment.GlobalUIModel.AvailableShips.TryGetValue(specification.Key, out var isPurchased)) continue;
                 
-                var model = new ShopCardDialogModel(specification.Value, isPurchased);
+                var model = new ShopCardDialogModel(specification.Value.Type, specification.Value.Id, isPurchased);
                 var presenter = new ShopCardDialogPresenter(_environment, model, _view.InstantiateCard(specification.Value));
                 
                 _model.Cards.Add(model);
@@ -104,7 +99,7 @@ namespace Global.Dialogs.Shop
             _view.DestroyCards();
             _view.Hide();
             
-            _environment.GlobalView.GlobalUIView.ShowDecorationElements();
+            _environment.GlobalSceneView.GlobalUIView.ShowDecorationElements();
         }
     }
 }

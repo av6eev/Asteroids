@@ -1,5 +1,5 @@
-﻿using Global.Dialogs.History;
-using UnityEngine;
+﻿using Global.Dialogs.History.Base;
+using Global.Save.Base;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -38,7 +38,7 @@ namespace Global.Save
         private void SaveGame()
         {
             _model.SaveElement(SavingElementsKeys.PlayerMoney, _environment.PlayerModel.Money);
-            _model.SaveElement(SavingElementsKeys.ScoresHistory, _environment.DialogsModel.GetByType<HistoryDialogModel>().GetScores());
+            _model.SaveElement(SavingElementsKeys.ScoresHistory, _environment.DialogsModel.GetByType<IHistoryDialogModel>().GetScores());
 
             foreach (var requirement in _environment.Specifications.Requirements)
             {
@@ -49,8 +49,6 @@ namespace Global.Save
             {
                 _model.SaveElement(reward.Key, reward.Value.IsCompleted ? SavingElementsKeys.Completed : SavingElementsKeys.Uncompleted);
             }
-            
-            PlayerPrefs.Save();
         }
 
         private void SaveCurrentShip(int shipId) => _model.SaveElement(SavingElementsKeys.SelectedShip, shipId);

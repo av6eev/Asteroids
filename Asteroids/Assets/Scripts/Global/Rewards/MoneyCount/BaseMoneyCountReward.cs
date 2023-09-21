@@ -1,4 +1,4 @@
-﻿using Global.Dialogs.Shop;
+﻿using Global.Dialogs.Shop.Base;
 using Global.Rewards.Base;
 
 namespace Global.Rewards.MoneyCount
@@ -11,11 +11,11 @@ namespace Global.Rewards.MoneyCount
         {
             IsCompleted = true;
             
-            var activeShipCard = environment.DialogsModel.GetByType<ShopDialogModel>().ActiveCard;
+            var activeShipCard = environment.DialogsModel.GetByType<IShopDialogModel>().ActiveCard;
             
             environment.GlobalUIModel.SetSelectedShip(activeShipCard.Id);
-            environment.GlobalUIModel.UpdateAvailableShips(activeShipCard.ShipSpecification.Type, true);
-            environment.DialogsModel.GetByType<ShopDialogModel>().Redraw(activeShipCard.Id);
+            environment.GlobalUIModel.UpdateAvailableShips(activeShipCard.ShipType, true);
+            environment.DialogsModel.GetByType<IShopDialogModel>().Redraw(activeShipCard.Id);
         }
     }
 }

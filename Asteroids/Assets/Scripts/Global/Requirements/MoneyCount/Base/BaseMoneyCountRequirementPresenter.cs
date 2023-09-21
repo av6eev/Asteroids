@@ -1,6 +1,6 @@
-﻿using Global.Dialogs.Shop;
+﻿using Game.Entities.Ship;
+using Global.Dialogs.Shop.Base;
 using Global.Requirements.Base;
-using Specifications.Ships;
 using Utilities.Interfaces;
 
 namespace Global.Requirements.MoneyCount.Base
@@ -16,13 +16,13 @@ namespace Global.Requirements.MoneyCount.Base
             _model = (T) model;
         }
         
-        public void Activate() => _environment.DialogsModel.GetByType<ShopDialogModel>().OnShipBought += CheckRequirement;
+        public void Activate() => _environment.DialogsModel.GetByType<IShopDialogModel>().OnShipBought += CheckRequirement;
 
-        public void Deactivate() => _environment.DialogsModel.GetByType<ShopDialogModel>().OnShipBought -= CheckRequirement;
+        public void Deactivate() => _environment.DialogsModel.GetByType<IShopDialogModel>().OnShipBought -= CheckRequirement;
 
-        private void CheckRequirement(ShipSpecification specification)
+        private void CheckRequirement(ShipsTypes type)
         {
-            if (_model.ShipType != specification.Type) return;
+            if (_model.ShipType != type) return;
             
             _model.Check(_environment);
         }

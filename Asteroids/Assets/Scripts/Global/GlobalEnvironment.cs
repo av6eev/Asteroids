@@ -4,12 +4,12 @@ using Game.Entities.Ship.Base;
 using Game.Input.Base;
 using Game.Scene;
 using Global.Dialogs.Base;
-using Global.Player;
+using Global.Player.Base;
 using Global.Pulls.Base.PullData;
-using Global.Save;
+using Global.Save.Base;
 using Global.Scene;
 using Global.Sound;
-using Global.UI;
+using Global.UI.Base;
 using Utilities.Game;
 using Utilities.Interfaces;
 
@@ -17,7 +17,7 @@ namespace Global
 {
     public class GlobalEnvironment
     {
-        public GlobalSceneView GlobalView { get; }
+        public GlobalSceneView GlobalSceneView { get; }
         public SoundManager SoundManager { get; }
         public GameSceneView GameSceneView { get; set; }
 
@@ -49,7 +49,7 @@ namespace Global
             IPlayerModel playerModel)
         {
             Specifications = specifications;
-            GlobalView = globalView;
+            GlobalSceneView = globalView;
             ScenesManager = scenesManager;
             UpdatersEngine = updatersEngine;
             FixedUpdatersEngine = fixedUpdatersEngine;

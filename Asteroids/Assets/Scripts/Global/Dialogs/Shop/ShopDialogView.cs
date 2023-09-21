@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Global.Dialogs.Shop.Base;
 using Global.Dialogs.Shop.Card;
+using Global.Dialogs.Shop.Card.Base;
 using Specifications.Ships;
 using TMPro;
 using UnityEngine;
@@ -16,9 +17,9 @@ namespace Global.Dialogs.Shop
         [field: SerializeField] public Button ExitButton { get; private set; }
         [field: SerializeField] public TextMeshProUGUI PlayerMoneyTxt { get; private set; }
 
-        [NonSerialized] private readonly List<ShopCardDialogView> _cardsViews = new();
+        [NonSerialized] private readonly List<IShopCardDialogView> _cardsViews = new();
 
-        public ShopCardDialogView InstantiateCard(ShipSpecification specification)
+        public IShopCardDialogView InstantiateCard(ShipSpecification specification)
         {
             var cardView = Instantiate(ShopCardPrefab, transform);
 
@@ -35,7 +36,7 @@ namespace Global.Dialogs.Shop
         {
             foreach (var card in _cardsViews)
             {
-                Destroy(card.gameObject);
+                Destroy(((MonoBehaviour)card).gameObject);
             }
             
             _cardsViews.Clear();

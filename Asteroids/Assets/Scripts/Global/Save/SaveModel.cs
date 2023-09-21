@@ -1,4 +1,5 @@
 ﻿using System;
+using Global.Save.Base;
 using Newtonsoft.Json;
 using UnityEngine;
 

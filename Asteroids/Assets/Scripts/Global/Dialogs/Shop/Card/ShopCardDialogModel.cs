@@ -1,22 +1,22 @@
 ﻿using System;
-using Global.Dialogs.Base;
-using Specifications.Ships;
+using Game.Entities.Ship;
+using Global.Dialogs.Shop.Card.Base;
 
 namespace Global.Dialogs.Shop.Card
 {
-    public class ShopCardDialogModel : ISubDialogModel
+    public class ShopCardDialogModel : IShopCardDialogModel
     {
         public event Action OnShow, OnHide, OnPurchased; 
-        public ShipSpecification ShipSpecification { get; }
         public bool IsActive { get; private set; }
         public bool IsPurchased { get; private set; }
         public int Id { get; }
+        public ShipsTypes ShipType { get; }
 
-        public ShopCardDialogModel(ShipSpecification specification, bool isPurchased)
+        public ShopCardDialogModel(ShipsTypes shipType, int shipId, bool isPurchased)
         {
-            ShipSpecification = specification;
+            ShipType = shipType;
             IsPurchased = isPurchased;
-            Id = specification.Id;
+            Id = shipId;
         }
 
         public void Show()

@@ -40,7 +40,7 @@ namespace Utilities
 
                     _environment.GameModel = model;
                     _environment.GameSceneView = view;
-                    _environment.GlobalView.MainCamera.gameObject.SetActive(false);
+                    _environment.GlobalSceneView.MainCamera.gameObject.SetActive(false);
                     
                     _presenter = new GamePresenter(_environment, model, view);
                     break;
@@ -62,9 +62,9 @@ namespace Utilities
                 _presenter.Deactivate();
             }
             
-            _environment.GlobalView.GlobalUIView.Show();
-            _environment.GlobalView.EventSystem.enabled = true;
-            _environment.GlobalView.MainCamera.gameObject.SetActive(true);
+            _environment.GlobalSceneView.GlobalUIView.Show();
+            _environment.GlobalSceneView.EventSystem.enabled = true;
+            _environment.GlobalSceneView.MainCamera.gameObject.SetActive(true);
             
             _presenter = null;
         }

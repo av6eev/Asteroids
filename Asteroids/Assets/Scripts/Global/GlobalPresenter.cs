@@ -28,11 +28,12 @@ namespace Global
                 new UpdatersEngine(),
                 new TimersEngine(),
                 new GlobalUIModel(),
-                new PlayerModel());
-            
-            Environment.DialogsModel = new DialogsModel(Environment.Specifications);
-            Environment.SaveModel = new SaveModel();
-            
+                new PlayerModel())
+            {
+                DialogsModel = new DialogsModel(),
+                SaveModel = new SaveModel()
+            };
+
             GlobalPresenters.Add(new GlobalUIPresenter(Environment, Environment.GlobalUIModel, GlobalView.GlobalUIView));
             GlobalPresenters.Add(new DialogsPresenter(Environment, Environment.DialogsModel, GlobalView.DialogsView));
             GlobalPresenters.Add(new PlayerPresenter(Environment, Environment.PlayerModel));
