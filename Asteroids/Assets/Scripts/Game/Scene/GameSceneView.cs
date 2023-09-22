@@ -1,4 +1,5 @@
 using Game.Base;
+using Game.Scene.Base;
 using Game.UI;
 using Game.UI.Base;
 using UnityEngine;

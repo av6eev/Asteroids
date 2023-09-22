@@ -1,4 +1,5 @@
-﻿using Global.Pulls.ParticleSystem.Hit.Base;
+﻿using Global.Base;
+using Global.Pulls.ParticleSystem.Hit.Base;
 
 namespace Global.Factories.Pulls.Hits.Base
 {

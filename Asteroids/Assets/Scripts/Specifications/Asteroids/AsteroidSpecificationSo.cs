@@ -9,9 +9,4 @@ namespace Specifications.Asteroids
     {
         public IAsteroidSpecification Get() => Specification;
     }
-
-    public interface IAsteroidsSpecificationSo
-    {
-        IAsteroidSpecification Get();
-    }
 }

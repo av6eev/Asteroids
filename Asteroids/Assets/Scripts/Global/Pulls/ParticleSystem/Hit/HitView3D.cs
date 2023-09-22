@@ -6,7 +6,5 @@ namespace Global.Pulls.ParticleSystem.Hit
     public class HitView3D : MonoBehaviour, IHitView
     {
         public void ChangeVisibility(bool state) => gameObject.SetActive(state);
-        
-        public void SetPosition(Vector3 newPosition) => transform.position = newPosition;
     }
 }

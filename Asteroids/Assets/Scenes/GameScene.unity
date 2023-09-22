@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0011143587, g: 0.0010678372, b: 0.0010644542, a: 1}
+  m_IndirectSpecularColor: {r: 0.0011368011, g: 0.001090931, b: 0.0010773586, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1731,12 +1731,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b69cfb048245458a762c5febda2235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ScoreView>k__BackingField: {fileID: 2037855342}
-  <DistanceView>k__BackingField: {fileID: 1145567956}
-  <HealthView>k__BackingField: {fileID: 1161404989}
-  <MoneyView>k__BackingField: {fileID: 1555044657}
-  <DifficultyView>k__BackingField: {fileID: 1481676141}
-  <EndScreenView>k__BackingField: {fileID: 1485826612}
+  <ScoreViewGo>k__BackingField: {fileID: 2037855342}
+  <DistanceViewGo>k__BackingField: {fileID: 1145567956}
+  <HealthViewGo>k__BackingField: {fileID: 1161404989}
+  <MoneyViewGo>k__BackingField: {fileID: 1555044657}
+  <DifficultyViewGo>k__BackingField: {fileID: 1481676141}
+  <EndScreenViewGo>k__BackingField: {fileID: 1485826612}
   <ChangeCameraButton>k__BackingField: {fileID: 847037952}
 --- !u!1 &780888006
 GameObject:

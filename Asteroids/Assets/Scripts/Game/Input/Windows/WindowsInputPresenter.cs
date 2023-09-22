@@ -1,5 +1,6 @@
 ﻿using Game.Input.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

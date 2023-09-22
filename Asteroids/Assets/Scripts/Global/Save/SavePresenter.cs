@@ -1,4 +1,5 @@
-﻿using Global.Dialogs.History.Base;
+﻿using Global.Base;
+using Global.Dialogs.History.Base;
 using Global.Save.Base;
 using Utilities.Engines;
 using Utilities.Interfaces;

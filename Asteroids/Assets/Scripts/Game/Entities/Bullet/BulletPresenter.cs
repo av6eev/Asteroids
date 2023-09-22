@@ -1,7 +1,9 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global;
+using Global.Base;
 using Global.Sound;
+using UnityEngine;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Bullet
@@ -64,7 +66,7 @@ namespace Game.Entities.Bullet
             }
 
             var hit = hitsPull.TryGetElement();
-            hit.SetPosition(_model.Position);
+            ((MonoBehaviour)hit).transform.position = _model.Position;
             
             hitsPull.LastActiveHit = hit;
         }

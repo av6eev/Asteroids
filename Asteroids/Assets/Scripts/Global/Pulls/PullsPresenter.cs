@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Entities.Asteroids;
+using Global.Base;
 using Global.Factories.Pulls.Asteroids;
 using Global.Factories.Pulls.Asteroids.Base;
 using Global.Factories.Pulls.Bullets;

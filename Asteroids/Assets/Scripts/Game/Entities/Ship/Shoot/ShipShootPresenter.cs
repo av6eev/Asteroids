@@ -5,6 +5,7 @@ using Game.Entities.Bullet.Base;
 using Game.Factories.Bullet;
 using Game.Factories.Bullet.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 using Utilities.Enums;
 using Utilities.Game;

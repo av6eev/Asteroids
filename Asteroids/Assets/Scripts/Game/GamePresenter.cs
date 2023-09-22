@@ -10,6 +10,7 @@ using Game.Factories.Ship.Base;
 using Game.Input;
 using Game.UI;
 using Global;
+using Global.Base;
 using Global.Dialogs.History.Base;
 using Global.Factories.Requirement;
 using Global.Factories.Requirement.Base;

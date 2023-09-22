@@ -1,7 +1,7 @@
 using Game.Base;
 using Game.UI.Base;
 
-namespace Game.Scene
+namespace Game.Scene.Base
 {
     public interface IGameSceneView
     {

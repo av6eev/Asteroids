@@ -1,4 +1,5 @@
 ﻿using Global;
+using Global.Base;
 using Utilities.Enums;
 
 namespace Utilities.Interfaces

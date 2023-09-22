@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Ship;
+using Global.Base;
 using Global.Factories.Requirement.Base;
 using Global.Requirements.Base;
 using Global.Requirements.MoneyCount.Arlingham;

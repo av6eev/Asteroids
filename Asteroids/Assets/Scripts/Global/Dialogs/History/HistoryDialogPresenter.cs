@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Global.Base;
 using Global.Dialogs.History.Base;
 using Global.Save;
 using Utilities.Interfaces;

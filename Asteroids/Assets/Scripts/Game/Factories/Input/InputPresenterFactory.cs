@@ -2,6 +2,7 @@
 using Game.Input.Base;
 using Game.Input.Windows;
 using Global;
+using Global.Base;
 using UnityEngine;
 
 namespace Game.Factories.Input

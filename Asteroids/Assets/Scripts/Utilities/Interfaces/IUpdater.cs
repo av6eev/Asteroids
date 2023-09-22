@@ -1,4 +1,5 @@
 using Global;
+using Global.Base;
 
 namespace Utilities.Interfaces
 {

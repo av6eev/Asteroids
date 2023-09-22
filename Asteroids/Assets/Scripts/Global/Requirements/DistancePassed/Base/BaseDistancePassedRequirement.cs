@@ -1,5 +1,5 @@
-﻿using Global.Requirements.Base;
-using UnityEngine;
+﻿using Global.Base;
+using Global.Requirements.Base;
 
 namespace Global.Requirements.DistancePassed.Base
 {
@@ -7,8 +7,8 @@ namespace Global.Requirements.DistancePassed.Base
     {
         public bool IsCompleted { get; set; }
         public SubRequirementType SubType { get; } = SubRequirementType.DistancePassed;
-        [field: SerializeField] public string RewardName { get; set; }
-        [field: SerializeField] public int DistanceToPass { get; set; }
+        public abstract string RewardName { get; set; }
+        public abstract int DistanceToPass { get; set; }
         
         public bool Check(IGlobalEnvironment environment)
         {

@@ -2,6 +2,7 @@
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.UI.Money.Base;
 using Global;
+using Global.Base;
 using Global.Sound;
 using Utilities.Interfaces;
 

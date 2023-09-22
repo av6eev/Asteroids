@@ -1,4 +1,6 @@
-﻿namespace Global.Rewards.Base
+﻿using Global.Base;
+
+namespace Global.Rewards.Base
 {
     public interface IReward
     {

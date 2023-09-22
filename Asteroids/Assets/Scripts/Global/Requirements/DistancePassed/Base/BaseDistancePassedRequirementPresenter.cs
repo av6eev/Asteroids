@@ -1,4 +1,5 @@
-﻿using Global.Requirements.Base;
+﻿using Global.Base;
+using Global.Requirements.Base;
 using Utilities.Interfaces;
 
 namespace Global.Requirements.DistancePassed.Base

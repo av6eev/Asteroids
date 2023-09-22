@@ -2,6 +2,7 @@
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.UI.Score.Base;
 using Global;
+using Global.Base;
 using Utilities.Interfaces;
 
 namespace Game.UI.Score

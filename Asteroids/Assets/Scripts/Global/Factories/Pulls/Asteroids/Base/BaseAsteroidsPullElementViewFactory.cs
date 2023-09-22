@@ -1,4 +1,5 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
+using Global.Base;
 
 namespace Global.Factories.Pulls.Asteroids.Base
 {

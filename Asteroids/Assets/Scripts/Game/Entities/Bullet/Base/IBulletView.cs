@@ -1,7 +1,6 @@
 ﻿using System;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Global.Pulls.Base;
-using Global.Pulls.ParticleSystem.Hit;
 using Global.Pulls.ParticleSystem.Hit.Base;
 using UnityEngine;
 

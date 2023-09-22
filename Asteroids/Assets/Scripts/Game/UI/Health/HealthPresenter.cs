@@ -1,5 +1,6 @@
 ﻿using Game.UI.Health.Base;
 using Global;
+using Global.Base;
 using Utilities.Interfaces;
 
 namespace Game.UI.Health

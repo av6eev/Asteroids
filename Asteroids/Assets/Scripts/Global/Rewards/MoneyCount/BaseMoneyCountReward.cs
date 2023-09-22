@@ -1,4 +1,5 @@
-﻿using Global.Dialogs.Shop.Base;
+﻿using Global.Base;
+using Global.Dialogs.Shop.Base;
 using Global.Rewards.Base;
 
 namespace Global.Rewards.MoneyCount

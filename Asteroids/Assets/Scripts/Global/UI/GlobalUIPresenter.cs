@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Ship;
+using Global.Base;
 using Global.Dialogs.History.Base;
 using Global.Dialogs.Shop.Base;
 using Global.Factories.Requirement;

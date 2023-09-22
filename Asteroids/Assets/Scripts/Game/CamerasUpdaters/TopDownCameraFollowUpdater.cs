@@ -1,5 +1,6 @@
 ﻿using Game.CamerasUpdaters.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 
 namespace Game.CamerasUpdaters

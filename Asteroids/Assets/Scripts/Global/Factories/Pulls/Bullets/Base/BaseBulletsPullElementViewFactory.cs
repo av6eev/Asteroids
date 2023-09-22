@@ -1,4 +1,5 @@
 ﻿using Game.Entities.Bullet.Base;
+using Global.Base;
 
 namespace Global.Factories.Pulls.Bullets.Base
 {

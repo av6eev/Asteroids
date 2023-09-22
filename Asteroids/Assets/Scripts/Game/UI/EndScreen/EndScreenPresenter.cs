@@ -1,5 +1,6 @@
 ﻿using Game.UI.EndScreen.Base;
 using Global;
+using Global.Base;
 using Utilities.Interfaces;
 
 namespace Game.UI.EndScreen

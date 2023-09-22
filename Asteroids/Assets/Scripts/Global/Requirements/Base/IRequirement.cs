@@ -1,4 +1,6 @@
-﻿namespace Global.Requirements.Base
+﻿using Global.Base;
+
+namespace Global.Requirements.Base
 {
     public interface IRequirement
     {

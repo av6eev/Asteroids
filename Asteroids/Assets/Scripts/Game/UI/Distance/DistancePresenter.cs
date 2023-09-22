@@ -1,5 +1,6 @@
 ﻿using Game.UI.Distance.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 

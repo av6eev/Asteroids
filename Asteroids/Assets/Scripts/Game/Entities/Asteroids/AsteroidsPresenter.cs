@@ -6,6 +6,7 @@ using Game.Entities.Asteroids.Base;
 using Game.Factories.Asteroid;
 using Game.Factories.Asteroid.Base;
 using Global;
+using Global.Base;
 using Specifications.Asteroids;
 using Specifications.Asteroids.Base;
 using Specifications.GameDifficulties;
