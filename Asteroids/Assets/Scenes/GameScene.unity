@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0009176815, g: 0.00085977715, b: 0.00085693144, a: 1}
+  m_IndirectSpecularColor: {r: 0.0011143587, g: 0.0010678372, b: 0.0010644542, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -286,11 +286,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 17633619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd1730399c82914ea548b35fcdfe3f3, type: 3}
+  m_Script: {fileID: 11500000, guid: d63dc200406f8ef49978b0d1fe634dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PullRoot>k__BackingField: {fileID: 17633620}
   <Type>k__BackingField: 1
+  <Count>k__BackingField: 15
 --- !u!1 &94139465
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,11 +424,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 147939364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd1730399c82914ea548b35fcdfe3f3, type: 3}
+  m_Script: {fileID: 11500000, guid: d63dc200406f8ef49978b0d1fe634dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PullRoot>k__BackingField: {fileID: 147939365}
   <Type>k__BackingField: 2
+  <Count>k__BackingField: 15
 --- !u!1 &159188702
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,15 +575,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 297158089}
-  - component: {fileID: 297158088}
+  - component: {fileID: 297158090}
   m_Layer: 0
-  m_Name: BulletsPull3D
+  m_Name: BulletsPull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &297158088
+--- !u!4 &297158089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297158087}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 732846850}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &297158090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -590,25 +607,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 297158087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87ba6463c2088ba44864c9b596c63aff, type: 3}
+  m_Script: {fileID: 11500000, guid: a4aa6c7b5a53b334796f108ad4dcb0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PullRoot>k__BackingField: {fileID: 297158089}
---- !u!4 &297158089
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297158087}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  <Count>k__BackingField: 15
 --- !u!1 &323109424
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 465184396}
   m_Layer: 0
-  m_Name: AsteroidsPulls3D
+  m_Name: AsteroidsPulls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1001,7 +1004,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465184394}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1010,8 +1013,8 @@ Transform:
   - {fileID: 147939365}
   - {fileID: 923689659}
   - {fileID: 518210499}
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 732846850}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &494747692
 GameObject:
@@ -1190,11 +1193,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 518210498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd1730399c82914ea548b35fcdfe3f3, type: 3}
+  m_Script: {fileID: 11500000, guid: d63dc200406f8ef49978b0d1fe634dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PullRoot>k__BackingField: {fileID: 518210499}
   <Type>k__BackingField: 4
+  <Count>k__BackingField: 10
 --- !u!1 &526304467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,7 +1381,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &530876028
 MonoBehaviour:
@@ -1555,6 +1559,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676483645}
   m_CullTransparentMesh: 1
+--- !u!1 &732846849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732846850}
+  - component: {fileID: 732846851}
+  m_Layer: 0
+  m_Name: PullsViews
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &732846850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732846849}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 297158089}
+  - {fileID: 465184396}
+  - {fileID: 1322235256}
+  m_Father: {fileID: 1850964306}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &732846851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732846849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb264e72a4c75a45a258701a63a4bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <SmallAsteroidsPullViewGo>k__BackingField: {fileID: 17633621}
+  <MediumAsteroidsPullViewGo>k__BackingField: {fileID: 147939366}
+  <BigAsteroidsPullViewGo>k__BackingField: {fileID: 923689660}
+  <FireAsteroidsPullViewGo>k__BackingField: {fileID: 518210500}
+  <BulletsPullViewGo>k__BackingField: {fileID: 297158090}
+  <HitsPullViewGo>k__BackingField: {fileID: 1322235255}
 --- !u!1 &747638533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,52 +1905,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812513975}
   m_CullTransparentMesh: 1
---- !u!1 &825646412
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 825646413}
-  - component: {fileID: 825646414}
-  m_Layer: 0
-  m_Name: SmallAsteroidsPull
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &825646413
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825646412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1155962275}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &825646414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825646412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a41a8c762e17d4c8737c9162b30834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PullRoot>k__BackingField: {fileID: 825646413}
-  <Type>k__BackingField: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,52 +2075,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847037950}
   m_CullTransparentMesh: 1
---- !u!1 &871053565
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 871053566}
-  - component: {fileID: 871053567}
-  m_Layer: 0
-  m_Name: FireAsteroidsPull
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &871053566
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871053565}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1155962275}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &871053567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871053565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a41a8c762e17d4c8737c9162b30834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PullRoot>k__BackingField: {fileID: 871053566}
-  <Type>k__BackingField: 4
 --- !u!1 &923689658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,11 +2116,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 923689658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd1730399c82914ea548b35fcdfe3f3, type: 3}
+  m_Script: {fileID: 11500000, guid: d63dc200406f8ef49978b0d1fe634dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PullRoot>k__BackingField: {fileID: 923689659}
   <Type>k__BackingField: 3
+  <Count>k__BackingField: 10
 --- !u!1 &975114643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,52 +2606,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078682392}
   m_CullTransparentMesh: 1
---- !u!1 &1091406666
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1091406667}
-  - component: {fileID: 1091406668}
-  m_Layer: 0
-  m_Name: MediumAsteroidsPull
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1091406667
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091406666}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1155962275}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1091406668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091406666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a41a8c762e17d4c8737c9162b30834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PullRoot>k__BackingField: {fileID: 1091406667}
-  <Type>k__BackingField: 2
 --- !u!1 &1145567954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,41 +2658,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DistanceText>k__BackingField: {fileID: 2074724435}
---- !u!1 &1155962274
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1155962275}
-  m_Layer: 0
-  m_Name: AsteroidsPulls2D
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1155962275
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155962274}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 825646413}
-  - {fileID: 1091406667}
-  - {fileID: 2061387784}
-  - {fileID: 871053566}
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1161404985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,6 +3188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PullRoot>k__BackingField: {fileID: 1322235256}
+  <Count>k__BackingField: 15
 --- !u!4 &1322235256
 Transform:
   m_ObjectHideFlags: 0
@@ -3310,13 +3196,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322235254}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8.480354, y: 5.5863366, z: 4.0050898}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_Father: {fileID: 732846850}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1401074483
 GameObject:
@@ -4045,19 +3931,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ShipSpawnPoint>k__BackingField: {fileID: 780888007}
-  <BulletsPullView3D>k__BackingField: {fileID: 297158088}
-  <BulletsPullView2D>k__BackingField: {fileID: 1931067751}
-  <HitsPullView>k__BackingField: {fileID: 1322235255}
-  <AsteroidsPullView3D>k__BackingField:
-  - {fileID: 17633621}
-  - {fileID: 147939366}
-  - {fileID: 923689660}
-  - {fileID: 518210500}
-  <AsteroidsPullView2D>k__BackingField:
-  - {fileID: 825646414}
-  - {fileID: 1091406668}
-  - {fileID: 2061387785}
-  - {fileID: 871053567}
+  <TopDownCamera>k__BackingField: {fileID: 330585545}
+  <ThirdPersonCamera>k__BackingField: {fileID: 1413900796}
+  <PlayerInputAsset>k__BackingField: {fileID: -944628639613478452, guid: 0640c715fa98ae84c989bb06abbe49ce,
+    type: 3}
+  <PullsCollectionGo>k__BackingField: {fileID: 732846851}
 --- !u!4 &1705807710
 Transform:
   m_ObjectHideFlags: 0
@@ -4102,54 +3980,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1705807710}
+  - {fileID: 732846850}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1931067748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1931067750}
-  - component: {fileID: 1931067751}
-  m_Layer: 0
-  m_Name: BulletsPull2D
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1931067750
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931067748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1931067751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931067748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580a749f93c60e44db6747be3cdea3e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PullRoot>k__BackingField: {fileID: 1931067750}
 --- !u!1 &1933870097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4194,12 +4028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d493b13715424f80ec47d9e0934049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TopDownCamera>k__BackingField: {fileID: 330585545}
-  <ThirdPersonCamera>k__BackingField: {fileID: 1413900796}
-  <GameView>k__BackingField: {fileID: 1705807709}
-  <GameUIView>k__BackingField: {fileID: 747638538}
-  <PlayerInputAsset>k__BackingField: {fileID: -944628639613478452, guid: 0640c715fa98ae84c989bb06abbe49ce,
-    type: 3}
+  <GameViewGo>k__BackingField: {fileID: 1705807709}
+  <GameUIViewGo>k__BackingField: {fileID: 747638538}
 --- !u!1 &2037855340
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,52 +4082,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ScoreText>k__BackingField: {fileID: 1193089282}
---- !u!1 &2061387783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2061387784}
-  - component: {fileID: 2061387785}
-  m_Layer: 0
-  m_Name: BigAsteroidsPull
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2061387784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061387783}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1155962275}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2061387785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061387783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a41a8c762e17d4c8737c9162b30834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PullRoot>k__BackingField: {fileID: 2061387784}
-  <Type>k__BackingField: 3
 --- !u!1 &2074724433
 GameObject:
   m_ObjectHideFlags: 0

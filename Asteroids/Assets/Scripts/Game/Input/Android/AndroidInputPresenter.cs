@@ -26,7 +26,7 @@ namespace Game.Input.Android
         {
             base.Activate();
             
-            _view.Initialize(_environment.GameSceneView.GameUIView.transform);
+            _view.Initialize(((MonoBehaviour)_environment.GameSceneView.GameView).transform);
             EnhancedTouchSupport.Enable();
             
             _view.FireButton.OnDown += StartFire;

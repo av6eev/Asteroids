@@ -1,7 +1,7 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global;
-using Global.Pulls.Base.PullElement;
+using Global.Pulls.Base;
 using Global.Sound;
 using Utilities.Helpers;
 using Utilities.Interfaces;
@@ -65,7 +65,7 @@ namespace Game.Entities.Asteroids.Asteroid
                     {
                         _environment.ShipModel.ApplyDamage(1);
                         _environment.AsteroidsModel.DestroyAsteroid(_model, false, true);    
-                        _environment.SoundManager.Play(SoundsTypes.ShipHit);
+                        _environment.GlobalSceneView.SoundManager.Instance.Play(SoundsTypes.ShipHit);
                     }
                     break;
             }

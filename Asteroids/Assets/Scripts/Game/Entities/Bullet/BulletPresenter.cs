@@ -21,7 +21,7 @@ namespace Game.Entities.Bullet
         
         public void Activate()
         {
-            _environment.SoundManager.Play(SoundsTypes.ShipShooting);
+            _environment.GlobalSceneView.SoundManager.Instance.Play(SoundsTypes.ShipShooting);
             
             _view.SetCurrentPosition(_model.Position);
             
@@ -54,7 +54,7 @@ namespace Game.Entities.Bullet
 
         private void CreateHitEffect()
         {
-            var hitsPull = _environment.PullsData.HitsPull;
+            var hitsPull = _environment.PullsModel.HitsPull;
             var lastActiveHit = hitsPull.LastActiveHit;
 
             if (lastActiveHit != null)
@@ -64,7 +64,7 @@ namespace Game.Entities.Bullet
             }
 
             var hit = hitsPull.TryGetElement();
-            hit.transform.position = _model.Position;
+            hit.SetPosition(_model.Position);
             
             hitsPull.LastActiveHit = hit;
         }

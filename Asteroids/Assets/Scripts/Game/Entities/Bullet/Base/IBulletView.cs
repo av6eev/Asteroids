@@ -1,7 +1,8 @@
 ﻿using System;
 using Game.Entities.Asteroids.Asteroid.Base;
-using Global.Pulls.Base.PullElement;
+using Global.Pulls.Base;
 using Global.Pulls.ParticleSystem.Hit;
+using Global.Pulls.ParticleSystem.Hit.Base;
 using UnityEngine;
 
 namespace Game.Entities.Bullet.Base
@@ -13,7 +14,7 @@ namespace Game.Entities.Bullet.Base
          float Speed { get; }
          int Health { get; }
          int Damage { get; }
-         HitView HitEffect { get; }
+         IHitView HitView { get; }
          
          Vector3 Move(float deltaTime);
          void SetCurrentPosition(Vector3 position);

@@ -2,6 +2,7 @@
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global.Pulls.ParticleSystem.Hit;
+using Global.Pulls.ParticleSystem.Hit.Base;
 using UnityEngine;
 
 namespace Game.Entities.Bullet
@@ -16,7 +17,8 @@ namespace Game.Entities.Bullet
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
         [field: SerializeField] public int Damage { get; private set; }
-        [field: SerializeField] public HitView HitEffect { get; private set; }
+        [field: SerializeField] public HitView2D HitViewGo { get; private set; }
+        public IHitView HitView => HitViewGo;
         
         public Vector3 Move(float deltaTime)
         {

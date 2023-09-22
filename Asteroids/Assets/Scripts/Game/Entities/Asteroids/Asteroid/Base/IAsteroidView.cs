@@ -1,4 +1,4 @@
-﻿using Global.Pulls.Base.PullElement;
+﻿using Global.Pulls.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 

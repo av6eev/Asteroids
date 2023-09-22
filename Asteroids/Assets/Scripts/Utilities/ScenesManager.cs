@@ -42,7 +42,7 @@ namespace Utilities
                     _environment.GameSceneView = view;
                     _environment.GlobalSceneView.MainCamera.gameObject.SetActive(false);
                     
-                    _presenter = new GamePresenter(_environment, model, view);
+                    _presenter = new GamePresenter(_environment, model, view.GameView);
                     break;
             }
             

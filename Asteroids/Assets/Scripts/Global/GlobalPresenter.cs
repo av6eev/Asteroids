@@ -31,7 +31,7 @@ namespace Global
                 new PlayerModel())
             {
                 DialogsModel = new DialogsModel(),
-                SaveModel = new SaveModel()
+                SaveModel = new SaveModel(),
             };
 
             GlobalPresenters.Add(new GlobalUIPresenter(Environment, Environment.GlobalUIModel, GlobalView.GlobalUIView));

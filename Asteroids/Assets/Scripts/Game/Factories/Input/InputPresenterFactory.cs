@@ -12,20 +12,20 @@ namespace Game.Factories.Input
         {
             BaseInputPresenter presenter = null;
             IInputModel model = null;
-
+            var gameView = environment.GameSceneView.GameView;
             switch (platformType)
             {
                 case RuntimePlatform.Android:
                     model = new AndroidInputModel();
-                    presenter = new AndroidInputPresenter(environment, model, environment.GameSceneView.CreateInputView<AndroidInputView>());
+                    presenter = new AndroidInputPresenter(environment, model, gameView.CreateInputView<AndroidInputView>());
                     break;
                 case RuntimePlatform.WindowsPlayer:
                     model = new WindowsInputModel();
-                    presenter = new WindowsInputPresenter(environment, model, environment.GameSceneView.CreateInputView<WindowsInputView>());
+                    presenter = new WindowsInputPresenter(environment, model, gameView.CreateInputView<WindowsInputView>());
                     break;
                 case RuntimePlatform.WindowsEditor:
                     model = new WindowsInputModel();
-                    presenter = new WindowsInputPresenter(environment, model, environment.GameSceneView.CreateInputView<WindowsInputView>());
+                    presenter = new WindowsInputPresenter(environment, model, gameView.CreateInputView<WindowsInputView>());
                     break;
             }
             

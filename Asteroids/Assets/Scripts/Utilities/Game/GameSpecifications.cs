@@ -12,7 +12,7 @@ using Utilities.Enums;
 
 namespace Utilities.Game
 {
-    public class GameSpecifications
+    public class GameSpecifications : IGameSpecifications
     {
         public Dictionary<ShipsTypes, ShipSpecification> Ships { get; } = new();
         public Dictionary<AsteroidsTypes, AsteroidSpecification> Asteroids { get; } = new();

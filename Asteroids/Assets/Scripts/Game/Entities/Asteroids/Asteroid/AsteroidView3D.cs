@@ -1,7 +1,7 @@
 ﻿using System;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
-using Global.Pulls.Base.PullElement;
+using Global.Pulls.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 

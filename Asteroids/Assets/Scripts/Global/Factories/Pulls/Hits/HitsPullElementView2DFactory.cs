@@ -1,0 +1,10 @@
+﻿using Global.Factories.Pulls.Hits.Base;
+using Global.Pulls.ParticleSystem.Hit.Base;
+
+namespace Global.Factories.Pulls.Hits
+{
+    public class HitsPullElementView2DFactory : BaseHitsPullElementViewFactory
+    {
+        public override IHitView Get(GlobalEnvironment environment) => environment.ShipModel.Specification.BulletPrefab2D.HitView;
+    }
+}

@@ -1,5 +1,5 @@
 ﻿using System;
-using Global.Pulls.Base.PullElement;
+using Global.Pulls.Base;
 
 namespace Utilities.Interfaces
 {

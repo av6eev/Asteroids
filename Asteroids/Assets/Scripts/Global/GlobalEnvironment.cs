@@ -1,14 +1,13 @@
-using Game;
+using Game.Base;
 using Game.Entities.Asteroids.Base;
 using Game.Entities.Ship.Base;
 using Game.Input.Base;
 using Game.Scene;
 using Global.Dialogs.Base;
 using Global.Player.Base;
-using Global.Pulls.Base.PullData;
+using Global.Pulls.Base;
 using Global.Save.Base;
 using Global.Scene;
-using Global.Sound;
 using Global.UI.Base;
 using Utilities.Game;
 using Utilities.Interfaces;
@@ -18,16 +17,15 @@ namespace Global
     public class GlobalEnvironment
     {
         public GlobalSceneView GlobalSceneView { get; }
-        public SoundManager SoundManager { get; }
-        public GameSceneView GameSceneView { get; set; }
+        public IGameSceneView GameSceneView { get; set; }
 
-        public GameSpecifications Specifications { get; }
+        public IGameSpecifications Specifications { get; }
         public IScenesManager ScenesManager { get; }
         public IUpdatersEngine UpdatersEngine { get; }
         public IUpdatersEngine FixedUpdatersEngine { get; }
         public IUpdatersEngine LateUpdatersEngine { get; }
         public ITimersEngine TimersEngine { get; }
-        public IPullsData PullsData { get; set; }
+        public IPullsModel PullsModel { get; set; }
 
         public IGlobalUIModel GlobalUIModel { get; }
         public IPlayerModel PlayerModel { get; }
@@ -38,7 +36,7 @@ namespace Global
         public ISaveModel SaveModel { get; set; }
         public IAsteroidsModel AsteroidsModel { get; set; }
 
-        public GlobalEnvironment(GameSpecifications specifications,
+        public GlobalEnvironment(IGameSpecifications specifications,
             GlobalSceneView globalView,
             IScenesManager scenesManager,
             IUpdatersEngine updatersEngine,
@@ -57,7 +55,6 @@ namespace Global
             TimersEngine = timersEngine;
             GlobalUIModel = globalUIModel;
             PlayerModel = playerModel;
-            SoundManager = globalView.SoundManager.Instance;
         }
     }
 }

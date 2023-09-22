@@ -1,8 +1,7 @@
 ﻿using System;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
-using Global.Pulls.Base.PullElement;
-using Unity.VisualScripting;
+using Global.Pulls.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 
@@ -22,11 +21,6 @@ namespace Game.Entities.Asteroids.Asteroid
             Rigidbody.velocity = new Vector2(direction.x, direction.z);
             
             return transform.position;
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            throw new NotImplementedException();
         }
         
         public void OnTriggerEnter2D(Collider2D other) => OnTriggered?.Invoke(other.gameObject.tag, other.gameObject.GetComponent<IBulletView>());

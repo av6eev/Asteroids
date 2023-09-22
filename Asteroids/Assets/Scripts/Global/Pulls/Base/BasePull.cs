@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Global.Pulls.Base.PullElement;
 
 namespace Global.Pulls.Base
 {

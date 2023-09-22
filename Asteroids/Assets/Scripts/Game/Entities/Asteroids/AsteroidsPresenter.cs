@@ -36,8 +36,6 @@ namespace Game.Entities.Asteroids
         
         public void Activate()
         {
-            CreateAsteroidsPulls();
-
             _spawnTimer = new Timer(_model.SpawnRate, true);
             _environment.TimersEngine.Add(_spawnTimer);
             
@@ -71,51 +69,32 @@ namespace Game.Entities.Asteroids
 
         private void RecreateActiveAsteroids()
         {
-            var tempAsteroidsList = new Dictionary<IAsteroidModel, IAsteroidView>();
-            
             _isPaused = true;
 
-            foreach (var asteroid in _model.GetActiveAsteroids())
-            {
-                var asteroidsPull3D = _environment.PullsData.AsteroidsPulls3D[asteroid.Key.Specification.Type];
-                var asteroidsPull2D = _environment.PullsData.AsteroidsPulls2D[asteroid.Key.Specification.Type];
-                IAsteroidView newView = null;
-                
-                _asteroidsPresenters[asteroid.Key].Deactivate();
-                
-                switch (_environment.GameModel.CurrentDimension)
-                {
-                    case CameraDimensionsTypes.TwoD:
-                        _asteroidModelFactory = new AsteroidModel2DFactory();
-                        asteroidsPull3D.PutBack((AsteroidView3D)asteroid.Value);
-                        
-                        newView = asteroidsPull2D.TryGetElement();
-                        break;
-                    case CameraDimensionsTypes.ThreeD:
-                        _asteroidModelFactory = new AsteroidModel3DFactory();
-                        
-                        asteroidsPull2D.PutBack((AsteroidView2D)asteroid.Value);
-                        newView = asteroidsPull3D.TryGetElement();
-                        break;
-                }
+            var tempActiveModels = _model.GetActiveAsteroids();
 
-                var newModel = _asteroidModelFactory.Create(asteroid.Key);
-                
-                if (newModel != null && newView != null)
-                {
-                    tempAsteroidsList.Add(newModel, newView);
-                }
-            }
-            
             _model.ResetActiveAsteroids();
             _inActiveAsteroids.Clear();
-            
-            foreach (var asteroid in tempAsteroidsList)
-            {
-                var asteroidModel = asteroid.Key;
-                var position = asteroidModel.GetPositionWithOffset(0, 0);
 
-                CreateAsteroid(asteroidModel.Specification, position.Item1, position.Item2);
+            foreach (var presenter in _asteroidsPresenters.Values)
+            {
+                presenter.Deactivate();
+            }
+
+            _asteroidsPresenters.Clear();
+
+            _asteroidModelFactory = _environment.GameModel.CurrentDimension switch
+            {
+                CameraDimensionsTypes.TwoD => new AsteroidModel2DFactory(),
+                CameraDimensionsTypes.ThreeD => new AsteroidModel3DFactory(),
+                _ => _asteroidModelFactory
+            };
+
+            foreach (var model in tempActiveModels.Select(asteroid => _asteroidModelFactory.Create(asteroid.Key)).Where(newModel => newModel != null).ToList())
+            {
+                var position = model.GetPositionWithOffset(0, 0);
+                
+                CreateAsteroid(model.Specification, position.Item1, position.Item2);
             }
 
             _isPaused = false;
@@ -157,20 +136,7 @@ namespace Game.Entities.Asteroids
 
         private void CreateAsteroid(AsteroidSpecification specification, float horizontalPosition, float forwardPosition)
         {
-            IAsteroidView view = null;
-            
-            switch (_environment.GameModel.CurrentDimension)
-            {
-                case CameraDimensionsTypes.TwoD:
-                    _asteroidModelFactory = new AsteroidModel2DFactory();
-                    view = _environment.PullsData.AsteroidsPulls2D[specification.Type].TryGetElement();
-                    break;
-                case CameraDimensionsTypes.ThreeD:
-                    _asteroidModelFactory = new AsteroidModel3DFactory();
-                    view = _environment.PullsData.AsteroidsPulls3D[specification.Type].TryGetElement();
-                    break;
-            }
-
+            var view = _environment.PullsModel.AsteroidsPulls[specification.Type].TryGetElement(); 
             var model = _asteroidModelFactory.Create(specification, _model.SpeedShift);
             
             if (model == null) return;
@@ -190,16 +156,8 @@ namespace Game.Entities.Asteroids
             _asteroidsPresenters.Remove(model);
 
             TryCreateChildrenOnDestroyParent(model, byBorder, byShip);
-
-            switch (_environment.GameModel.CurrentDimension)
-            {
-                case CameraDimensionsTypes.TwoD:
-                    _environment.PullsData.AsteroidsPulls2D[model.Specification.Type].PutBack((AsteroidView2D)_model.GetByKey(model));
-                    break;
-                case CameraDimensionsTypes.ThreeD:
-                    _environment.PullsData.AsteroidsPulls3D[model.Specification.Type].PutBack((AsteroidView3D)_model.GetByKey(model));
-                    break;
-            }
+            
+            _environment.PullsModel.AsteroidsPulls[model.Specification.Type].PutBack(_model.GetByKey(model));
             
             _model.RemoveActiveAsteroid(model);
         }
@@ -246,29 +204,6 @@ namespace Game.Entities.Asteroids
             }
             
             CreateAsteroid(_model.Specifications[randomType], horizontalOffset, forwardOffset);
-        }
-
-        private void CreateAsteroidsPulls()
-        {
-            foreach (var pull in _environment.PullsData.AsteroidsPulls3D)
-            {
-                var pullView = _environment.GameSceneView.GameView.AsteroidsPullView3D.Find(item => item.Type == pull.Key);
-
-                pullView.ElementPrefab = _model.Specifications[pull.Key].Prefab3D;
-                pullView.Count = 13;
-                
-                pull.Value.CreatePull(pullView);
-            }
-            
-            foreach (var pull in _environment.PullsData.AsteroidsPulls2D)
-            {
-                var pullView = _environment.GameSceneView.GameView.AsteroidsPullView2D.Find(item => item.Type == pull.Key);
-
-                pullView.ElementPrefab = _model.Specifications[pull.Key].Prefab2D;
-                pullView.Count = 13;
-                
-                pull.Value.CreatePull(pullView);
-            }
         }
     }
 }

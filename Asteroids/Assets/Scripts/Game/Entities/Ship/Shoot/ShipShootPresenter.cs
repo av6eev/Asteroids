@@ -20,11 +20,10 @@ namespace Game.Entities.Ship.Shoot
         private readonly List<IBulletModel> _inActiveBullets = new();
         private readonly Dictionary<IBulletModel, BulletPresenter> _bulletsPresenters = new();
 
-        private BaseBulletModelFactory _bulletModelFactory = new BulletModel2DFactory();
+        private BaseBulletModelFactory _bulletModelFactory;
         
         private Coroutine _reloadCoroutine;
         private Coroutine _shotRateCoroutine;
-        private bool _isPaused;
 
         public ShipShootPresenter(GlobalEnvironment environment, ShipShootModel model)
         {
@@ -34,42 +33,24 @@ namespace Game.Entities.Ship.Shoot
 
         public void Activate()
         {
-            CreateBulletsPull();
-
             _model.IsReadyToShoot = true;
+            
+            _bulletModelFactory = _environment.GameModel.CurrentDimension switch
+            {
+                CameraDimensionsTypes.TwoD => new BulletModel2DFactory(),
+                CameraDimensionsTypes.ThreeD => new BulletModel3DFactory(),
+                _ => _bulletModelFactory
+            };
 
             _model.OnUpdate += Update;
             _model.OnBulletDestroyed += DestroyBullet;
             _model.OnShoot += CreateBullet;
-            
-            _environment.GameModel.OnDimensionChanged += ClearActiveBullets;
         }
 
         public void Deactivate()
         {
-            _model.OnUpdate -= Update;
-            _model.OnBulletDestroyed -= DestroyBullet;
-            _model.OnShoot -= CreateBullet;
-            
-            _environment.GameModel.OnDimensionChanged -= ClearActiveBullets;
-        }
-
-        private void ClearActiveBullets()
-        {
-            _isPaused = true;
-
-            foreach (var bullet in _model.GetActiveBullets().Values)
-            {
-                switch (_environment.GameModel.CurrentDimension)
-                {
-                    case CameraDimensionsTypes.TwoD:
-                        _environment.PullsData.BulletsPull3D.PutBack((BulletView3D)bullet);
-                        break;
-                    case CameraDimensionsTypes.ThreeD:
-                        _environment.PullsData.BulletsPull2D.PutBack((BulletView2D)bullet);
-                        break;
-                }
-            }
+            _inActiveBullets.Clear();
+            _model.ResetActiveBullets();
 
             foreach (var presenter in _bulletsPresenters.Values)
             {
@@ -77,16 +58,14 @@ namespace Game.Entities.Ship.Shoot
             }
             
             _bulletsPresenters.Clear();
-            _inActiveBullets.Clear();
-            _model.ResetActiveBullets();
-
-            _isPaused = false;
+            
+            _model.OnUpdate -= Update;
+            _model.OnBulletDestroyed -= DestroyBullet;
+            _model.OnShoot -= CreateBullet;
         }
 
         private void Update(float deltaTime)
         {
-            if (_isPaused) return;
-            
             foreach (var model in _inActiveBullets)
             {
                 DestroyBullet(model);
@@ -114,25 +93,13 @@ namespace Game.Entities.Ship.Shoot
             if (!_environment.InputModel.IsShipShooting || _model.IsReloading || _model.BulletsLeft == 0 || !_model.IsReadyToShoot) return;
 
             _model.IsReadyToShoot = false;
-
-            IBulletView view = null;
             
-            switch (_environment.GameModel.CurrentDimension)
-            {
-                case CameraDimensionsTypes.TwoD:
-                    _bulletModelFactory = new BulletModel2DFactory();
-                    view = _environment.PullsData.BulletsPull2D.TryGetElement();
-                    break;
-                case CameraDimensionsTypes.ThreeD:
-                    _bulletModelFactory = new BulletModel3DFactory();
-                    view = _environment.PullsData.BulletsPull3D.TryGetElement();
-                    break;
-            }
-
+            var view = _environment.PullsModel.BulletsPull.TryGetElement(); 
             var model = _bulletModelFactory.Create(_environment.GameSceneView.GameView.CurrentShip.BulletSpawnPoint.position, _model.BulletHealth, _model.BulletDamage);
             var presenter = new BulletPresenter(_environment, model, view);
+            
             presenter.Activate();
-
+            
             if (model == null) return;
             
             _bulletsPresenters.Add(model, presenter);
@@ -157,15 +124,7 @@ namespace Game.Entities.Ship.Shoot
             _bulletsPresenters[model].Deactivate();
             _bulletsPresenters.Remove(model);
             
-            switch (_environment.GameModel.CurrentDimension)
-            {
-                case CameraDimensionsTypes.TwoD:
-                    _environment.PullsData.BulletsPull2D.PutBack((BulletView2D)_model.GetByKey(model));
-                    break;
-                case CameraDimensionsTypes.ThreeD:
-                    _environment.PullsData.BulletsPull3D.PutBack((BulletView3D)_model.GetByKey(model));
-                    break;
-            }
+            _environment.PullsModel.BulletsPull.PutBack(_model.GetByKey(model));
             
             _model.RemoveActiveBullet(model);
         }
@@ -190,21 +149,6 @@ namespace Game.Entities.Ship.Shoot
             
             GameCoroutines.DisableCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;
-        }
-
-        private void CreateBulletsPull()
-        {
-            var bulletsPull3D = _environment.GameSceneView.GameView.BulletsPullView3D;
-            var bulletsPull2D = _environment.GameSceneView.GameView.BulletsPullView2D;
-
-            bulletsPull3D.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab3D;
-            bulletsPull2D.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab2D;
-            
-            bulletsPull3D.Count = _model.StartBulletCount;
-            bulletsPull2D.Count = _model.StartBulletCount;
-            
-            _environment.PullsData.BulletsPull3D.CreatePull(bulletsPull3D);             
-            _environment.PullsData.BulletsPull2D.CreatePull(bulletsPull2D);   
         }
     }
 }
