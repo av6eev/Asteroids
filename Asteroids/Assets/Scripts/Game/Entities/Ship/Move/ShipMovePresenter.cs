@@ -6,13 +6,13 @@ namespace Game.Entities.Ship.Move
 {
     public class ShipMovePresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly ShipMoveModel _model;
 
         private const float MOVE_FORWARD_VALUE = 7f;
         private const float TURN_SIDE_VALUE = 20f;
         
-        public ShipMovePresenter(GlobalEnvironment environment, ShipMoveModel model)
+        public ShipMovePresenter(IGlobalEnvironment environment, ShipMoveModel model)
         {
             _environment = environment;
             _model = model;

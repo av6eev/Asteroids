@@ -9,7 +9,7 @@ namespace Utilities.Engines
     {
         private readonly Dictionary<UpdatersTypes, IUpdater> _updaters = new();
 
-        public void Update(GlobalEnvironment environment)
+        public void Update(IGlobalEnvironment environment)
         {
             foreach (var system in _updaters.Values)
             {

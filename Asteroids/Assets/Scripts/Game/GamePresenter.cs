@@ -25,7 +25,7 @@ namespace Game
 {
     public class GamePresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IGameModel _model;
         private readonly IGameView _view;
         
@@ -37,7 +37,7 @@ namespace Game
         private readonly BaseRequirementPresenterFactory _requirementPresenterFactory = new DistancePassedRequirementPresenterFactory();
         private readonly InputPresenterFactory _inputPresenterFactory = new();
         
-        public GamePresenter(GlobalEnvironment environment, IGameModel model, IGameView view)
+        public GamePresenter(IGlobalEnvironment environment, IGameModel model, IGameView view)
         {
             _environment = environment;
             _model = model;

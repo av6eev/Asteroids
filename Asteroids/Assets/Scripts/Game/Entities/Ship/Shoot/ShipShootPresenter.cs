@@ -14,7 +14,7 @@ namespace Game.Entities.Ship.Shoot
 {
     public class ShipShootPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly ShipShootModel _model;
 
         private readonly List<IBulletModel> _inActiveBullets = new();
@@ -25,7 +25,7 @@ namespace Game.Entities.Ship.Shoot
         private Coroutine _reloadCoroutine;
         private Coroutine _shotRateCoroutine;
 
-        public ShipShootPresenter(GlobalEnvironment environment, ShipShootModel model)
+        public ShipShootPresenter(IGlobalEnvironment environment, ShipShootModel model)
         {
             _environment = environment;
             _model = model;

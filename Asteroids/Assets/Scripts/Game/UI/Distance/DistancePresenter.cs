@@ -7,10 +7,10 @@ namespace Game.UI.Distance
 {
     public class DistancePresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IDistanceView _view;
 
-        public DistancePresenter(GlobalEnvironment environment, IDistanceView view)
+        public DistancePresenter(IGlobalEnvironment environment, IDistanceView view)
         {
             _environment = environment;
             _view = view;

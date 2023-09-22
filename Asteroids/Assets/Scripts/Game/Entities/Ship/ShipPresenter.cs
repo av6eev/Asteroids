@@ -14,14 +14,14 @@ namespace Game.Entities.Ship
 {
     public class ShipPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IShipModel _model;
         private readonly IShipView _view;
 
         private readonly PresentersEngine _presenters = new();
         private Coroutine _immunityCoroutine;
 
-        public ShipPresenter(GlobalEnvironment environment, IShipModel model, IShipView view)
+        public ShipPresenter(IGlobalEnvironment environment, IShipModel model, IShipView view)
         {
             _environment = environment;
             _model = model;

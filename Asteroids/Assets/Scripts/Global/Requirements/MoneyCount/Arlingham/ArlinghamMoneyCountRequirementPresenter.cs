@@ -5,6 +5,6 @@ namespace Global.Requirements.MoneyCount.Arlingham
 {
     public class ArlinghamMoneyCountRequirementPresenter : BaseMoneyCountRequirementPresenter<ArlinghamMoneyCountRequirement>
     {
-        public ArlinghamMoneyCountRequirementPresenter(GlobalEnvironment environment, IRequirement model) : base(environment, model) {}
+        public ArlinghamMoneyCountRequirementPresenter(IGlobalEnvironment environment, IRequirement model) : base(environment, model) {}
     }
 }

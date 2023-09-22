@@ -4,9 +4,9 @@ namespace Global.Factories.Pulls.Asteroids.Base
 {
     public abstract class BaseAsteroidsPullElementViewFactory
     {
-        public abstract IAsteroidView GetSmall(GlobalEnvironment environment);
-        public abstract IAsteroidView GetMedium(GlobalEnvironment environment);
-        public abstract IAsteroidView GetBig(GlobalEnvironment environment);
-        public abstract IAsteroidView GetFire(GlobalEnvironment environment);
+        public abstract IAsteroidView GetSmall(IGlobalEnvironment environment);
+        public abstract IAsteroidView GetMedium(IGlobalEnvironment environment);
+        public abstract IAsteroidView GetBig(IGlobalEnvironment environment);
+        public abstract IAsteroidView GetFire(IGlobalEnvironment environment);
     }
 }

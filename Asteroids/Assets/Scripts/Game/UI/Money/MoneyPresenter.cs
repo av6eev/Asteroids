@@ -9,10 +9,10 @@ namespace Game.UI.Money
 {
     public class MoneyPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IMoneyView _view;
 
-        public MoneyPresenter(GlobalEnvironment environment, IMoneyView view)
+        public MoneyPresenter(IGlobalEnvironment environment, IMoneyView view)
         {
             _environment = environment;
             _view = view;

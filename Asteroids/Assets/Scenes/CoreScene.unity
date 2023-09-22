@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0013751755, g: 0.0012970674, b: 0.0012797464, a: 1}
+  m_IndirectSpecularColor: {r: 0.0002702868, g: 0.00024467683, b: 0.00023567339, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2588,8 +2588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74453f7f4c0d704599627ad44cb3b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShopDialogView>k__BackingField: {fileID: 1645125977}
-  <HistoryDialogView>k__BackingField: {fileID: 1515386554}
+  <ShopDialogViewGo>k__BackingField: {fileID: 1645125977}
+  <HistoryDialogViewGo>k__BackingField: {fileID: 1515386554}
 --- !u!4 &1514687183
 Transform:
   m_ObjectHideFlags: 0
@@ -2940,9 +2940,9 @@ MonoBehaviour:
   <MainCamera>k__BackingField: {fileID: 528235174}
   <SpecificationsCollection>k__BackingField: {fileID: 11400000, guid: 23534023c5bb2de46931e00bf69216ba,
     type: 2}
-  <GlobalUIView>k__BackingField: {fileID: 2079630800}
-  <DialogsView>k__BackingField: {fileID: 1514687182}
-  <SoundManager>k__BackingField: {fileID: 1706881904}
+  <GlobalUIViewGo>k__BackingField: {fileID: 2079630800}
+  <DialogsViewGo>k__BackingField: {fileID: 1514687182}
+  <SoundManagerGo>k__BackingField: {fileID: 1706881904}
   <EventSystem>k__BackingField: {fileID: 479025106}
 --- !u!4 &1531883553
 Transform:

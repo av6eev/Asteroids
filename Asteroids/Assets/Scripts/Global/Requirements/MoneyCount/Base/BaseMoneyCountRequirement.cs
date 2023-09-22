@@ -11,7 +11,7 @@ namespace Global.Requirements.MoneyCount.Base
         [field: SerializeField] public string RewardName { get; set; }
         [field: SerializeField] public ShipsTypes ShipType { get; private set; }
 
-        public bool Check(GlobalEnvironment environment)
+        public bool Check(IGlobalEnvironment environment)
         {
             var chosenShip = environment.Specifications.Ships[ShipType];
 

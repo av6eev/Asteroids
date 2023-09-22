@@ -10,13 +10,13 @@ namespace Global.Dialogs
 {
     public class DialogsPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IDialogsModel _model;
         private readonly IDialogsView _view;
 
         private readonly PresentersEngine _presenters = new();
 
-        public DialogsPresenter(GlobalEnvironment environment, IDialogsModel model, IDialogsView view)
+        public DialogsPresenter(IGlobalEnvironment environment, IDialogsModel model, IDialogsView view)
         {
             _environment = environment;
             _model = model;

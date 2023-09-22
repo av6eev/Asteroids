@@ -7,11 +7,11 @@ namespace Game.Input.Windows
 {
     public class WindowsInputPresenter : BaseInputPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IInputModel _model;
         private readonly WindowsInputView _view;
 
-        public WindowsInputPresenter(GlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
+        public WindowsInputPresenter(IGlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
         {
             _environment = environment;
             _model = model;

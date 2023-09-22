@@ -9,7 +9,7 @@ namespace Game.CamerasUpdaters.Base
         protected Camera Camera { get; set; }
         public abstract Vector3 Offset { get; set; }
 
-        public abstract void Update(GlobalEnvironment environment);
+        public abstract void Update(IGlobalEnvironment environment);
 
         protected abstract Vector3 GetTarget(Vector3 shipPosition);
     }

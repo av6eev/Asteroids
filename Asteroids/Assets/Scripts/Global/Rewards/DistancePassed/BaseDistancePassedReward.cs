@@ -9,7 +9,7 @@ namespace Global.Rewards.DistancePassed
         public bool IsCompleted { get; private set; }
         [field: SerializeField] public DifficultyStages DifficultyStage { get; private set; }
 
-        public void Give(GlobalEnvironment environment)
+        public void Give(IGlobalEnvironment environment)
         {
             IsCompleted = true;
             environment.GameModel.UpdateDifficulty(environment.Specifications.GameDifficulties[DifficultyStage]);

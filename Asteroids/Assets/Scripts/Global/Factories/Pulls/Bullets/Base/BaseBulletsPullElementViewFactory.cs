@@ -4,6 +4,6 @@ namespace Global.Factories.Pulls.Bullets.Base
 {
     public abstract class BaseBulletsPullElementViewFactory
     {
-        public abstract IBulletView Get(GlobalEnvironment environment);
+        public abstract IBulletView Get(IGlobalEnvironment environment);
     }
 }

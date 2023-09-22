@@ -6,10 +6,10 @@ namespace Game.UI.Health
 {
     public class HealthPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IHealthView _view;
 
-        public HealthPresenter(GlobalEnvironment environment, IHealthView view)
+        public HealthPresenter(IGlobalEnvironment environment, IHealthView view)
         {
             _environment = environment;
             _view = view;

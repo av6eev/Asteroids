@@ -14,9 +14,9 @@ using Utilities.Interfaces;
 
 namespace Global
 {
-    public class GlobalEnvironment
+    public class GlobalEnvironment : IGlobalEnvironment
     {
-        public GlobalSceneView GlobalSceneView { get; }
+        public IGlobalSceneView GlobalSceneView { get; }
         public IGameSceneView GameSceneView { get; set; }
 
         public IGameSpecifications Specifications { get; }
@@ -36,8 +36,9 @@ namespace Global
         public ISaveModel SaveModel { get; set; }
         public IAsteroidsModel AsteroidsModel { get; set; }
 
-        public GlobalEnvironment(IGameSpecifications specifications,
-            GlobalSceneView globalView,
+        public GlobalEnvironment(
+            IGameSpecifications specifications,
+            IGlobalSceneView globalView,
             IScenesManager scenesManager,
             IUpdatersEngine updatersEngine,
             IUpdatersEngine fixedUpdatersEngine,
@@ -56,5 +57,26 @@ namespace Global
             GlobalUIModel = globalUIModel;
             PlayerModel = playerModel;
         }
+    }
+
+    public interface IGlobalEnvironment
+    {
+        IGlobalSceneView GlobalSceneView { get; }
+        IGameSceneView GameSceneView { get; set; }
+        IGameSpecifications Specifications { get; }
+        IScenesManager ScenesManager { get; }
+        IUpdatersEngine UpdatersEngine { get; }
+        IUpdatersEngine FixedUpdatersEngine { get; }
+        IUpdatersEngine LateUpdatersEngine { get; }
+        ITimersEngine TimersEngine { get; }
+        IPullsModel PullsModel { get; set; }
+        IGlobalUIModel GlobalUIModel { get; }
+        IPlayerModel PlayerModel { get; }
+        IShipModel ShipModel { get; set; }
+        IGameModel GameModel { get; set; }
+        IDialogsModel DialogsModel { get; set; }
+        IInputModel InputModel { get; set; }
+        ISaveModel SaveModel { get; set; }
+        IAsteroidsModel AsteroidsModel { get; set; }
     }
 }

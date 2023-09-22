@@ -5,6 +5,6 @@ namespace Global.Requirements.DistancePassed.Second
 {
     public class SecondDistancePassedRequirementPresenter : BaseDistancePassedRequirementPresenter<SecondDistancePassedRequirement>
     {
-        public SecondDistancePassedRequirementPresenter(GlobalEnvironment environment, IRequirement model) : base(environment, model) {}
+        public SecondDistancePassedRequirementPresenter(IGlobalEnvironment environment, IRequirement model) : base(environment, model) {}
     }
 }

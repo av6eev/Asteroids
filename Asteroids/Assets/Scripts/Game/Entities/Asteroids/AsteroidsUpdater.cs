@@ -6,6 +6,6 @@ namespace Game.Entities.Asteroids
 {
     public class AsteroidsUpdater : IUpdater
     {
-        public void Update(GlobalEnvironment environment) => environment.AsteroidsModel.Update(Time.deltaTime);
+        public void Update(IGlobalEnvironment environment) => environment.AsteroidsModel.Update(Time.deltaTime);
     }
 }

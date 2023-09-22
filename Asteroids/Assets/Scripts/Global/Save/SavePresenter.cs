@@ -7,12 +7,12 @@ namespace Global.Save
 {
     public class SavePresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly ISaveModel _model;
 
         private readonly PresentersEngine _requirementsPresenters = new();
 
-        public SavePresenter(GlobalEnvironment environment, ISaveModel model)
+        public SavePresenter(IGlobalEnvironment environment, ISaveModel model)
         {
             _environment = environment;
             _model = model;

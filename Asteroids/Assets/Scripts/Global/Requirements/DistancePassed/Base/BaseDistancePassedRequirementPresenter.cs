@@ -5,10 +5,10 @@ namespace Global.Requirements.DistancePassed.Base
 {
     public abstract class BaseDistancePassedRequirementPresenter<T> : IPresenter where T : BaseDistancePassedRequirement
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly T _model;
 
-        protected BaseDistancePassedRequirementPresenter(GlobalEnvironment environment, IRequirement model)
+        protected BaseDistancePassedRequirementPresenter(IGlobalEnvironment environment, IRequirement model)
         {
             _environment = environment;
             _model = (T) model;

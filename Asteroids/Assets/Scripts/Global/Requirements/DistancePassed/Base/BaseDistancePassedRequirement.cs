@@ -10,7 +10,7 @@ namespace Global.Requirements.DistancePassed.Base
         [field: SerializeField] public string RewardName { get; set; }
         [field: SerializeField] public int DistanceToPass { get; set; }
         
-        public bool Check(GlobalEnvironment environment)
+        public bool Check(IGlobalEnvironment environment)
         {
             if (environment.GameModel.CurrentDistance < DistanceToPass)
             {

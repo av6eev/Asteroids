@@ -7,13 +7,13 @@ namespace Global.Dialogs.Shop
 {
     public class ShopDialogPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IShopDialogModel _model;
         private readonly IShopDialogView _view;
 
         private readonly PresentersEngine _cardsPresenters = new();
 
-        public ShopDialogPresenter(GlobalEnvironment environment, IShopDialogModel model, IShopDialogView view)
+        public ShopDialogPresenter(IGlobalEnvironment environment, IShopDialogModel model, IShopDialogView view)
         {
             _environment = environment;
             _model = model;

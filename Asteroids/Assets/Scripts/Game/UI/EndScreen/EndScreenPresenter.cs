@@ -6,10 +6,10 @@ namespace Game.UI.EndScreen
 {
     public class EndScreenPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IEndScreenView _view;
 
-        public EndScreenPresenter(GlobalEnvironment environment, IEndScreenView view)
+        public EndScreenPresenter(IGlobalEnvironment environment, IEndScreenView view)
         {
             _environment = environment;
             _view = view;

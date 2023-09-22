@@ -12,11 +12,11 @@ namespace Utilities
 {
     public class ScenesManager : IScenesManager
     {
-        private GlobalEnvironment _environment;
+        private IGlobalEnvironment _environment;
         private AsyncOperation _asyncOperation;
         private IPresenter _presenter;
 
-        public void LoadScene(ScenesNames sceneName, GlobalEnvironment environment)
+        public void LoadScene(ScenesNames sceneName, IGlobalEnvironment environment)
         {
             _environment = environment;
             
@@ -40,7 +40,7 @@ namespace Utilities
 
                     _environment.GameModel = model;
                     _environment.GameSceneView = view;
-                    _environment.GlobalSceneView.MainCamera.gameObject.SetActive(false);
+                    _environment.GlobalSceneView.DisableCamera();
                     
                     _presenter = new GamePresenter(_environment, model, view.GameView);
                     break;
@@ -63,8 +63,8 @@ namespace Utilities
             }
             
             _environment.GlobalSceneView.GlobalUIView.Show();
-            _environment.GlobalSceneView.EventSystem.enabled = true;
-            _environment.GlobalSceneView.MainCamera.gameObject.SetActive(true);
+            _environment.GlobalSceneView.EnableEventSystem();
+            _environment.GlobalSceneView.EnableCamera();
             
             _presenter = null;
         }

@@ -7,7 +7,7 @@ namespace Global.Rewards.MoneyCount
     {
         public bool IsCompleted { get; private set; }
 
-        public void Give(GlobalEnvironment environment)
+        public void Give(IGlobalEnvironment environment)
         {
             IsCompleted = true;
             

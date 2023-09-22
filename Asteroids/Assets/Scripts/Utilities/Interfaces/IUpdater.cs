@@ -4,6 +4,6 @@ namespace Utilities.Interfaces
 {
     public interface IUpdater
     {
-        void Update(GlobalEnvironment environment);
+        void Update(IGlobalEnvironment environment);
     }
 }

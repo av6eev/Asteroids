@@ -8,11 +8,11 @@ namespace Game.Entities.Bullet
 {
     public class BulletPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IBulletModel _model;
         private readonly IBulletView _view;
 
-        public BulletPresenter(GlobalEnvironment environment, IBulletModel model, IBulletView view)
+        public BulletPresenter(IGlobalEnvironment environment, IBulletModel model, IBulletView view)
         {
             _environment = environment;
             _model = model;

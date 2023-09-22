@@ -8,14 +8,14 @@ namespace Game.Input.Android
 {
     public class AndroidInputPresenter : BaseInputPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IInputModel _model;
         private readonly AndroidInputView _view;
 
         private Finger _movementFinger;
         private Vector2 _movementAmount;
 
-        public AndroidInputPresenter(GlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
+        public AndroidInputPresenter(IGlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
         {
             _environment = environment;
             _model = model;

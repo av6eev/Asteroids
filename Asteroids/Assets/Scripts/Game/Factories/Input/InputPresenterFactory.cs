@@ -8,7 +8,7 @@ namespace Game.Factories.Input
 {
     public class InputPresenterFactory
     {
-        public BaseInputPresenter Create(in GlobalEnvironment environment, RuntimePlatform platformType)
+        public BaseInputPresenter Create(in IGlobalEnvironment environment, RuntimePlatform platformType)
         {
             BaseInputPresenter presenter = null;
             IInputModel model = null;

@@ -6,11 +6,11 @@ namespace Global.Dialogs.Shop.Card
 {
     public class ShopCardDialogPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IShopCardDialogModel _model;
         private readonly IShopCardDialogView _view;
 
-        public ShopCardDialogPresenter(GlobalEnvironment environment, IShopCardDialogModel model, IShopCardDialogView view)
+        public ShopCardDialogPresenter(IGlobalEnvironment environment, IShopCardDialogModel model, IShopCardDialogView view)
         {
             _environment = environment;
             _model = model;

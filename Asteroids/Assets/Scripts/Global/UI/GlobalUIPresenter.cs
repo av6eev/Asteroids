@@ -15,14 +15,14 @@ namespace Global.UI
 {
     public class GlobalUIPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IGlobalUIModel _model;
         private readonly IGlobalUIView _view;
 
         private readonly PresentersEngine _requirementsPresenters = new();
         private readonly MoneyCountRequirementPresenterFactory _requirementPresenterFactory = new();
 
-        public GlobalUIPresenter(GlobalEnvironment environment, IGlobalUIModel model, IGlobalUIView view)
+        public GlobalUIPresenter(IGlobalEnvironment environment, IGlobalUIModel model, IGlobalUIView view)
         {
             _environment = environment;
             _model = model;

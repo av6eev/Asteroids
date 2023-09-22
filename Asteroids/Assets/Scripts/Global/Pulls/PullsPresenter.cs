@@ -15,7 +15,7 @@ namespace Global.Pulls
 {
     public class PullsPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IPullsModel _model;
         private readonly IPullsViews _view;
 
@@ -23,7 +23,7 @@ namespace Global.Pulls
         private BaseBulletsPullElementViewFactory _bulletsPullElementViewFactory;
         private BaseHitsPullElementViewFactory _hitsPullElementViewFactory;
 
-        public PullsPresenter(GlobalEnvironment environment, IPullsModel model, IPullsViews view)
+        public PullsPresenter(IGlobalEnvironment environment, IPullsModel model, IPullsViews view)
         {
             _environment = environment;
             _model = model;

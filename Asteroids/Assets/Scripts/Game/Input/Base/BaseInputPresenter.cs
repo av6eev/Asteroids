@@ -8,7 +8,7 @@ namespace Game.Input.Base
     {
         private readonly IInputModel _model;
 
-        protected BaseInputPresenter(GlobalEnvironment environment, IInputModel model, BaseInputView view) => _model = model;
+        protected BaseInputPresenter(IGlobalEnvironment environment, IInputModel model, BaseInputView view) => _model = model;
 
         public virtual void Activate() => _model.OnUpdate += Update;
 

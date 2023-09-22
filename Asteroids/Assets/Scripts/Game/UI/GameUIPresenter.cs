@@ -13,13 +13,13 @@ namespace Game.UI
 {
     public class GameUIPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IGameUIView _view;
 
         private readonly PresentersEngine _presenters = new();
         private int _cameraChangeCounter;
         
-        public GameUIPresenter(GlobalEnvironment environment, IGameUIView view)
+        public GameUIPresenter(IGlobalEnvironment environment, IGameUIView view)
         {
             _environment = environment;
             _view = view;

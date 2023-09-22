@@ -6,6 +6,6 @@ namespace Global.Factories.Requirement.Base
 {
     public abstract class BaseRequirementPresenterFactory
     {
-        public abstract List<IPresenter> CreateList(GlobalEnvironment environment, List<IRequirement> requirements);
+        public abstract List<IPresenter> CreateList(IGlobalEnvironment environment, List<IRequirement> requirements);
     }
 }

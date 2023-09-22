@@ -14,7 +14,7 @@ namespace Game.CamerasUpdaters
 
         public TopDownCameraFollowUpdater() => Camera = GameObject.Find(CameraName).GetComponent<Camera>();
 
-        public override void Update(GlobalEnvironment environment)
+        public override void Update(IGlobalEnvironment environment)
         {
             var target = GetTarget(environment.ShipModel.MoveModel.Position);
             var cameraPosition = Camera.transform.position;

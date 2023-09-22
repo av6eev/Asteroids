@@ -7,10 +7,10 @@ namespace Global.Requirements.MoneyCount.Base
 {
     public abstract class BaseMoneyCountRequirementPresenter<T> : IPresenter where T : BaseMoneyCountRequirement
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly T _model;
 
-        protected BaseMoneyCountRequirementPresenter(GlobalEnvironment environment, IRequirement model)
+        protected BaseMoneyCountRequirementPresenter(IGlobalEnvironment environment, IRequirement model)
         {
             _environment = environment;
             _model = (T) model;
