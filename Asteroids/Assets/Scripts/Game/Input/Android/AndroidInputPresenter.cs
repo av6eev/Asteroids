@@ -1,5 +1,4 @@
 ﻿using Game.Input.Base;
-using Global;
 using Global.Base;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -27,7 +26,7 @@ namespace Game.Input.Android
         {
             base.Activate();
             
-            _view.Initialize(((MonoBehaviour)_environment.GameSceneView.GameView).transform);
+            _view.Initialize(((MonoBehaviour)_environment.GameSceneView.GameUIView).transform);
             EnhancedTouchSupport.Enable();
             
             _view.FireButton.OnDown += StartFire;
