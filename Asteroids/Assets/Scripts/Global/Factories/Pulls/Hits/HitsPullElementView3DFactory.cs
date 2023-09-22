@@ -5,6 +5,6 @@ namespace Global.Factories.Pulls.Hits
 {
     public class HitsPullElementView3DFactory : BaseHitsPullElementViewFactory
     {
-        public override IHitView Get(IGlobalEnvironment environment) => environment.ShipModel.Specification.BulletPrefab3D.HitView;
+        public override IHitView Get(IGlobalEnvironment environment) => environment.ShipModel.Specification.BulletView3D.HitView;
     }
 }

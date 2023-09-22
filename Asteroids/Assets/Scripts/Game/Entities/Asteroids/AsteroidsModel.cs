@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Asteroids.Base;
 using Specifications.Asteroids;
+using Specifications.Asteroids.Base;
 
 namespace Game.Entities.Asteroids
 {
@@ -10,12 +11,12 @@ namespace Game.Entities.Asteroids
     {
         public event Action<float> OnUpdate;
         public event Action<IAsteroidModel, bool, bool> OnAsteroidDestroyed;
-        public Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
+        public Dictionary<AsteroidsTypes, IAsteroidSpecification> Specifications { get; }
         public Dictionary<IAsteroidModel, IAsteroidView> ActiveAsteroids { get; } = new();
         public float SpawnRate { get; private set; } = .5f;
         public float SpeedShift { get; private set; }
 
-        public AsteroidsModel(Dictionary<AsteroidsTypes, AsteroidSpecification> specifications) => Specifications = specifications;
+        public AsteroidsModel(Dictionary<AsteroidsTypes, IAsteroidSpecification> specifications) => Specifications = specifications;
 
         public void Update(float deltaTime) => OnUpdate?.Invoke(deltaTime);
 

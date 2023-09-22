@@ -13,22 +13,21 @@ MonoBehaviour:
   m_Name: SartineShipSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Id: 5
-    Type: 3
-    Name: Sartine
+    <Id>k__BackingField: 5
+    <Type>k__BackingField: 3
+    <Name>k__BackingField: Sartine
     <Price>k__BackingField: 40
-    Health: 3
-    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+    <Health>k__BackingField: 3
+    <BulletPrefab3D>k__BackingField: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
       type: 3}
-    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
+    <BulletPrefab2D>k__BackingField: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
       type: 3}
-    Count: 10
-    ReloadTime: 0
-    ShootRate: 0.15
-    IsAutomatic: 1
-    Speed: 4
-    Prefab3D: {fileID: 4307264583170498310, guid: 765a53ebeffac7e43a982e1bb749f3d5,
+    <Count>k__BackingField: 10
+    <ReloadTime>k__BackingField: 0
+    <ShootRate>k__BackingField: 0.15
+    <IsAutomatic>k__BackingField: 1
+    <Speed>k__BackingField: 4
+    <Prefab3D>k__BackingField: {fileID: 4307264583170498310, guid: 765a53ebeffac7e43a982e1bb749f3d5,
       type: 3}
-    Prefab2D: {fileID: 207092490752759698, guid: 77b96ba247efbf945bbdb20bca45bf42,
+    <Prefab2D>k__BackingField: {fileID: 207092490752759698, guid: 77b96ba247efbf945bbdb20bca45bf42,
       type: 3}
-    PreviewImage: {fileID: 21300000, guid: 3234afa3226e885428b79ce54ffae1c0, type: 3}

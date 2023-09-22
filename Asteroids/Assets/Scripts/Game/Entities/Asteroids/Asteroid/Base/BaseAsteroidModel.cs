@@ -1,5 +1,6 @@
 ﻿using System;
 using Specifications.Asteroids;
+using Specifications.Asteroids.Base;
 using UnityEngine;
 using Utilities.Game;
 using Random = UnityEngine.Random;
@@ -11,7 +12,7 @@ namespace Game.Entities.Asteroids.Asteroid.Base
         public event Action<float> OnUpdate;
         public event Action OnDestroy;
         
-        public AsteroidSpecification Specification { get; }
+        public IAsteroidSpecification Specification { get; }
         public Vector3 Direction { get; }
         public Vector3 Position { get; protected set; }
         public float Speed { get; }
@@ -20,7 +21,7 @@ namespace Game.Entities.Asteroids.Asteroid.Base
 
         public int MaxHealth { get; }
 
-        protected BaseAsteroidModel(AsteroidSpecification specification, float speedShift)
+        protected BaseAsteroidModel(IAsteroidSpecification specification, float speedShift)
         {
             Specification = specification;
             CurrentHealth = specification.Health;

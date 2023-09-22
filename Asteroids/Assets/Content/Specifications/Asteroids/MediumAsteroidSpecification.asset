@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: MediumAsteroidSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Type: 2
-    Health: 60
-    Speed: 20
-    ChanceToSpawn: 0.4
-    Prefab3D: {fileID: 5191930319756989481, guid: b0268cd435492254e96fbc379afa8ee6,
+    <Type>k__BackingField: 2
+    <Health>k__BackingField: 60
+    <Speed>k__BackingField: 20
+    <ChanceToSpawn>k__BackingField: 0.4
+    <Prefab3D>k__BackingField: {fileID: 5191930319756989481, guid: b0268cd435492254e96fbc379afa8ee6,
       type: 3}
-    Prefab2D: {fileID: 1744763039187649893, guid: b3774582a18178440a3cbf3ae8ccb204,
+    <Prefab2D>k__BackingField: {fileID: 1744763039187649893, guid: b3774582a18178440a3cbf3ae8ccb204,
       type: 3}
-    SubAsteroidsOnDestroy:
-    - {fileID: 11400000, guid: 0d5322070258c284ead421d996bea34a, type: 2}
-    - {fileID: 11400000, guid: 0d5322070258c284ead421d996bea34a, type: 2}
+    <SubAsteroidsOnDestroy>k__BackingField:
+      <SubAsteroidsOnDestroyGo>k__BackingField:
+      - {fileID: 11400000, guid: 0d5322070258c284ead421d996bea34a, type: 2}
+      - {fileID: 11400000, guid: 0d5322070258c284ead421d996bea34a, type: 2}

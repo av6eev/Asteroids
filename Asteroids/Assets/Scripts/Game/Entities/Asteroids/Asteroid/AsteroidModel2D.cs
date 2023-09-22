@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Specifications.Asteroids;
+using Specifications.Asteroids.Base;
 using UnityEngine;
 using Utilities.Game;
 
@@ -8,7 +9,7 @@ namespace Game.Entities.Asteroids.Asteroid
 {
     public class AsteroidModel2D : BaseAsteroidModel
     {
-        public AsteroidModel2D(AsteroidSpecification specification, float speedShift) : base(specification, speedShift)
+        public AsteroidModel2D(IAsteroidSpecification specification, float speedShift) : base(specification, speedShift)
         {
         }
 

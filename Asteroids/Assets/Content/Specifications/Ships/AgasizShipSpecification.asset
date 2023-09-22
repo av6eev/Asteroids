@@ -13,22 +13,21 @@ MonoBehaviour:
   m_Name: AgasizShipSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Id: 1
-    Type: 1
-    Name: Agasiz
+    <Id>k__BackingField: 1
+    <Type>k__BackingField: 1
+    <Name>k__BackingField: Agasiz
     <Price>k__BackingField: 0
-    Health: 3
-    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+    <Health>k__BackingField: 3
+    <BulletPrefab3D>k__BackingField: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
       type: 3}
-    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
+    <BulletPrefab2D>k__BackingField: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
       type: 3}
-    Count: 5
-    ReloadTime: 1
-    ShootRate: 0.3
-    IsAutomatic: 0
-    Speed: 2
-    Prefab3D: {fileID: 2812119457396377491, guid: 5e44a5a8260f9744f95546482c3bf1bd,
+    <Count>k__BackingField: 5
+    <ReloadTime>k__BackingField: 1
+    <ShootRate>k__BackingField: 0.3
+    <IsAutomatic>k__BackingField: 0
+    <Speed>k__BackingField: 2
+    <Prefab3D>k__BackingField: {fileID: 2812119457396377491, guid: 5e44a5a8260f9744f95546482c3bf1bd,
       type: 3}
-    Prefab2D: {fileID: 4199703903810854033, guid: ece2c8baf0715044bbe39540d662afe6,
+    <Prefab2D>k__BackingField: {fileID: 4199703903810854033, guid: ece2c8baf0715044bbe39540d662afe6,
       type: 3}
-    PreviewImage: {fileID: 21300000, guid: ee3e75ec9aeb3e94fb2984ee0ed395e5, type: 3}

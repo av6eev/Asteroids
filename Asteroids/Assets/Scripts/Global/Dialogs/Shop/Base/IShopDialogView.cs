@@ -2,6 +2,7 @@
 using Global.Dialogs.Base;
 using Global.Dialogs.Shop.Card.Base;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 
 namespace Global.Dialogs.Shop.Base
 {
@@ -10,7 +11,7 @@ namespace Global.Dialogs.Shop.Base
         event Action OnExitClicked;
 
         void DestroyCards();
-        IShopCardDialogView InstantiateCard(ShipSpecification specification);
+        IShopCardDialogView InstantiateCard(IShipSpecification specification);
         void UpdateBalanceText(int money);
     }
 }

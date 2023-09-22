@@ -7,6 +7,7 @@ using Game.Factories.Asteroid;
 using Game.Factories.Asteroid.Base;
 using Global;
 using Specifications.Asteroids;
+using Specifications.Asteroids.Base;
 using Specifications.GameDifficulties;
 using Utilities.Engines;
 using Utilities.Enums;
@@ -134,7 +135,7 @@ namespace Game.Entities.Asteroids
             }
         }
 
-        private void CreateAsteroid(AsteroidSpecification specification, float horizontalPosition, float forwardPosition)
+        private void CreateAsteroid(IAsteroidSpecification specification, float horizontalPosition, float forwardPosition)
         {
             var view = _environment.PullsModel.AsteroidsPulls[specification.Type].TryGetElement(); 
             var model = _asteroidModelFactory.Create(specification, _model.SpeedShift);
@@ -164,9 +165,11 @@ namespace Game.Entities.Asteroids
 
         private void TryCreateChildrenOnDestroyParent(IAsteroidModel model, bool byBorder, bool byShip)
         {
-            if (byBorder || byShip || model.Specification.SubAsteroidsOnDestroy.Count == 0) return;
+            var subAsteroidsOnDestroy = model.Specification.SubAsteroidsCollection.SubAsteroidsOnDestroy;
             
-            foreach (var specification in model.Specification.SubAsteroidsOnDestroy.Select(item => item.Specification))
+            if (byBorder || byShip || subAsteroidsOnDestroy.Count == 0) return;
+            
+            foreach (var specification in subAsteroidsOnDestroy.Select(item => item.Get()))
             {
                 var offset = Random.Range(-7f, 7f);
                 var newPosition = model.GetPositionWithOffset(offset, offset);

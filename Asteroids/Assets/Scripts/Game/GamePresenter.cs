@@ -102,7 +102,7 @@ namespace Game
         private void CreateShip()
         {
             var neededSpecification = _environment.Specifications.Ships.Values.First(ship => ship.Id == _environment.GlobalUIModel.SelectedShipId);
-            var shipView = _view.InstantiateShip(neededSpecification.Prefab2D);
+            var shipView = _view.InstantiateShip(neededSpecification.ShipView2D);
             
             _environment.ShipModel = _shipModelFactory.Create(neededSpecification);
             _currentShipPresenter = new ShipPresenter(_environment, _environment.ShipModel, shipView); 

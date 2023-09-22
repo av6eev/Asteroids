@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.Entities.Asteroids.Asteroid.Base;
 using Specifications.Asteroids;
+using Specifications.Asteroids.Base;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Asteroids.Base
@@ -10,7 +11,7 @@ namespace Game.Entities.Asteroids.Base
     {
         event Action<IAsteroidModel, bool, bool> OnAsteroidDestroyed;
         
-        Dictionary<AsteroidsTypes, AsteroidSpecification> Specifications { get; }
+        Dictionary<AsteroidsTypes, IAsteroidSpecification> Specifications { get; }
         Dictionary<IAsteroidModel, IAsteroidView> ActiveAsteroids { get; }
         float SpawnRate { get; }
         float SpeedShift { get; }

@@ -1,16 +1,17 @@
 ﻿using Game.Entities.Ship.Base;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 using UnityEngine;
 
 namespace Game.Entities.Ship
 {
     public class ShipModel3D : BaseShipModel
     {
-        public ShipModel3D(ShipSpecification specification) : base(specification) {}
+        public ShipModel3D(IShipSpecification specification) : base(specification) {}
 
         public ShipModel3D(IShipModel shipModel) : base(shipModel) {}
         
-        public override IShipView GetViewInSpecification() => Specification.Prefab3D;
+        public override IShipView GetViewInSpecification() => Specification.ShipView3D;
         
         public override float GetMainCoordinate() => MoveModel.Position.z;
 

@@ -5,6 +5,6 @@ namespace Global.Factories.Pulls.Bullets
 {
     public class BulletsPullElementView3DFactory : BaseBulletsPullElementViewFactory
     {
-        public override IBulletView Get(IGlobalEnvironment environment) => environment.ShipModel.Specification.BulletPrefab3D;
+        public override IBulletView Get(IGlobalEnvironment environment) => environment.ShipModel.Specification.BulletView3D;
     }
 }

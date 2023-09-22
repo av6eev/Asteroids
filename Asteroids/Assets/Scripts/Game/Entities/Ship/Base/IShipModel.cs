@@ -4,6 +4,7 @@ using Game.Entities.Ship.Move;
 using Game.Entities.Ship.Rotate;
 using Game.Entities.Ship.Shoot;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 
 namespace Game.Entities.Ship.Base
 {
@@ -14,7 +15,7 @@ namespace Game.Entities.Ship.Base
         ShipMoveModel MoveModel { get; }
         ShipShootModel ShootModel { get; }
         ShipRotateModel RotateModel { get; }
-        ShipSpecification Specification { get; }
+        IShipSpecification Specification { get; }
         public bool IsImmune { get; }
 
         void Shoot();

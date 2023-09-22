@@ -4,6 +4,7 @@ using Global.Dialogs.Shop.Base;
 using Global.Dialogs.Shop.Card;
 using Global.Dialogs.Shop.Card.Base;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ namespace Global.Dialogs.Shop
 
         [NonSerialized] private readonly List<IShopCardDialogView> _cardsViews = new();
 
-        public IShopCardDialogView InstantiateCard(ShipSpecification specification)
+        public IShopCardDialogView InstantiateCard(IShipSpecification specification)
         {
             var cardView = Instantiate(ShopCardPrefab, transform);
 

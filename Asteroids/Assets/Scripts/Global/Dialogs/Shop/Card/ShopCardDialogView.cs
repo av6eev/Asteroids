@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Global.Dialogs.Shop.Card.Base;
-using Specifications.Ships;
+using Specifications.Ships.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,11 +27,13 @@ namespace Global.Dialogs.Shop.Card
         [field: SerializeField] public TextMeshProUGUI AutomaticStatText { get; private set; }
         [field: SerializeField] public TextMeshProUGUI ClipStatText { get; private set; }
 
-        public void SetupCard(ShipSpecification specification)
+        public void SetupCard(IShipSpecification specification)
         {
-            if (specification.PreviewImage != null)
+            var previewImage = Resources.Load<Sprite>($"{specification.Name}");
+
+            if (previewImage != null)
             {
-                PreviewImage.sprite = specification.PreviewImage;
+                PreviewImage.sprite = previewImage;
             }
             else
             {
