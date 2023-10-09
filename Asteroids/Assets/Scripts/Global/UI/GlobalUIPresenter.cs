@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Ship;
-using Global.Dialogs.History;
-using Global.Dialogs.Shop;
+using Global.Base;
+using Global.Dialogs.History.Base;
+using Global.Dialogs.Shop.Base;
 using Global.Factories.Requirement;
 using Global.Requirements.Base;
 using Global.Save;
-using UnityEngine;
+using Global.UI.Base;
 using Utilities.Engines;
 using Utilities.Enums;
 using Utilities.Interfaces;
@@ -15,14 +16,14 @@ namespace Global.UI
 {
     public class GlobalUIPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IGlobalUIModel _model;
-        private readonly GlobalUIView _view;
+        private readonly IGlobalUIView _view;
 
         private readonly PresentersEngine _requirementsPresenters = new();
         private readonly MoneyCountRequirementPresenterFactory _requirementPresenterFactory = new();
 
-        public GlobalUIPresenter(GlobalEnvironment environment, IGlobalUIModel model, GlobalUIView view)
+        public GlobalUIPresenter(IGlobalEnvironment environment, IGlobalUIModel model, IGlobalUIView view)
         {
             _environment = environment;
             _model = model;
@@ -32,12 +33,13 @@ namespace Global.UI
         public void Activate()
         {
             DeserializeRequirements();
-            ChangeMenuAndTitleState(true);
             
-            _view.PlayButton.onClick.AddListener(StartGame);
-            _view.ShopButton.onClick.AddListener(OpenShopMenu);
-            _view.HistoryButton.onClick.AddListener(OpenHistoryMenu);
-            _view.ExitButton.onClick.AddListener(CloseGame);
+            _view.ShowDecorationElements();
+            _view.InitializeButtonsSubscriptions();
+            _view.OnPlayClicked += StartGame;
+            _view.OnShopClicked += OpenShopMenu;
+            _view.OnHistoryClicked += OpenHistoryMenu;
+            _view.OnExitClicked += CloseGame;
 
             _environment.SaveModel.OnDeserialize += DeserializeData;
         }
@@ -47,38 +49,33 @@ namespace Global.UI
             _requirementsPresenters.Deactivate();
             _requirementsPresenters.Clear();
             
-            _view.PlayButton.onClick.RemoveListener(StartGame);
-            _view.ShopButton.onClick.RemoveListener(OpenShopMenu);
-            _view.HistoryButton.onClick.RemoveListener(OpenHistoryMenu);
-            _view.ExitButton.onClick.RemoveListener(CloseGame);
-            
+            _view.OnPlayClicked -= StartGame;
+            _view.OnShopClicked -= OpenShopMenu;
+            _view.OnHistoryClicked -= OpenHistoryMenu;
+            _view.OnExitClicked -= CloseGame;
+            _view.DisposeButtonsSubscriptions();
+
             _environment.SaveModel.OnDeserialize -= DeserializeData;
         }
 
         private void OpenShopMenu()
         {
-            ChangeMenuAndTitleState(false);
+            _view.HideDecorationElements();
             
-            _environment.DialogsModel.GetByType<ShopDialogModel>().Show();
+            _environment.DialogsModel.GetByType<IShopDialogModel>().Show();
         }
 
         private void OpenHistoryMenu()
         {
-            ChangeMenuAndTitleState(false);
+            _view.HideDecorationElements();
             
-            _environment.DialogsModel.GetByType<HistoryDialogModel>().Show();
+            _environment.DialogsModel.GetByType<IHistoryDialogModel>().Show();
         }
 
         private void StartGame()
         {
-            _view.ChangeVisibility(false);
+            _view.Hide();
             _environment.ScenesManager.LoadScene(ScenesNames.GameScene, _environment);
-        }
-
-        private void ChangeMenuAndTitleState(bool state)
-        {
-            _view.MainMenuRoot.SetActive(state);
-            _view.Title.SetActive(state);
         }
 
         private void DeserializeData() => _model.SetSelectedShip(_environment.SaveModel.GetElement<int>(SavingElementsKeys.SelectedShip));
@@ -103,10 +100,6 @@ namespace Global.UI
             _requirementsPresenters.Activate();
         }
         
-        private void CloseGame()
-        {
-            _environment.SaveModel.Save();
-            Application.Quit();
-        }
+        private void CloseGame() => _environment.SaveModel.Save();
     }
 }

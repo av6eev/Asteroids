@@ -2,6 +2,7 @@
 using Game.Entities.Asteroids.Asteroid.Base;
 using Game.UI.Money.Base;
 using Global;
+using Global.Base;
 using Global.Sound;
 using Utilities.Interfaces;
 
@@ -9,10 +10,10 @@ namespace Game.UI.Money
 {
     public class MoneyPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
-        private readonly BaseMoneyView _view;
+        private readonly IGlobalEnvironment _environment;
+        private readonly IMoneyView _view;
 
-        public MoneyPresenter(GlobalEnvironment environment, BaseMoneyView view)
+        public MoneyPresenter(IGlobalEnvironment environment, IMoneyView view)
         {
             _environment = environment;
             _view = view;
@@ -37,7 +38,7 @@ namespace Game.UI.Money
             };
 
             _environment.GameModel.UpdateBalance(moneyBonus);
-            _environment.SoundManager.Play(SoundsTypes.CoinGained);
+            _environment.GlobalSceneView.SoundManager.Instance.Play(SoundsTypes.CoinGained);
             
             _view.UpdateMoneyCounter(_environment.GameModel.CurrentMoney);
         }

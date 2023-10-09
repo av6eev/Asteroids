@@ -1,4 +1,5 @@
 ﻿using Global;
+using Global.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 
@@ -6,11 +7,11 @@ namespace Game.CamerasUpdaters.Base
 {
     public abstract class BaseCameraFollowUpdater : IUpdater
     {
-        public abstract Camera Camera { get; set; }
+        protected Camera Camera { get; set; }
         public abstract Vector3 Offset { get; set; }
 
-        public abstract void Update(GlobalEnvironment environment);
+        public abstract void Update(IGlobalEnvironment environment);
 
-        protected virtual Vector3 GetTarget(Vector3 shipPosition) => shipPosition + (Camera.transform.position - shipPosition).normalized + Offset;
+        protected abstract Vector3 GetTarget(Vector3 shipPosition);
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Global.Dialogs.Base;
+using Global.Dialogs.History.Base;
 
 namespace Global.Dialogs.History
 {
-    public class HistoryDialogModel : IGlobalDialogModel
+    public class HistoryDialogModel : IHistoryDialogModel
     {
         public event Action OnShow, OnHide, OnScoreAdded;
 

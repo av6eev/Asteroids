@@ -1,5 +1,5 @@
-﻿using Global.Rewards.Base;
-using UnityEngine;
+﻿using Global.Base;
+using Global.Rewards.Base;
 using Utilities.Enums;
 
 namespace Global.Rewards.DistancePassed
@@ -7,9 +7,9 @@ namespace Global.Rewards.DistancePassed
     public abstract class BaseDistancePassedReward : IReward
     {
         public bool IsCompleted { get; private set; }
-        [field: SerializeField] public DifficultyStages DifficultyStage { get; private set; }
+        public abstract DifficultyStages DifficultyStage { get; set; }
 
-        public void Give(GlobalEnvironment environment)
+        public void Give(IGlobalEnvironment environment)
         {
             IsCompleted = true;
             environment.GameModel.UpdateDifficulty(environment.Specifications.GameDifficulties[DifficultyStage]);

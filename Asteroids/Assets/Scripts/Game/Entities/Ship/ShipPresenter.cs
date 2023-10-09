@@ -4,6 +4,7 @@ using Game.Entities.Ship.Move;
 using Game.Entities.Ship.Rotate;
 using Game.Entities.Ship.Shoot;
 using Global;
+using Global.Base;
 using UnityEngine;
 using Utilities.Engines;
 using Utilities.Enums;
@@ -14,14 +15,14 @@ namespace Game.Entities.Ship
 {
     public class ShipPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IShipModel _model;
-        private readonly BaseShipView _view;
+        private readonly IShipView _view;
 
         private readonly PresentersEngine _presenters = new();
         private Coroutine _immunityCoroutine;
 
-        public ShipPresenter(GlobalEnvironment environment, IShipModel model, BaseShipView view)
+        public ShipPresenter(IGlobalEnvironment environment, IShipModel model, IShipView view)
         {
             _environment = environment;
             _model = model;
@@ -37,8 +38,6 @@ namespace Game.Entities.Ship
 
         public void Deactivate()
         {
-            _environment.PullsData.HitsPull.Dispose();
-                
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipMove);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipShoot);
             _environment.FixedUpdatersEngine.Remove(UpdatersTypes.ShipRotate);
@@ -47,13 +46,12 @@ namespace Game.Entities.Ship
             _presenters.Clear();
 
             _model.OnDamageApplied -= ApplyDamage;
-            
-            Debug.Log(nameof(ShipPresenter) + " deactivated!");
         }
 
         private void ApplyDamage()
         {
             _environment.GameModel.UpdateLives(_model.CurrentHealth);
+            
             _model.UpdateImmuneState(true);
             _immunityCoroutine = GameCoroutines.RunCoroutine(EnableImmunity());
             _view.EnableImmunity();
@@ -76,8 +74,6 @@ namespace Game.Entities.Ship
 
         private void CreateNecessaryData()
         {
-            var hitsPull = _environment.GameSceneView.GameView.HitsPullView;
-            
             _presenters.Add(new ShipMovePresenter(_environment, _model.MoveModel));
             _presenters.Add(new ShipShootPresenter(_environment, _model.ShootModel));
             _presenters.Add(new ShipRotatePresenter(_environment, _model.RotateModel));
@@ -87,11 +83,6 @@ namespace Game.Entities.Ship
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipMove, new ShipMoveUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipShoot, new ShipShootUpdater());
             _environment.FixedUpdatersEngine.Add(UpdatersTypes.ShipRotate, new ShipRotateUpdater());
-            
-            hitsPull.ElementPrefab = _environment.ShipModel.Specification.BulletPrefab2D.HitEffect;
-            hitsPull.Count = 10;
-            
-            _environment.PullsData.HitsPull.CreatePull(hitsPull);
         }
     }
 }

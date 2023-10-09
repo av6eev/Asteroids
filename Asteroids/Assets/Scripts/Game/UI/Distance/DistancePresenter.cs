@@ -1,5 +1,6 @@
 ﻿using Game.UI.Distance.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 
@@ -7,10 +8,10 @@ namespace Game.UI.Distance
 {
     public class DistancePresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
-        private readonly BaseDistanceView _view;
+        private readonly IGlobalEnvironment _environment;
+        private readonly IDistanceView _view;
 
-        public DistancePresenter(GlobalEnvironment environment, BaseDistanceView view)
+        public DistancePresenter(IGlobalEnvironment environment, IDistanceView view)
         {
             _environment = environment;
             _view = view;

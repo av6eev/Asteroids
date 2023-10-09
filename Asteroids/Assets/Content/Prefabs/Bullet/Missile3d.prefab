@@ -51,7 +51,7 @@ MonoBehaviour:
   <Speed>k__BackingField: 100
   <Health>k__BackingField: 20
   <Damage>k__BackingField: 20
-  <HitEffect>k__BackingField: {fileID: -789998880721594346, guid: 643639841fb531e4ba8097fed4eb9ac7,
+  <HitViewGo>k__BackingField: {fileID: -2755296213775445742, guid: 7ce21d9235fcab74fbccae8333a9ce4b,
     type: 3}
 --- !u!54 &-4641498870307249847
 Rigidbody:

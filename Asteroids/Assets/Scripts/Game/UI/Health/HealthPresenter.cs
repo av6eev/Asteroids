@@ -1,15 +1,16 @@
 ﻿using Game.UI.Health.Base;
 using Global;
+using Global.Base;
 using Utilities.Interfaces;
 
 namespace Game.UI.Health
 {
     public class HealthPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
-        private readonly BaseHealthView _view;
+        private readonly IGlobalEnvironment _environment;
+        private readonly IHealthView _view;
 
-        public HealthPresenter(GlobalEnvironment environment, BaseHealthView view)
+        public HealthPresenter(IGlobalEnvironment environment, IHealthView view)
         {
             _environment = environment;
             _view = view;
@@ -22,10 +23,7 @@ namespace Game.UI.Health
             _environment.GameModel.OnLivesChanged += UpdateHealthBar;
         }
 
-        public void Deactivate()
-        {
-            _environment.GameModel.OnLivesChanged -= UpdateHealthBar;
-        }
+        public void Deactivate() => _environment.GameModel.OnLivesChanged -= UpdateHealthBar;
 
         private void UpdateHealthBar(int currentLives) => _view.UpdateHealth((float)currentLives / (float)_environment.ShipModel.MaxHealth);
     }

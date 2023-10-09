@@ -1,5 +1,6 @@
-﻿using Global.Dialogs.Shop.Card;
-using UnityEngine;
+﻿using Global.Base;
+using Global.Dialogs.Shop.Base;
+using Global.Dialogs.Shop.Card;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -7,13 +8,13 @@ namespace Global.Dialogs.Shop
 {
     public class ShopDialogPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
-        private readonly ShopDialogModel _model;
-        private readonly ShopDialogView _view;
+        private readonly IGlobalEnvironment _environment;
+        private readonly IShopDialogModel _model;
+        private readonly IShopDialogView _view;
 
         private readonly PresentersEngine _cardsPresenters = new();
 
-        public ShopDialogPresenter(GlobalEnvironment environment, ShopDialogModel model, ShopDialogView view)
+        public ShopDialogPresenter(IGlobalEnvironment environment, IShopDialogModel model, IShopDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -22,8 +23,10 @@ namespace Global.Dialogs.Shop
         
         public void Activate()
         {
-            _view.ChangeVisibility(false);
-            _view.ExitButton.onClick.AddListener(Hide);
+            _view.Hide();
+            _view.InitializeButtonsSubscriptions();
+            
+            _view.OnExitClicked += Hide;
             
             _model.OnShow += Show;
             _model.OnHide += Hide;
@@ -38,7 +41,8 @@ namespace Global.Dialogs.Shop
             _cardsPresenters.Deactivate();
             _cardsPresenters.Clear();
             
-            _view.ExitButton.onClick.RemoveListener(Hide);
+            _view.OnExitClicked -= Hide;
+            _view.DisposeButtonsSubscriptions();
             
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
@@ -66,19 +70,15 @@ namespace Global.Dialogs.Shop
                 activeCard.Hide();
                 nextCard.Show();    
             }
-            else
-            {
-                Debug.Log("Next/previous card isn't exist");
-            }
         }
 
         private void Show()
         {
-            foreach (var specification in _model.ShipSpecifications)
+            foreach (var specification in _environment.Specifications.Ships)
             {
                 if (!_environment.GlobalUIModel.AvailableShips.TryGetValue(specification.Key, out var isPurchased)) continue;
                 
-                var model = new ShopCardDialogModel(specification.Value, isPurchased);
+                var model = new ShopCardDialogModel(specification.Value.Type, specification.Value.Id, isPurchased);
                 var presenter = new ShopCardDialogPresenter(_environment, model, _view.InstantiateCard(specification.Value));
                 
                 _model.Cards.Add(model);
@@ -87,7 +87,7 @@ namespace Global.Dialogs.Shop
             
             _cardsPresenters.Activate();
             _model.Cards.Find(card => card.Id == _environment.GlobalUIModel.SelectedShipId).Show();
-            _view.ChangeVisibility(true);
+            _view.Show();
         }
 
         private void Hide()
@@ -98,10 +98,9 @@ namespace Global.Dialogs.Shop
             _model.Cards.Clear();
             
             _view.DestroyCards();
-            _view.ChangeVisibility(false);
+            _view.Hide();
             
-            _environment.GlobalView.GlobalUIView.MainMenuRoot.SetActive(true);
-            _environment.GlobalView.GlobalUIView.Title.SetActive(true);
+            _environment.GlobalSceneView.GlobalUIView.ShowDecorationElements();
         }
     }
 }

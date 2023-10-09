@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace Game.UI.Difficulty
 {
-    public class DifficultyView : BaseDifficultyView
+    public class DifficultyView : MonoBehaviour, IDifficultyView
     {
         [field: SerializeField] public TextMeshProUGUI DifficultyText { get; private set; }
 
-        public override void UpdateDifficulty(int difficulty) => DifficultyText.text = difficulty.ToString();
+        public void UpdateDifficulty(int difficulty) => DifficultyText.text = difficulty.ToString();
+        
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
     }
 }

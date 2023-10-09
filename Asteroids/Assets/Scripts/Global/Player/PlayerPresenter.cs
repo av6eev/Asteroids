@@ -1,14 +1,16 @@
-﻿using Global.Save;
+﻿using Global.Base;
+using Global.Player.Base;
+using Global.Save;
 using Utilities.Interfaces;
 
 namespace Global.Player
 {
     public class PlayerPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IPlayerModel _model;
 
-        public PlayerPresenter(GlobalEnvironment environment, IPlayerModel model)
+        public PlayerPresenter(IGlobalEnvironment environment, IPlayerModel model)
         {
             _environment = environment;
             _model = model;

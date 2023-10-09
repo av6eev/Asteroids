@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Global.Base;
 using Global.Factories.Requirement.Base;
 using Global.Requirements.Base;
 using Global.Requirements.DistancePassed.First;
@@ -11,7 +12,7 @@ namespace Global.Factories.Requirement
 {
     public class DistancePassedRequirementPresenterFactory : BaseRequirementPresenterFactory
     {
-        public override List<IPresenter> CreateList(GlobalEnvironment environment, List<IRequirement> requirements)
+        public override List<IPresenter> CreateList(IGlobalEnvironment environment, List<IRequirement> requirements)
         {
             return requirements.Select(requirement => (IPresenter)(requirement switch
                 {

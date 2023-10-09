@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Ship;
+using Global.Base;
 using Global.Factories.Requirement.Base;
 using Global.Requirements.Base;
 using Global.Requirements.MoneyCount.Arlingham;
@@ -14,7 +15,7 @@ namespace Global.Factories.Requirement
 {
     public class MoneyCountRequirementPresenterFactory : BaseRequirementPresenterFactory
     {
-        public override List<IPresenter> CreateList(GlobalEnvironment environment, List<IRequirement> requirements)
+        public override List<IPresenter> CreateList(IGlobalEnvironment environment, List<IRequirement> requirements)
         {
             return requirements.Select(requirement => (IPresenter)(requirement switch
                 {
@@ -27,7 +28,7 @@ namespace Global.Factories.Requirement
                 .ToList();
         }
 
-        public Dictionary<ShipsTypes, IPresenter> CreateUncompleted(GlobalEnvironment environment, in Dictionary<string, IRequirement> requirements)
+        public Dictionary<ShipsTypes, IPresenter> CreateUncompleted(IGlobalEnvironment environment, in Dictionary<string, IRequirement> requirements)
         {
             Dictionary<ShipsTypes, IPresenter> uncompletedRequirements = new ();
             var type = ShipsTypes.Default;

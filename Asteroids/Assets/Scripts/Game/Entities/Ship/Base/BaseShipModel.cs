@@ -3,6 +3,7 @@ using Game.Entities.Ship.Move;
 using Game.Entities.Ship.Rotate;
 using Game.Entities.Ship.Shoot;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 using UnityEngine;
 
 namespace Game.Entities.Ship.Base
@@ -14,13 +15,13 @@ namespace Game.Entities.Ship.Base
         public ShipMoveModel MoveModel { get; }
         public ShipShootModel ShootModel { get; }
         public ShipRotateModel RotateModel { get; }
-        public ShipSpecification Specification { get; }
+        public IShipSpecification Specification { get; }
 
         public bool IsImmune { get; private set; }
         public int CurrentHealth { get; private set; }
         public int MaxHealth { get; }
 
-        protected BaseShipModel(ShipSpecification specification)
+        protected BaseShipModel(IShipSpecification specification)
         {
             Specification = specification;
             CurrentHealth = specification.Health;
@@ -46,7 +47,7 @@ namespace Game.Entities.Ship.Base
 
         public virtual void UpdateImmuneState(bool state) => IsImmune = state;
 
-        public abstract BaseShipView GetViewInSpecification();
+        public abstract IShipView GetViewInSpecification();
 
         public virtual void ApplyDamage(int damage)
         {

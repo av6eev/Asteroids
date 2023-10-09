@@ -1,10 +1,11 @@
-﻿using Global.Requirements.Base;
+﻿using Global.Base;
+using Global.Requirements.Base;
 using Global.Requirements.DistancePassed.Base;
 
 namespace Global.Requirements.DistancePassed.First
 {
     public class FirstDistancePassedRequirementPresenter : BaseDistancePassedRequirementPresenter<FirstDistancePassedRequirement>
     {
-        public FirstDistancePassedRequirementPresenter(GlobalEnvironment environment, IRequirement model) : base(environment, model) {}
+        public FirstDistancePassedRequirementPresenter(IGlobalEnvironment environment, IRequirement model) : base(environment, model) {}
     }
 }

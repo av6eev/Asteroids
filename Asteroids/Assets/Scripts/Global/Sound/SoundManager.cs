@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace Global.Sound
 {
-    public class SoundManager : MonoBehaviour
+    public class SoundManager : MonoBehaviour, ISoundManager
     {
         [field: SerializeField] public List<BaseSound> Sounds { get; private set; }
-        [field: NonSerialized] public SoundManager Instance { get; private set; }
-        
+        [field: NonSerialized] private SoundManager _instance { get; set; }
+
+        public ISoundManager Instance => _instance;
+
         private void Awake()
         {
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = this;
+                _instance = this;
             }
             else
             {
@@ -49,18 +51,6 @@ namespace Global.Sound
             {
                 sound.Source.Stop();
             }
-        }
-
-        public void Add(BaseSound sound)
-        {
-            if (Sounds.Contains(sound))
-            {
-                Debug.LogWarning($"Sound with type: {sound.Type} already exist!");
-                return;
-            }
-            
-            SetupSourceWithSoundData(sound);
-            Sounds.Add(sound);
         }
 
         private void SetupSourceWithSoundData(BaseSound sound)

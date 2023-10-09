@@ -1,12 +1,12 @@
 ﻿using Global;
+using Global.Base;
 using UnityEngine;
-using Utilities;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Asteroids
 {
     public class AsteroidsUpdater : IUpdater
     {
-        public void Update(GlobalEnvironment environment) => environment.AsteroidsModel.Update(Time.deltaTime);
+        public void Update(IGlobalEnvironment environment) => environment.AsteroidsModel.Update(Time.deltaTime);
     }
 }

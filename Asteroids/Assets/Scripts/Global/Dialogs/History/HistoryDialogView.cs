@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
-using Global.Dialogs.Base;
+﻿using System;
+using System.Collections.Generic;
+using Global.Dialogs.History.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Global.Dialogs.History
 {
-    public class HistoryDialogView : BaseDialogView
+    public class HistoryDialogView : MonoBehaviour, IHistoryDialogView
     {
+        public event Action OnExitClicked;
+        
         [field: Header("Order of elements is important!")]
         [field: SerializeField] public List<TextMeshProUGUI> Scores { get; private set; }
         [field: SerializeField] public Button ExitButton { get; private set; }
@@ -28,5 +31,13 @@ namespace Global.Dialogs.History
                 field.text = scoreByIndex.ToString();
             }
         }
+
+        public void InitializeButtonsSubscriptions() => ExitButton.onClick.AddListener(() => { OnExitClicked?.Invoke(); });
+
+        public void DisposeButtonsSubscriptions() => ExitButton.onClick.RemoveListener(() => { OnExitClicked?.Invoke(); });
+
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
     }
 }

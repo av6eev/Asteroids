@@ -1,24 +1,21 @@
 ﻿using Game.CamerasUpdaters.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 
 namespace Game.CamerasUpdaters
 {
     public sealed class TopDownCameraFollowUpdater : BaseCameraFollowUpdater
     {
-        public override Camera Camera { get; set; }
-        public override Vector3 Offset { get; set; }
-
+        public override Vector3 Offset { get; set; } = new(0f, 30f, -1f);
+        
         private const float SMOOTH_TIME = 0.05f;
+        private const string CameraName = "TopDownCamera";
         private Vector3 _currentVelocity;
 
-        public TopDownCameraFollowUpdater(Vector3 offset, Camera camera)
-        {
-            Offset = offset;
-            Camera = camera;
-        }
+        public TopDownCameraFollowUpdater() => Camera = GameObject.Find(CameraName).GetComponent<Camera>();
 
-        public override void Update(GlobalEnvironment environment)
+        public override void Update(IGlobalEnvironment environment)
         {
             var target = GetTarget(environment.ShipModel.MoveModel.Position);
             var cameraPosition = Camera.transform.position;
@@ -28,5 +25,7 @@ namespace Game.CamerasUpdaters
             
             environment.GameModel.ZoneLimits.UpdateTopDownBorders(cameraPosition.y + 50, cameraPosition.y - 40);
         }
+
+        protected override Vector3 GetTarget(Vector3 shipPosition) => shipPosition + (Camera.transform.position - shipPosition).normalized + Offset;
     }
 }

@@ -1,32 +1,58 @@
-﻿using Game.UI.Base;
+﻿using System;
+using Game.UI.Base;
+using Game.UI.Difficulty;
 using Game.UI.Difficulty.Base;
+using Game.UI.Distance;
 using Game.UI.Distance.Base;
+using Game.UI.EndScreen;
 using Game.UI.EndScreen.Base;
+using Game.UI.Health;
 using Game.UI.Health.Base;
+using Game.UI.Money;
 using Game.UI.Money.Base;
+using Game.UI.Score;
 using Game.UI.Score.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class GameUIView : BaseGameUIView
+    public class GameUIView : MonoBehaviour, IGameUIView
     {
-        [field: SerializeField] public BaseScoreView ScoreView { get; private set; }
-        [field: SerializeField] public BaseDistanceView DistanceView { get; private set; }
-        [field: SerializeField] public BaseHealthView HealthView { get; private set; }
-        [field: SerializeField] public BaseMoneyView MoneyView { get; private set; }
-        [field: SerializeField] public BaseDifficultyView DifficultyView { get; private set; }
-        [field: SerializeField] public BaseEndScreenView EndScreenView { get; private set; }
+        public event Action OnCameraChanged;
+        
+        [field: SerializeField] public ScoreView ScoreViewGo { get; private set; }
+        [field: SerializeField] public DistanceView DistanceViewGo { get; private set; }
+        [field: SerializeField] public HealthView HealthViewGo { get; private set; }
+        [field: SerializeField] public MoneyView MoneyViewGo { get; private set; }
+        [field: SerializeField] public DifficultyView DifficultyViewGo { get; private set; }
+        [field: SerializeField] public EndScreenView EndScreenViewGo { get; private set; }
         [field: SerializeField] public Button ChangeCameraButton { get; private set; }
+
+        public IScoreView ScoreView => ScoreViewGo;
+        public IDistanceView DistanceView => DistanceViewGo;
+        public IHealthView HealthView => HealthViewGo;
+        public IMoneyView MoneyView => MoneyViewGo;
+        public IDifficultyView DifficultyView => DifficultyViewGo;
+        public IEndScreenView EndScreenView => EndScreenViewGo;
+        
+        private void Start() => EndScreenViewGo.gameObject.SetActive(false);
+
+        public void InitializeButtonsSubscriptions() => ChangeCameraButton.onClick.AddListener(() => { OnCameraChanged?.Invoke(); });
+
+        public void DisposeButtonsSubscriptions() => ChangeCameraButton.onClick.RemoveListener(() => { OnCameraChanged?.Invoke(); });
+
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
 
         public void HideElementsAfterEnd()
         {
-            MoneyView.ChangeVisibility(false);
-            HealthView.ChangeVisibility(false);
-            DistanceView.ChangeVisibility(false);
-            ScoreView.ChangeVisibility(false);
-            DifficultyView.ChangeVisibility(false);
+            MoneyViewGo.Hide();
+            HealthViewGo.Hide();
+            DistanceViewGo.Hide();
+            ScoreViewGo.Hide();
+            DifficultyViewGo.Hide();
             ChangeCameraButton.gameObject.SetActive(false);
         }
     }

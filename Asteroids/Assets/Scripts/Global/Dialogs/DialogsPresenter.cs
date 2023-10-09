@@ -1,6 +1,9 @@
-﻿using Global.Dialogs.Base;
+﻿using Global.Base;
+using Global.Dialogs.Base;
 using Global.Dialogs.History;
+using Global.Dialogs.History.Base;
 using Global.Dialogs.Shop;
+using Global.Dialogs.Shop.Base;
 using Utilities.Engines;
 using Utilities.Interfaces;
 
@@ -8,13 +11,13 @@ namespace Global.Dialogs
 {
     public class DialogsPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IDialogsModel _model;
-        private readonly DialogsView _view;
+        private readonly IDialogsView _view;
 
         private readonly PresentersEngine _presenters = new();
 
-        public DialogsPresenter(GlobalEnvironment environment, IDialogsModel model, DialogsView view)
+        public DialogsPresenter(IGlobalEnvironment environment, IDialogsModel model, IDialogsView view)
         {
             _environment = environment;
             _model = model;
@@ -23,8 +26,8 @@ namespace Global.Dialogs
         
         public void Activate()
         {
-            _presenters.Add(new ShopDialogPresenter(_environment, _model.GetByType<ShopDialogModel>(), _view.ShopDialogView));
-            _presenters.Add(new HistoryDialogPresenter(_environment, _model.GetByType<HistoryDialogModel>(), _view.HistoryDialogView));
+            _presenters.Add(new ShopDialogPresenter(_environment, _model.GetByType<IShopDialogModel>(), _environment.GlobalSceneView.DialogsView.ShopDialogView));
+            _presenters.Add(new HistoryDialogPresenter(_environment, _model.GetByType<IHistoryDialogModel>(), _environment.GlobalSceneView.DialogsView.HistoryDialogView));
             _presenters.Activate();
         }
 

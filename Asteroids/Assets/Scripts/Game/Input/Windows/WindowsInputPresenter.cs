@@ -1,5 +1,6 @@
 ﻿using Game.Input.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,11 +8,11 @@ namespace Game.Input.Windows
 {
     public class WindowsInputPresenter : BaseInputPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IInputModel _model;
         private readonly WindowsInputView _view;
 
-        public WindowsInputPresenter(GlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
+        public WindowsInputPresenter(IGlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
         {
             _environment = environment;
             _model = model;
@@ -41,7 +42,7 @@ namespace Game.Input.Windows
         
         protected override void Update(float deltaTime)
         {
-            if (_view.FireAction.IsPressed())
+            if (_view.FireAction.IsPressed() && !CheckPointerOverUI())
             {
                 _model.IsShipShooting = true;
                 _environment.ShipModel.Shoot();
@@ -50,11 +51,6 @@ namespace Game.Input.Windows
             {
                 _model.IsShipShooting = false;
             }
-            //
-            // if (!_view.MoveAction.IsPressed())
-            // {
-            //     _model.ShipTurnDirection = 0f;
-            // }
         }
         
         private void StopMove(InputAction.CallbackContext context) => _model.ShipTurnDirection = 0f;

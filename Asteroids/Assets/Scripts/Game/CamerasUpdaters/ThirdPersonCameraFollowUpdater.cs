@@ -1,24 +1,21 @@
 ﻿using Game.CamerasUpdaters.Base;
 using Global;
+using Global.Base;
 using UnityEngine;
 
 namespace Game.CamerasUpdaters
 {
     public sealed class ThirdPersonCameraFollowUpdater : BaseCameraFollowUpdater
     {
-        public override Camera Camera { get; set; }
-        public override Vector3 Offset { get; set; }
+        public override Vector3 Offset { get; set; } = new(0f, 42f, -55f);
         
-        private Vector3 _currentVelocity;
         private const float SMOOTH_TIME = 0.05f;
+        private const string CameraName = "ThirdPersonCamera";
+        private Vector3 _currentVelocity;
 
-        public ThirdPersonCameraFollowUpdater(Vector3 offset, Camera camera)
-        {
-            Offset = offset;
-            Camera = camera;
-        }
-
-        public override void Update(GlobalEnvironment environment)
+        public ThirdPersonCameraFollowUpdater() => Camera = GameObject.Find(CameraName).GetComponent<Camera>();
+        
+        public override void Update(IGlobalEnvironment environment)
         {
             var shipPosition = environment.ShipModel.MoveModel.Position;
             var target = GetTarget(shipPosition);
@@ -34,5 +31,7 @@ namespace Game.CamerasUpdaters
 
             environment.GameModel.ZoneLimits.UpdateTopDownBorders(shipPosition.z + Mathf.Abs(Offset.z * 2), cameraPosition.z);
         }
+
+        protected override Vector3 GetTarget(Vector3 shipPosition) => shipPosition + (Camera.transform.position - shipPosition).normalized + Offset;
     }
 }

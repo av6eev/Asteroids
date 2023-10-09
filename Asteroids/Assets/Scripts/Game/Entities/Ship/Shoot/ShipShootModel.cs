@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Entities.Bullet.Base;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Ship.Shoot
@@ -40,17 +41,17 @@ namespace Game.Entities.Ship.Shoot
         public bool IsAutomatic { get; }
         public int BulletDamage { get; }
 
-        private Dictionary<IBulletModel, BaseBulletView> ActiveBullets { get; } = new();
+        private Dictionary<IBulletModel, IBulletView> ActiveBullets { get; } = new();
 
-        public ShipShootModel(ShipSpecification specification)
+        public ShipShootModel(IShipSpecification specification)
         {
             StartBulletCount = specification.Count;
             BulletsLeft = specification.Count;
             ReloadTime = specification.ReloadTime;
             ShootRate = specification.ShootRate;
             IsAutomatic = specification.IsAutomatic;
-            BulletHealth = specification.BulletPrefab2D.Health;
-            BulletDamage = specification.BulletPrefab2D.Damage;
+            BulletHealth = specification.BulletView2D.Health;
+            BulletDamage = specification.BulletView2D.Damage;
         }
 
         public void Shoot() => OnShoot?.Invoke();
@@ -59,16 +60,16 @@ namespace Game.Entities.Ship.Shoot
 
         public void DestroyBullet(IBulletModel model) => OnBulletDestroyed?.Invoke(model);
 
-        public Dictionary<IBulletModel, BaseBulletView> GetActiveBullets() => ActiveBullets;
+        public Dictionary<IBulletModel, IBulletView> GetActiveBullets() => ActiveBullets;
 
         public void ResetActiveBullets() => ActiveBullets.Clear();
         
-        public void AddActiveBullet(IBulletModel model, BaseBulletView view3D) => ActiveBullets.Add(model, view3D);
+        public void AddActiveBullet(IBulletModel model, IBulletView view3D) => ActiveBullets.Add(model, view3D);
 
         public void RemoveActiveBullet(IBulletModel model) => ActiveBullets.Remove(model);
 
-        public BaseBulletView GetByKey(IBulletModel model) => ActiveBullets[model];
+        public IBulletView GetByKey(IBulletModel model) => ActiveBullets[model];
 
-        public IBulletModel GetByValue(BaseBulletView view) => !ActiveBullets.ContainsValue(view) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
+        public IBulletModel GetByValue(IBulletView view) => !ActiveBullets.ContainsValue(view) ? null : ActiveBullets.Where(asteroid => asteroid.Value == view).Select(asteroid => asteroid.Key).FirstOrDefault();
     }
 }

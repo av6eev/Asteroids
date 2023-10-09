@@ -1,14 +1,17 @@
-﻿using System.Globalization;
-using Global.Dialogs.Base;
-using Specifications.Ships;
+﻿using System;
+using System.Globalization;
+using Global.Dialogs.Shop.Card.Base;
+using Specifications.Ships.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Global.Dialogs.Shop.Card
 {
-    public class ShopCardDialogView : BaseDialogView
+    public class ShopCardDialogView : MonoBehaviour, IShopCardDialogView
     {
+        public event Action OnNextSelected, OnPreviousSelected, OnBought, OnSelected;
+        
         [field: Header("Ship Preview")]
         [field: SerializeField] public Image PreviewImage { get; private set; }
         [field: SerializeField] public TextMeshProUGUI TitleText { get; private set; }
@@ -24,11 +27,13 @@ namespace Global.Dialogs.Shop.Card
         [field: SerializeField] public TextMeshProUGUI AutomaticStatText { get; private set; }
         [field: SerializeField] public TextMeshProUGUI ClipStatText { get; private set; }
 
-        public void SetupCard(ShipSpecification specification)
+        public void SetupCard(IShipSpecification specification)
         {
-            if (specification.PreviewImage != null)
+            var previewImage = Resources.Load<Sprite>($"{specification.Name}");
+
+            if (previewImage != null)
             {
-                PreviewImage.sprite = specification.PreviewImage;
+                PreviewImage.sprite = previewImage;
             }
             else
             {
@@ -55,6 +60,26 @@ namespace Global.Dialogs.Shop.Card
             
             PriceText.gameObject.SetActive(false);
             GainedText.gameObject.SetActive(true);
+        }
+
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
+
+        public void InitializeButtonsSubscriptions()
+        {
+            NextCardButton.onClick.AddListener(() => { OnNextSelected?.Invoke(); });
+            PreviousCardButton.onClick.AddListener(() => { OnPreviousSelected?.Invoke(); });
+            BuyButton.onClick.AddListener(() => { OnBought?.Invoke(); });
+            SelectButton.onClick.AddListener(() => { OnSelected?.Invoke(); });
+        }
+
+        public void DisposeButtonsSubscriptions()
+        {
+            NextCardButton.onClick.RemoveListener(() => { OnNextSelected?.Invoke(); });
+            PreviousCardButton.onClick.RemoveListener(() => { OnPreviousSelected?.Invoke(); });
+            BuyButton.onClick.RemoveListener(() => { OnBought?.Invoke(); });
+            SelectButton.onClick.RemoveListener(() => { OnSelected?.Invoke(); });
         }
     }
 }

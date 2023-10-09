@@ -1,87 +1,79 @@
 ﻿using System;
-using System.Collections.Generic;
+using Game.Base;
 using Game.Entities.Ship.Base;
-using Global.Pulls.Asteroids._2D;
-using Global.Pulls.Asteroids._3D;
-using Global.Pulls.Bullets._2D;
-using Global.Pulls.Bullets._3D;
-using Global.Pulls.ParticleSystem.Hit;
+using Game.Input.Base;
+using Global.Pulls;
+using Global.Pulls.Base;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utilities.Enums;
 
 namespace Game
 {
-    public class GameView : MonoBehaviour
+    public class GameView : MonoBehaviour, IGameView
     {
         [field: SerializeField] public Transform ShipSpawnPoint { get; private set; }
+        [field: SerializeField] public Camera TopDownCamera { get; private set; }
+        [field: SerializeField] public Camera ThirdPersonCamera { get; private set; }
+        [field: SerializeField] public InputActionAsset PlayerInputAsset { get; private set; }
+        [field: NonSerialized] private BaseInputView InputView { get; set; }
+        [field: NonSerialized] public IShipView CurrentShip { get; private set; }
+
         [field: Header("Pulls")]
-        [field: SerializeField] public BulletsPullView3D BulletsPullView3D { get; private set; }
-        [field: SerializeField] public BulletsPullView2D BulletsPullView2D { get; private set; }
-        [field: SerializeField] public HitsPullView HitsPullView { get; private set; }
-        [field: SerializeField] public List<AsteroidsPullView3D> AsteroidsPullView3D { get; private set; }
-        [field: SerializeField] public List<AsteroidsPullView2D> AsteroidsPullView2D { get; private set; }
-        [field: NonSerialized] public BaseShipView CurrentShip { get; private set; }
+        [field: SerializeField] public PullsViews PullsCollectionGo { get; private set; }
+
+        public IPullsViews PullsCollection => PullsCollectionGo;
         
-        public BaseShipView InstantiateShip(BaseShipView shipPrefab)
+        public IShipView InstantiateShip(IShipView shipPrefab)
         {
-            var go = Instantiate(shipPrefab, ShipSpawnPoint.position, shipPrefab.transform.rotation);
-            go.transform.SetParent(ShipSpawnPoint);
+            var go = (IShipView)Instantiate((UnityEngine.Object)shipPrefab, ShipSpawnPoint);
             CurrentShip = go;
             
             return go;
         }
 
-        public BaseShipView RedrawShip(BaseShipView shipPrefab, Vector3 newPosition)
+        public IShipView RedrawShip(IShipView shipPrefab, Vector3 newPosition)
         {
             DestroyShip();
 
-            var go = Instantiate(shipPrefab, newPosition, shipPrefab.transform.rotation);
-            go.transform.SetParent(ShipSpawnPoint);
+            var go = (IShipView)Instantiate((UnityEngine.Object)shipPrefab, newPosition, Quaternion.identity, ShipSpawnPoint);
             CurrentShip = go;
             
             return go;
         }
-
-        public void DestroyPulls()
+        
+        public void SwitchCamera(CameraDimensionsTypes type)
         {
-            BulletsPullView3D.DestroyObjects();
-            BulletsPullView2D.DestroyObjects();
-            HitsPullView.DestroyObjects();
-            
-            foreach (var pull in AsteroidsPullView3D)
-            {
-                pull.DestroyObjects();                
-            }
-            
-            foreach (var pull in AsteroidsPullView2D)
-            {
-                pull.DestroyObjects();                
-            }
-        }
-
-        public void ChangeActivePulls(CameraDimensionsTypes dimension)
-        {
-            switch (dimension)
+            switch (type)
             {
                 case CameraDimensionsTypes.TwoD:
-                    foreach (var pull in AsteroidsPullView3D)
-                    {
-                        pull.HideAll();
-                    }
-                    
-                    BulletsPullView3D.HideAll();
+                    TopDownCamera.gameObject.SetActive(true);
+                    ThirdPersonCamera.gameObject.SetActive(false);
                     break;
                 case CameraDimensionsTypes.ThreeD:
-                    foreach (var pull in AsteroidsPullView2D)
-                    {
-                        pull.HideAll();
-                    }
-                    
-                    BulletsPullView2D.HideAll();
+                    TopDownCamera.gameObject.SetActive(false);
+                    ThirdPersonCamera.gameObject.SetActive(true);
                     break;
             }
         }
 
-        public void DestroyShip() => Destroy(CurrentShip.gameObject);
+        public BaseInputView CreateInputView<T>() where T : BaseInputView
+        {
+            var newInputView = new GameObject("InputView").AddComponent<T>();
+            var playerInput = newInputView.AddComponent<PlayerInput>();
+
+            playerInput.actions = PlayerInputAsset;
+            playerInput.defaultActionMap = PlayerInputAsset.actionMaps[0].name;
+            
+            newInputView.PlayerInput = playerInput;
+            newInputView.transform.SetParent(GameObject.Find("Views").transform);
+            
+            InputView = newInputView;
+            
+            return InputView;
+        }
+
+        public void DestroyShip() => Destroy(((MonoBehaviour)CurrentShip).gameObject);
     }
 }

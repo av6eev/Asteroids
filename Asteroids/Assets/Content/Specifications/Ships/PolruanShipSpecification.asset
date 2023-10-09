@@ -13,22 +13,21 @@ MonoBehaviour:
   m_Name: PolruanShipSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Id: 4
-    Type: 2
-    Name: Polruan
+    <Id>k__BackingField: 4
+    <Type>k__BackingField: 2
+    <Name>k__BackingField: Polruan
     <Price>k__BackingField: 30
-    Health: 4
-    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+    <Health>k__BackingField: 4
+    <BulletPrefab3D>k__BackingField: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
       type: 3}
-    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
+    <BulletPrefab2D>k__BackingField: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
       type: 3}
-    Count: 15
-    ReloadTime: 2
-    ShootRate: 0.15
-    IsAutomatic: 0
-    Speed: 3.5
-    Prefab3D: {fileID: 4344518214726048285, guid: 40564fa23ef1ae04f95a4271f30c3bc2,
+    <Count>k__BackingField: 15
+    <ReloadTime>k__BackingField: 2
+    <ShootRate>k__BackingField: 0.15
+    <IsAutomatic>k__BackingField: 0
+    <Speed>k__BackingField: 3.5
+    <Prefab3D>k__BackingField: {fileID: 4344518214726048285, guid: 40564fa23ef1ae04f95a4271f30c3bc2,
       type: 3}
-    Prefab2D: {fileID: 3286225224937282470, guid: d69829d3af3f0bb4b8bcb4c727585efb,
+    <Prefab2D>k__BackingField: {fileID: 3286225224937282470, guid: d69829d3af3f0bb4b8bcb4c727585efb,
       type: 3}
-    PreviewImage: {fileID: 21300000, guid: 69cdc5ecf2f8b0141b5e5d608f24b998, type: 3}

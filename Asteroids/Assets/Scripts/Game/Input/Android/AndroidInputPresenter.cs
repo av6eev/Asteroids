@@ -1,5 +1,5 @@
 ﻿using Game.Input.Base;
-using Global;
+using Global.Base;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
@@ -8,14 +8,14 @@ namespace Game.Input.Android
 {
     public class AndroidInputPresenter : BaseInputPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IInputModel _model;
         private readonly AndroidInputView _view;
 
         private Finger _movementFinger;
         private Vector2 _movementAmount;
 
-        public AndroidInputPresenter(GlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
+        public AndroidInputPresenter(IGlobalEnvironment environment, IInputModel model, BaseInputView view) : base(environment, model, view)
         {
             _environment = environment;
             _model = model;
@@ -26,7 +26,7 @@ namespace Game.Input.Android
         {
             base.Activate();
             
-            _view.Initialize(_environment.GameSceneView.GameUIView.transform);
+            _view.Initialize(((MonoBehaviour)_environment.GameSceneView.GameUIView).transform);
             EnhancedTouchSupport.Enable();
             
             _view.FireButton.OnDown += StartFire;
@@ -53,11 +53,16 @@ namespace Game.Input.Android
             EnhancedTouchSupport.Disable();
         }
 
-        private void StartFire() => _model.IsShipShooting = true;
+        private void StartFire()
+        {
+            if (!CheckPointerOverUI()) return;
+            
+            _model.IsShipShooting = true;
+        }
 
         private void StopFire() => _model.IsShipShooting = false;
 
-        protected override void  Update(float deltaTime)
+        protected override void Update(float deltaTime)
         {
             if (_model.IsShipShooting)
             {
@@ -72,12 +77,12 @@ namespace Game.Input.Android
 
         private void HandleFingerDown(Finger finger)
         {
-            if (_movementFinger != null || !(finger.screenPosition.x <= Screen.width / 2f)) return;
+            if (_movementFinger != null || !(finger.screenPosition.x <= Screen.width / 2f) || CheckPointerOverUI()) return;
 
             _movementAmount = Vector2.zero;
             _movementFinger = finger;
             
-            _view.ChangeJoystickVisibility(true);
+            _view.Joystick.Show();
             _view.SetupJoystickPosition(ClampJoystickPosition(finger.screenPosition));
         }
 
@@ -91,7 +96,7 @@ namespace Game.Input.Android
             _movementAmount = Vector2.zero;
             
             _view.Joystick.Knob.anchoredPosition = Vector2.zero;
-            _view.ChangeJoystickVisibility(false);
+            _view.Joystick.Hide();
         }
 
         private void HandleFingerMove(Finger finger)

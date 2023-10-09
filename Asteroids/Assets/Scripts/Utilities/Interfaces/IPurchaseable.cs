@@ -2,6 +2,6 @@
 {
     public interface IPurchaseable
     {
-        int Price { get; set; }
+        int Price { get; }
     }
 }

@@ -1,21 +1,20 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global;
-using Global.Pulls.ParticleSystem.Hit;
+using Global.Base;
 using Global.Sound;
+using UnityEngine;
 using Utilities.Interfaces;
 
 namespace Game.Entities.Bullet
 {
     public class BulletPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IBulletModel _model;
-        private readonly BaseBulletView _view;
+        private readonly IBulletView _view;
 
-        private HitPullView _hit;
-
-        public BulletPresenter(GlobalEnvironment environment, IBulletModel model, BaseBulletView view)
+        public BulletPresenter(IGlobalEnvironment environment, IBulletModel model, IBulletView view)
         {
             _environment = environment;
             _model = model;
@@ -24,7 +23,7 @@ namespace Game.Entities.Bullet
         
         public void Activate()
         {
-            _environment.SoundManager.Play(SoundsTypes.ShipShooting);
+            _environment.GlobalSceneView.SoundManager.Instance.Play(SoundsTypes.ShipShooting);
             
             _view.SetCurrentPosition(_model.Position);
             
@@ -57,7 +56,7 @@ namespace Game.Entities.Bullet
 
         private void CreateHitEffect()
         {
-            var hitsPull = _environment.PullsData.HitsPull;
+            var hitsPull = _environment.PullsModel.HitsPull;
             var lastActiveHit = hitsPull.LastActiveHit;
 
             if (lastActiveHit != null)
@@ -66,10 +65,10 @@ namespace Game.Entities.Bullet
                 hitsPull.LastActiveHit = null;
             }
 
-            _hit = hitsPull.TryGetElement();
-            _hit.transform.position = _view.transform.position;
-
-            hitsPull.LastActiveHit = _hit;
+            var hit = hitsPull.TryGetElement();
+            ((MonoBehaviour)hit).transform.position = _model.Position;
+            
+            hitsPull.LastActiveHit = hit;
         }
     }
 }

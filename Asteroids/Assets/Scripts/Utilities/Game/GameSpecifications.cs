@@ -5,17 +5,19 @@ using Game.Entities.Ship;
 using Global.Requirements.Base;
 using Global.Rewards.Base;
 using Specifications.Asteroids;
+using Specifications.Asteroids.Base;
 using Specifications.Base;
 using Specifications.GameDifficulties;
 using Specifications.Ships;
+using Specifications.Ships.Base;
 using Utilities.Enums;
 
 namespace Utilities.Game
 {
-    public class GameSpecifications
+    public class GameSpecifications : IGameSpecifications
     {
-        public Dictionary<ShipsTypes, ShipSpecification> Ships { get; } = new();
-        public Dictionary<AsteroidsTypes, AsteroidSpecification> Asteroids { get; } = new();
+        public Dictionary<ShipsTypes, IShipSpecification> Ships { get; } = new();
+        public Dictionary<AsteroidsTypes, IAsteroidSpecification> Asteroids { get; } = new();
         public Dictionary<string, IReward> Rewards { get; } = new();
         public Dictionary<string, IRequirement> Requirements { get; } = new();
         public Dictionary<DifficultyStages, GameDifficultySpecification> GameDifficulties { get; } = new();

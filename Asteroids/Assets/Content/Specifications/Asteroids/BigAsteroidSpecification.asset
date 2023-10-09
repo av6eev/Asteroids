@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: BigAsteroidSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Type: 3
-    Health: 80
-    Speed: 15
-    ChanceToSpawn: 0.15
-    Prefab3D: {fileID: 2323940380799329005, guid: 5075091e1c8733541b28da658daa748e,
+    <Type>k__BackingField: 3
+    <Health>k__BackingField: 80
+    <Speed>k__BackingField: 15
+    <ChanceToSpawn>k__BackingField: 0.15
+    <Prefab3D>k__BackingField: {fileID: 2323940380799329005, guid: 5075091e1c8733541b28da658daa748e,
       type: 3}
-    Prefab2D: {fileID: 9001710423514706538, guid: f7cc136b51770ed49b06c47f4fd60bdc,
+    <Prefab2D>k__BackingField: {fileID: 9001710423514706538, guid: f7cc136b51770ed49b06c47f4fd60bdc,
       type: 3}
-    SubAsteroidsOnDestroy:
-    - {fileID: 11400000, guid: 9061f089aa689e24098a434eb259eb46, type: 2}
-    - {fileID: 11400000, guid: 9061f089aa689e24098a434eb259eb46, type: 2}
+    <SubAsteroidsOnDestroy>k__BackingField:
+      <SubAsteroidsOnDestroyGo>k__BackingField:
+      - {fileID: 11400000, guid: 9061f089aa689e24098a434eb259eb46, type: 2}
+      - {fileID: 11400000, guid: 9061f089aa689e24098a434eb259eb46, type: 2}

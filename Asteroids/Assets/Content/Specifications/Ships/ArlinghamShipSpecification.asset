@@ -13,22 +13,21 @@ MonoBehaviour:
   m_Name: ArlinghamShipSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Id: 2
-    Type: 4
-    Name: Arlingham
+    <Id>k__BackingField: 2
+    <Type>k__BackingField: 4
+    <Name>k__BackingField: Arlingham
     <Price>k__BackingField: 10
-    Health: 3
-    BulletPrefab3D: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
+    <Health>k__BackingField: 3
+    <BulletPrefab3D>k__BackingField: {fileID: -1324077063450279802, guid: 9085da0555bc234438b1ba4a3a7065d4,
       type: 3}
-    BulletPrefab2D: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
+    <BulletPrefab2D>k__BackingField: {fileID: 5928936295963316401, guid: ff4b197f3105cb842a507bd7e4072df3,
       type: 3}
-    Count: 8
-    ReloadTime: 0.8
-    ShootRate: 0.25
-    IsAutomatic: 0
-    Speed: 2.5
-    Prefab3D: {fileID: 3255067938113398942, guid: 8df73e61f0442904d8712a691ac96f70,
+    <Count>k__BackingField: 8
+    <ReloadTime>k__BackingField: 0.8
+    <ShootRate>k__BackingField: 0.25
+    <IsAutomatic>k__BackingField: 0
+    <Speed>k__BackingField: 2.5
+    <Prefab3D>k__BackingField: {fileID: 3255067938113398942, guid: 8df73e61f0442904d8712a691ac96f70,
       type: 3}
-    Prefab2D: {fileID: 5387021055676360184, guid: 368183b4370b2cf44a87a4e66b80c6de,
+    <Prefab2D>k__BackingField: {fileID: 5387021055676360184, guid: 368183b4370b2cf44a87a4e66b80c6de,
       type: 3}
-    PreviewImage: {fileID: 21300000, guid: 3108dfb7fa631c241b55df54d328ae5d, type: 3}

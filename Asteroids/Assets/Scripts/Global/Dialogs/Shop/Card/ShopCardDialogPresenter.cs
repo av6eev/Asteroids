@@ -1,14 +1,17 @@
-﻿using Utilities.Interfaces;
+﻿using Global.Base;
+using Global.Dialogs.Shop.Base;
+using Global.Dialogs.Shop.Card.Base;
+using Utilities.Interfaces;
 
 namespace Global.Dialogs.Shop.Card
 {
     public class ShopCardDialogPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
-        private readonly ShopCardDialogModel _model;
-        private readonly ShopCardDialogView _view;
+        private readonly IGlobalEnvironment _environment;
+        private readonly IShopCardDialogModel _model;
+        private readonly IShopCardDialogView _view;
 
-        public ShopCardDialogPresenter(GlobalEnvironment environment, ShopCardDialogModel model, ShopCardDialogView view)
+        public ShopCardDialogPresenter(IGlobalEnvironment environment, IShopCardDialogModel model, IShopCardDialogView view)
         {
             _environment = environment;
             _model = model;
@@ -17,10 +20,12 @@ namespace Global.Dialogs.Shop.Card
         
         public void Activate()
         {
-            _view.NextCardButton.onClick.AddListener(ShowNextCard);
-            _view.PreviousCardButton.onClick.AddListener(ShowPreviousCard);
-            _view.BuyButton.onClick.AddListener(BuyShip);
-            _view.SelectButton.onClick.AddListener(SelectShip);
+            _view.InitializeButtonsSubscriptions();
+            
+            _view.OnNextSelected += ShowNextCard;
+            _view.OnPreviousSelected += ShowPreviousCard;
+            _view.OnBought += BuyShip;
+            _view.OnSelected += SelectShip;
             
             _model.OnShow += Show;
             _model.OnHide += Hide;
@@ -29,11 +34,13 @@ namespace Global.Dialogs.Shop.Card
 
         public void Deactivate()
         {
-            _view.NextCardButton.onClick.RemoveListener(ShowNextCard);
-            _view.PreviousCardButton.onClick.RemoveListener(ShowPreviousCard);
-            _view.BuyButton.onClick.RemoveListener(BuyShip);
-            _view.SelectButton.onClick.RemoveListener(SelectShip);
+            _view.OnNextSelected -= ShowNextCard;
+            _view.OnPreviousSelected -= ShowPreviousCard;
+            _view.OnBought -= BuyShip;
+            _view.OnSelected -= SelectShip;
 
+            _view.DisposeButtonsSubscriptions();
+            
             _model.OnShow -= Show;
             _model.OnHide -= Hide;
             _model.OnPurchased -= HandlePurchase;
@@ -48,23 +55,23 @@ namespace Global.Dialogs.Shop.Card
         private void SelectShip()
         {
             _environment.GlobalUIModel.SetSelectedShip(_model.Id);
-            _environment.DialogsModel.GetByType<ShopDialogModel>().Hide();
+            _environment.DialogsModel.GetByType<IShopDialogModel>().Hide();
         }
 
-        private void BuyShip() => _environment.DialogsModel.GetByType<ShopDialogModel>().BuyShip(_model.ShipSpecification);
+        private void BuyShip() => _environment.DialogsModel.GetByType<IShopDialogModel>().BuyShip(_model.ShipType);
 
-        private void ShowPreviousCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(-1);
+        private void ShowPreviousCard() => _environment.DialogsModel.GetByType<IShopDialogModel>().ChangeActiveCard(-1);
 
-        private void ShowNextCard() => _environment.DialogsModel.GetByType<ShopDialogModel>().ChangeActiveCard(1);
+        private void ShowNextCard() => _environment.DialogsModel.GetByType<IShopDialogModel>().ChangeActiveCard(1);
 
         private void Show()
         {
             _view.SwitchButtons(_model.IsPurchased);
             _view.ChangePriceText(_model.IsPurchased);
             
-            _view.ChangeVisibility(true);
+            _view.Show();
         }
         
-        private void Hide() => _view.ChangeVisibility(false);
+        private void Hide() => _view.Hide();
     }
 }

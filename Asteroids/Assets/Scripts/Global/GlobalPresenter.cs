@@ -2,6 +2,7 @@ using System;
 using Global.Dialogs;
 using Global.Player;
 using Global.Save;
+using Global.Scene;
 using Global.UI;
 using UnityEngine;
 using Utilities;
@@ -12,7 +13,7 @@ namespace Global
 {
     public class GlobalPresenter : MonoBehaviour
     {
-        [field: SerializeField] private GlobalView GlobalView { get; set; }
+        [field: SerializeField] private GlobalSceneView GlobalView { get; set; }
         [field: NonSerialized] private GlobalEnvironment Environment { get; set; }
         [field: NonSerialized] private PresentersEngine GlobalPresenters { get; } = new();
 
@@ -27,11 +28,12 @@ namespace Global
                 new UpdatersEngine(),
                 new TimersEngine(),
                 new GlobalUIModel(),
-                new PlayerModel());
-            
-            Environment.DialogsModel = new DialogsModel(Environment.Specifications);
-            Environment.SaveModel = new SaveModel();
-            
+                new PlayerModel())
+            {
+                DialogsModel = new DialogsModel(),
+                SaveModel = new SaveModel(),
+            };
+
             GlobalPresenters.Add(new GlobalUIPresenter(Environment, Environment.GlobalUIModel, GlobalView.GlobalUIView));
             GlobalPresenters.Add(new DialogsPresenter(Environment, Environment.DialogsModel, GlobalView.DialogsView));
             GlobalPresenters.Add(new PlayerPresenter(Environment, Environment.PlayerModel));

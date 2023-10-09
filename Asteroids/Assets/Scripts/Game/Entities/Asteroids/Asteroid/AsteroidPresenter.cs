@@ -1,6 +1,7 @@
 ﻿using Game.Entities.Asteroids.Asteroid.Base;
 using Game.Entities.Bullet.Base;
 using Global;
+using Global.Base;
 using Global.Pulls.Base;
 using Global.Sound;
 using Utilities.Helpers;
@@ -10,13 +11,13 @@ namespace Game.Entities.Asteroids.Asteroid
 {
     public class AsteroidPresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly IAsteroidModel _model;
-        private readonly BaseAsteroidView _view;
+        private readonly IAsteroidView _view;
         
         private const float MOVE_FORWARD_MULTIPLIER = 30f;
 
-        public AsteroidPresenter(GlobalEnvironment environment, IAsteroidModel model, BaseAsteroidView view)
+        public AsteroidPresenter(IGlobalEnvironment environment, IAsteroidModel model, IAsteroidView view)
         {
             _environment = environment;
             _model = model;
@@ -43,18 +44,19 @@ namespace Game.Entities.Asteroids.Asteroid
 
         private void Destroy() => _environment.AsteroidsModel.DestroyAsteroid(_model, false, false);
 
-        private void CalculateDamage(string otherGoTag, BasePullElementView bulletView)
+        private void CalculateDamage(string otherGoTag, IPullElementView view)
         {
             switch (otherGoTag)
             {
                 case TagsHelper.AsteroidTag:
                     break;
                 case TagsHelper.BulletTag:
-                    var bulletDamage = _environment.ShipModel.ShootModel.GetByValue((BaseBulletView)bulletView).Damage;
+                    var bulletView = (IBulletView)view;
+                    var bulletDamage = _environment.ShipModel.ShootModel.GetByValue(bulletView).Damage;
 
-                    if (bulletView != null)
+                    if (view != null)
                     {
-                        ((BaseBulletView)bulletView).Bump(_model);
+                        bulletView.Bump(_model);
                     }
 
                     _model.ApplyDamage(bulletDamage);
@@ -64,7 +66,7 @@ namespace Game.Entities.Asteroids.Asteroid
                     {
                         _environment.ShipModel.ApplyDamage(1);
                         _environment.AsteroidsModel.DestroyAsteroid(_model, false, true);    
-                        _environment.SoundManager.Play(SoundsTypes.ShipHit);
+                        _environment.GlobalSceneView.SoundManager.Instance.Play(SoundsTypes.ShipHit);
                     }
                     break;
             }

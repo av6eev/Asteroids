@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: SmallAsteroidSpecification
   m_EditorClassIdentifier: 
   Specification:
-    Type: 1
-    Health: 20
-    Speed: 23
-    ChanceToSpawn: 0.5
-    Prefab3D: {fileID: 1419948838234494996, guid: 8f54bdbf126de634eaebffbeb21fa1f7,
+    <Type>k__BackingField: 1
+    <Health>k__BackingField: 20
+    <Speed>k__BackingField: 23
+    <ChanceToSpawn>k__BackingField: 0.5
+    <Prefab3D>k__BackingField: {fileID: 1419948838234494996, guid: 8f54bdbf126de634eaebffbeb21fa1f7,
       type: 3}
-    Prefab2D: {fileID: 8265069388457541913, guid: 2f13c2a7cf5f8ad478dc69da28642565,
+    <Prefab2D>k__BackingField: {fileID: 8265069388457541913, guid: 2f13c2a7cf5f8ad478dc69da28642565,
       type: 3}
-    SubAsteroidsOnDestroy: []
+    <SubAsteroidsOnDestroy>k__BackingField:
+      <SubAsteroidsOnDestroyGo>k__BackingField: []

@@ -1,4 +1,5 @@
 ﻿using Global;
+using Global.Base;
 using UnityEngine;
 using Utilities.Interfaces;
 
@@ -6,12 +7,12 @@ namespace Game.Entities.Ship.Rotate
 {
     public class ShipRotatePresenter : IPresenter
     {
-        private readonly GlobalEnvironment _environment;
+        private readonly IGlobalEnvironment _environment;
         private readonly ShipRotateModel _model;
 
         private const float ROTATE_MULTIPLIER = 4f;
         
-        public ShipRotatePresenter(GlobalEnvironment environment, ShipRotateModel model)
+        public ShipRotatePresenter(IGlobalEnvironment environment, ShipRotateModel model)
         {
             _environment = environment;
             _model = model;

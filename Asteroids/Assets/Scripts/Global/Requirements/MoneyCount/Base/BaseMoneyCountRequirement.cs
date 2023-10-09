@@ -1,6 +1,6 @@
 ﻿using Game.Entities.Ship;
+using Global.Base;
 using Global.Requirements.Base;
-using UnityEngine;
 
 namespace Global.Requirements.MoneyCount.Base
 {
@@ -8,10 +8,10 @@ namespace Global.Requirements.MoneyCount.Base
     {
         public bool IsCompleted { get; set; }
         public SubRequirementType SubType => SubRequirementType.MoneyCount;
-        [field: SerializeField] public string RewardName { get; set; }
-        [field: SerializeField] public ShipsTypes ShipType { get; private set; }
+        public abstract string RewardName { get; set; }
+        public abstract ShipsTypes ShipType { get; set; }
 
-        public bool Check(GlobalEnvironment environment)
+        public bool Check(IGlobalEnvironment environment)
         {
             var chosenShip = environment.Specifications.Ships[ShipType];
 
